@@ -1,4 +1,4 @@
-package com.example.storegame;
+package com.example.storegame.controleur;
 
 import java.io.*;
 
