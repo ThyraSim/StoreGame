@@ -3,6 +3,9 @@ package entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "compte")
 public class Compte {
@@ -15,12 +18,15 @@ public class Compte {
 
     private String password;
 
+    private String profileName;
+
     public Compte() {
     }
 
     public Compte(String user, String password, String profileName) {
         this.user = user;
         this.password = password;
+        this.profileName = profileName;
     }
 
     public int getIdCompte() {
@@ -45,5 +51,23 @@ public class Compte {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfileName() {
+        return profileName;
+    }
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
+
+    @Override
+    public String toString() {
+        return "Compte{" +
+                "idCompte=" + idCompte +
+                ", user='" + user + '\'' +
+                ", password='" + password + '\'' +
+                ", profileName='" + profileName + '\'' +
+                '}';
     }
 }
