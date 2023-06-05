@@ -33,6 +33,16 @@
     </div>
 </c:forEach>
 
+<div>
+    <h1>Panier</h1>
+    <ul>
+        <c:forEach var="jeu" items="${sessionScope.panier}">
+            <li>${jeu.nomJeu} | ${jeu.prix} | ${jeu.genre} | ${jeu.description}</li>
+        </c:forEach>
+    </ul>
+</div>
+
+
 </body>
 
 </div>

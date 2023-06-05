@@ -1,10 +1,6 @@
 package controleur;
 
-import dao.BibliothequeDao;
-import dao.CompteDao;
 import dao.JeuDao;
-import entities.Bibliotheque;
-import entities.Compte;
 import entities.Jeu;
 
 import javax.servlet.*;
@@ -17,32 +13,36 @@ import java.util.List;
 @WebServlet(name = "MagasinServlet", value = "/MagasinServlet")
 public class MagasinServlet extends HttpServlet {
     private String message;
-    private JeuDao jeuDao;
+
 
     public void init() {
+
+//        JeuDao.insert(new Jeu("Mario",79.99,"plateforme","Mario Bros 1"));
+//        JeuDao.insert(new Jeu("Mario2",79.99,"plateforme","Mario Bros 2"));
+//        JeuDao.insert(new Jeu("Mario3",79.99,"plateforme","Mario Bros 3"));
+//        JeuDao.insert(new Jeu("Mario4",79.99,"plateforme","Mario Bros 4"));
 
 
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Jeu> catalog;
-        catalog = jeuDao.findAll();
-        request.setAttribute("catalog", catalog);
-        Compte compte = CompteDao.findCompteById(2);
-        Boolean check = true;
-
-        List<Jeu> panier = null;
-        List<Bibliotheque> bibliotheques = BibliothequeDao.findBibliothequesByCompteId(2);
-        for (Bibliotheque bibliotheque : bibliotheques) {
-            Jeu jeu = bibliotheque.getJeu();
-            if (catalog.contains(jeu)) {
-                catalog.remove(jeu);
-            }
+        HttpSession session = request.getSession();
+        if (session == null) {
+            response.sendRedirect("http://localhost:82/error.html");
         }
+
+        //on génère le catalog de jeu
+        List<Jeu> catalog = new ArrayList<>();
+        catalog = JeuDao.findAll();
+        request.setAttribute("catalog", catalog);
+
+        List<Jeu> panier =null;
 
         // AJOUTER JEU AU PANIER
 
         String action = request.getParameter("action");
+
+        //Ajouter au panier si action = ACHETE,
 
         if (action.equals("ACHETE")) {
             //Ajouter au panier
@@ -55,13 +55,15 @@ public class MagasinServlet extends HttpServlet {
 
             String index = request.getParameter("index");
 
-            Jeu monJeu = jeuDao.findJeuById(Integer.parseInt(index));
+            Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
             panier.add(monJeu);
 
 
             request.setAttribute("ajoutJeu", monJeu);
-            request.setAttribute("panier",panier);
+            session.setAttribute("panier",panier);
+
         }
+
 
         String url = "magasin.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(url);
@@ -71,8 +73,14 @@ public class MagasinServlet extends HttpServlet {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+
+
+
+
+
     }
 
     public void destroy() {
     }
 }
+
