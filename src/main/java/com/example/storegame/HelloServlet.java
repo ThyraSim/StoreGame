@@ -24,7 +24,6 @@ public class HelloServlet extends HttpServlet {
         out.println("<h1>" + message + "</h1>");
         out.println("</body></html>");
     }
-
     public void destroy() {
     }
 }
