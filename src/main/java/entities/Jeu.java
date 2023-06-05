@@ -1,7 +1,6 @@
-package com.example.storegame.entities;
+package entities;
 
 import jakarta.persistence.*;
-
 
 
 @Entity

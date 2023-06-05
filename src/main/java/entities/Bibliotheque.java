@@ -1,4 +1,5 @@
-package com.example.storegame.entities;
+package entities;
+
 
 
 import jakarta.persistence.*;
@@ -13,12 +14,12 @@ public class Bibliotheque {
     private int id;
 
 
-    @ManyToOne
-    @JoinColumn(name = "idjeu")
+//    @ManyToOne
+//    @JoinColumn(name = "idjeu")
     private Jeu jeu;
 
-    @ManyToOne
-    @JoinColumn(name = "idcompte")
+//    @ManyToOne
+//    @JoinColumn(name = "idcompte")
     private Compte compte;
 
     private boolean favori;
@@ -36,7 +37,7 @@ public class Bibliotheque {
         return id;
     }
 
-    public Jeu getJeu() {
+    public entities.Jeu getJeu() {
         return jeu;
     }
 

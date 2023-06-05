@@ -6,9 +6,9 @@
   <persistence-unit name="connection">
     <!--        configuration vers la bd-->
 
-    <class>com.example.storegame.entities.Jeu</class>
-    <class>com.example.storegame.entities.Compte</class>
-    <class>com.example.storegame.entities.Bibliotheque</class>
+    <class>entities.Jeu</class>
+    <class>entities.Compte</class>
+<!--    <class>com.example.storegame.entities.Bibliotheque</class>-->
 
     <properties>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/storeGame?createDatabaseIfNotExist=true"/>
