@@ -8,7 +8,8 @@
 
     <class>entities.Jeu</class>
     <class>entities.Compte</class>
-<!--    <class>com.example.storegame.entities.Bibliotheque</class>-->
+    <class>entities.Bibliotheque</class>
+    <!--<class>entities.panier</class>-->
 
     <properties>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/storeGame?createDatabaseIfNotExist=true"/>
@@ -16,7 +17,7 @@
       <property name="hibernate.connection.username" value="root"/>
       <property name="hibernate.connection.password" value="gr007,,"/>
 
-      <!--            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>-->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>

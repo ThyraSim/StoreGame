@@ -71,4 +71,15 @@ public class Jeu {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Jeu{" +
+                "idJeu=" + idJeu +
+                ", nomJeu='" + nomJeu + '\'' +
+                ", prix=" + prix +
+                ", genre='" + genre + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

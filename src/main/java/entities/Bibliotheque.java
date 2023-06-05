@@ -15,11 +15,11 @@ public class Bibliotheque {
 
 
     @ManyToOne
-    @JoinColumn(name = "idjeu")
+    @JoinColumn(name = "idJeu")
     private Jeu jeu;
 
     @ManyToOne
-    @JoinColumn(name = "idcompte")
+    @JoinColumn(name = "idCompte")
     private Compte compte;
 
     private boolean favori;
@@ -59,6 +59,16 @@ public class Bibliotheque {
 
     public void setFavori(boolean favori) {
         this.favori = favori;
+    }
+
+    @Override
+    public String toString() {
+        return "Bibliotheque{" +
+                "id=" + id +
+                ", jeu=" + jeu +
+                ", compte=" + compte +
+                ", favori=" + favori +
+                '}';
     }
 }
 

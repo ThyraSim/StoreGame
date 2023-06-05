@@ -18,7 +18,7 @@ public class Compte {
     public Compte() {
     }
 
-    public Compte(String user, String password) {
+    public Compte(String user, String password, String profileName) {
         this.user = user;
         this.password = password;
     }
