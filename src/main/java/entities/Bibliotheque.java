@@ -14,12 +14,12 @@ public class Bibliotheque {
     private int id;
 
 
-//    @ManyToOne
-//    @JoinColumn(name = "idjeu")
+    @ManyToOne
+    @JoinColumn(name = "idjeu")
     private Jeu jeu;
 
-//    @ManyToOne
-//    @JoinColumn(name = "idcompte")
+    @ManyToOne
+    @JoinColumn(name = "idcompte")
     private Compte compte;
 
     private boolean favori;
