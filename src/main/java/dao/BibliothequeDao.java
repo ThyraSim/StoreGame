@@ -1,10 +1,8 @@
 package dao;
 
 import entities.Bibliotheque;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.Query;
+import entities.Compte;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -56,6 +54,26 @@ public class BibliothequeDao {
         Query query = entityManager.createQuery("select i from Bibliotheque i");//le type bibliotheque criteria
         return query.getResultList();
     }
+
+    public static List<Bibliotheque> findBibliothequesByCompteId(int compteId) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        String jpql = "SELECT b FROM Bibliotheque b " +
+                "JOIN b.compte c " +
+                "WHERE c.id = :compteId";
+
+        TypedQuery<Bibliotheque> query = entityManager.createQuery(jpql, Bibliotheque.class);
+        query.setParameter("compteId", compteId);
+
+        List<Bibliotheque> bibliotheques = query.getResultList();
+
+        entityManager.close();
+        entityManagerFactory.close();
+
+        return bibliotheques;
+    }
+
 
     public static void afficherListeBibliotheque() {
         List<Bibliotheque> bibliothequeList = findAll();

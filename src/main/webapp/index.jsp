@@ -11,6 +11,9 @@
 <br>
 <a href="ProfileServlet">Profile</a>
 <br>
-<a href="MagasinServlet">Magasin</a>
+<form action="MagasinServlet" method="get">
+  <input type="hidden" name="action" value="ouverture">
+  <input type="submit" value="Magasin">
+</form>
 </body>
 </html>

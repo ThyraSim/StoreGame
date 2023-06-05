@@ -13,7 +13,7 @@ import dao.JeuDao;
 
 public class Main {
     public static void main(String[] args){
-        //JeuDao.insert(new Jeu("Skyrim", 19.99, "Masterpiece", "Le meilleur jeu de tous les temps"));
+        JeuDao.insert(new Jeu("Chat", 29.99, "Action", "Le moyen de tout les temps"));
         //CompteDao.insert(new Compte("Chat", "Chapeau", "Orignal"));
         //BibliothequeDao.insert(new Bibliotheque(JeuDao.findJeuById(1), CompteDao.findCompteById(2), true));
         //JeuDao.delete(2);

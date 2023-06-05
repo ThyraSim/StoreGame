@@ -2,6 +2,8 @@ package entities;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 
 @Entity
 @Table(name = "jeu")
@@ -81,5 +83,18 @@ public class Jeu {
                 ", genre='" + genre + '\'' +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Jeu jeu = (Jeu) o;
+        return idJeu == jeu.idJeu;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(idJeu);
     }
 }

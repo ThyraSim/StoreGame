@@ -18,7 +18,7 @@ public class Bibliotheque {
     @JoinColumn(name = "idJeu")
     private Jeu jeu;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idCompte")
     private Compte compte;
 

@@ -1,6 +1,10 @@
 package controleur;
 
+import dao.BibliothequeDao;
+import dao.CompteDao;
 import dao.JeuDao;
+import entities.Bibliotheque;
+import entities.Compte;
 import entities.Jeu;
 
 import javax.servlet.*;
@@ -21,11 +25,20 @@ public class MagasinServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Jeu> catalog = new ArrayList<>();
+        List<Jeu> catalog;
         catalog = jeuDao.findAll();
         request.setAttribute("catalog", catalog);
+        Compte compte = CompteDao.findCompteById(2);
+        Boolean check = true;
 
         List<Jeu> panier = null;
+        List<Bibliotheque> bibliotheques = BibliothequeDao.findBibliothequesByCompteId(2);
+        for (Bibliotheque bibliotheque : bibliotheques) {
+            Jeu jeu = bibliotheque.getJeu();
+            if (catalog.contains(jeu)) {
+                catalog.remove(jeu);
+            }
+        }
 
         // AJOUTER JEU AU PANIER
 
@@ -48,10 +61,7 @@ public class MagasinServlet extends HttpServlet {
 
             request.setAttribute("ajoutJeu", monJeu);
             request.setAttribute("panier",panier);
-
-
         }
-
 
         String url = "magasin.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(url);
@@ -61,11 +71,6 @@ public class MagasinServlet extends HttpServlet {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
-
-
-
-
     }
 
     public void destroy() {
