@@ -1,6 +1,8 @@
 package controleur;
 
+import dao.BibliothequeDao;
 import dao.JeuDao;
+import entities.Bibliotheque;
 import entities.Jeu;
 
 import javax.servlet.*;
@@ -37,6 +39,13 @@ public class MagasinServlet extends HttpServlet {
         request.setAttribute("catalog", catalog);
 
         List<Jeu> panier =null;
+        List<Bibliotheque> bibliotheques = BibliothequeDao.findBibliothequesByCompteId(2);
+        for (Bibliotheque bibliotheque : bibliotheques) {
+            Jeu jeu = bibliotheque.getJeu();
+            if (catalog.contains(jeu)) {
+                catalog.remove(jeu);
+            }
+        }
 
         // AJOUTER JEU AU PANIER
 
