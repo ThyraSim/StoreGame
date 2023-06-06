@@ -13,7 +13,7 @@
 <br>
 <a href="profile.jsp">Profile</a>
 <br>
-<form action="MagasinServlet" method="get">
+<form action="MagasinServlet" method="POST">
   <input type="hidden" name="action" value="ouverture">
   <input type="submit" value="Magasin">
 </form>

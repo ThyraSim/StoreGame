@@ -11,7 +11,7 @@ public class Bibliotheque {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int idBiblio;
 
 
     @ManyToOne
@@ -23,18 +23,16 @@ public class Bibliotheque {
     private Compte compte;
 
     private boolean favori;
+    private boolean panier;
 
     public Bibliotheque() {
     }
 
-    public Bibliotheque(Jeu jeu, Compte compte, boolean favori) {
+    public Bibliotheque(Jeu jeu, Compte compte, boolean favori, boolean panier) {
         this.jeu = jeu;
         this.compte = compte;
         this.favori = favori;
-    }
-
-    public int getId() {
-        return id;
+        this.panier = panier;
     }
 
     public entities.Jeu getJeu() {
@@ -61,13 +59,30 @@ public class Bibliotheque {
         this.favori = favori;
     }
 
+    public boolean isPanier() {
+        return panier;
+    }
+
+    public void setPanier(boolean panier) {
+        this.panier = panier;
+    }
+
+    public int getIdBiblio() {
+        return idBiblio;
+    }
+
+    public void setIdBiblio(int idBiblio) {
+        this.idBiblio = idBiblio;
+    }
+
     @Override
     public String toString() {
         return "Bibliotheque{" +
-                "id=" + id +
+                "idBiblio=" + idBiblio +
                 ", jeu=" + jeu +
                 ", compte=" + compte +
                 ", favori=" + favori +
+                ", panier=" + panier +
                 '}';
     }
 }
