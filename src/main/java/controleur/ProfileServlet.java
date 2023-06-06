@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 @WebServlet(name = "ProfileServlet", value = "/ProfileServlet")
 public class ProfileServlet extends HttpServlet {
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 //
 //        // Récupérer les informations de l'utilisateur depuis une source de données
@@ -41,6 +41,18 @@ public class ProfileServlet extends HttpServlet {
         Bibliotheque bibliotheque = new Bibliotheque();
         //bibliotheque.setCompte(request.getParameter("user"));
 
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     public void destroy() {
