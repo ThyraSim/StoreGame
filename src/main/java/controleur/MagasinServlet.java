@@ -75,7 +75,7 @@ public class MagasinServlet extends HttpServlet {
         if(panier == null){
             CommandeDao.insert(new Commande(compte, true));
         }
-        if (action != null && action.equals("ACHETE")) {
+            if (action != null && action.equals("ACHETE")) {
             //Ajouter au panier
             String index = request.getParameter("index");
 

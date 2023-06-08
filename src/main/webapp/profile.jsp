@@ -45,12 +45,12 @@
     <h2>Nom de l'utilisateur</h2>
 </div>
 <h3><fmt:message key="favoritTitle"/>:</h3>
-<ul>
-    <li>Jeu 1</li>
-    <li>Jeu 2</li>
-    <li>Jeu 3</li>
-    <li>Jeu 4</li>
-</ul>
+    <ul>
+        <c:forEach var="jeu" items="${listeJeuOwned}">
+            <li>${jeu.nomJeu} | ${jeu.prix} | ${jeu.genre} | ${jeu.description}</li>
+
+        </c:forEach>
+    </ul>
 </fmt:bundle>
 </body>
 </html>

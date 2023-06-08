@@ -24,6 +24,11 @@ public class Compte {
     @Column(name = "profilename")
     private String profileName;
 
+
+    @ManyToOne
+    @JoinColumn(name = "idClient")
+    private Client client;
+
     @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
     private List<Commande> commande;
 

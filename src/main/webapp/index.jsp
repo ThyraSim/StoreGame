@@ -24,7 +24,7 @@
 <br>
 <a href="hello-servlet">Hello Servlet</a>
 <br>
-<a href="profile.jsp">Profile</a>
+<a href="ProfileServlet"> vers profile servlet</a>
 <br>
 <form action="MagasinServlet" method="POST">
   <input type="hidden" name="action" value="ouverture">

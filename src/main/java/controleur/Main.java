@@ -24,12 +24,30 @@ public class Main {
 //        CompteDao.afficherListeComptes();
 //        BibliothequeDao.afficherListeBibliotheques();
 
-        List<Commande> commandes = CommandeDao.findCommandeByCompteId(1);
-        for(Commande commande:commandes){
-            LigneCommande ligne = commande.getLignes().get(0);
-            Jeu jeu = ligne.getJeu();
-            System.out.println(jeu.getNomJeu());
-        }
+//        List<Commande> commandes = CommandeDao.findCommandeByCompteId(1);
+//        for(Commande commande:commandes){
+//            LigneCommande ligne = commande.getLignes().get(0);
+//            Jeu jeu = ligne.getJeu();
+//            System.out.println(jeu.getNomJeu());
+
+        //TESTER FOCNTION DAO CLIENT
+
+        //        Client c1 = new Client("Tremblay1","bob","11 rue la marche", "123@chat" );
+//        Client c2 = new Client("Tremblay2","bob","11 rue la marche", "123@chat" );
+//        Client c3 = new Client("Tremblay3","bob","11 rue la marche", "123@chat" );
+//        ClientDao.insert(c1);
+//        ClientDao.insert(c2);
+//        ClientDao.insert(c3);
+//        System.out.println("recherche id 1" +ClientDao.findClientById(1));
+//
+//        for (Client c:
+//                ClientDao.findAll()) {
+//            System.out.println(c);
+//
+//        }
+//
+//        ClientDao.delete(1);
+//        }
 
     }
 }

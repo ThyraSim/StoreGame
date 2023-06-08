@@ -1,44 +1,67 @@
 package controleur;
 
+import dao.CompteDao;
+import entities.Commande;
 import entities.Compte;
+import entities.Jeu;
 import entities.LigneCommande;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "ProfileServlet", value = "/ProfileServlet")
 public class ProfileServlet extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-//
-//        // Récupérer les informations de l'utilisateur depuis une source de données
-//        String userName = "John Doe";
-//        String favoriteCategory = "Jeux vidéo";
-//        String[] favoriteGames = {"Jeu 1", "Jeu 2", "Jeu 3", "Jeu 4"};
-//
-//        // Afficher le profil de l'utilisateur
-//        PrintWriter out = response.getWriter();
-//        out.println("<html><body>");
-//        out.println("<h1>Profil utilisateur</h1>");
-//        out.println("<div class=\"profile\">");
-//        out.println("<div class=\"profile-image\"></div>");
-//        out.println("<h2>" + userName + "</h2>");
-//        out.println("</div>");
-//        out.println("<h3>Catégorie favorite :</h3>");
-//        out.println("<ul>");
-//        for (String game : favoriteGames) {
-//            out.println("<li>" + game + "</li>");
-//        }
-//        out.println("</ul>");
-//        out.println("</body></html>");
 
         Compte compte = new Compte();
         compte.setProfileName(request.getParameter("profileName"));
         LigneCommande ligneBibliotheque = new LigneCommande();
         //bibliotheque.setCompte(request.getParameter("user"));
+
+        //récupère le compte id
+//       int compteiD = request.getParameter()
+        /* en attendant que la récup id soit fonctionnel*/
+        int compteiD = 1;
+
+        compte = CompteDao.findCompteById(compteiD);
+
+        // on récupère la liste de toutes les commandes passé
+        List<Commande> listCommandePasse = compte.getCommande();
+
+        //déclare la list qui va contenir les jeu des commandes passé
+        List<Jeu> listeJeuOwned = new ArrayList<>();
+
+        // on parcourt les listes pour récupérer les jeux
+
+        for (Commande commande : listCommandePasse
+        ) {
+            for (LigneCommande ligneCommande : commande.getLignes()
+            ) {
+                listeJeuOwned.add(ligneCommande.getJeu());
+            }
+        }
+
+        // donne attribut listeJeuOwned
+        request.setAttribute("listeJeuOwned", listeJeuOwned);
+
+
+        //routage
+        String url = "profile.jsp";
+        RequestDispatcher rd = request.getRequestDispatcher(url);
+        try {
+            rd.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+
+
 
     }
 
