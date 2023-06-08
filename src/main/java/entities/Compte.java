@@ -20,13 +20,19 @@ public class Compte {
 
     private String profileName;
 
+    @OneToOne
+    @JoinColumn(name = "idBiblio")
+    private Bibliotheque bibliotheque;
+
     public Compte() {
     }
 
-    public Compte(String user, String password, String profileName) {
+    public Compte(int idCompte, String user, String password, String profileName, Bibliotheque bibliotheque) {
+        this.idCompte = idCompte;
         this.user = user;
         this.password = password;
         this.profileName = profileName;
+        this.bibliotheque = bibliotheque;
     }
 
     public int getIdCompte() {
@@ -61,6 +67,14 @@ public class Compte {
         this.profileName = profileName;
     }
 
+    public Bibliotheque getBibliotheque() {
+        return bibliotheque;
+    }
+
+    public void setBibliotheque(Bibliotheque bibliotheque) {
+        this.bibliotheque = bibliotheque;
+    }
+
     @Override
     public String toString() {
         return "Compte{" +
@@ -68,6 +82,7 @@ public class Compte {
                 ", user='" + user + '\'' +
                 ", password='" + password + '\'' +
                 ", profileName='" + profileName + '\'' +
+                ", bibliotheque=" + bibliotheque +
                 '}';
     }
 }
