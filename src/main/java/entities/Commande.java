@@ -1,5 +1,6 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Commande {
     private int idCommande;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "idCompte")
     Compte compte;
 

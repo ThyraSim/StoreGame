@@ -1,6 +1,7 @@
 package entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class Compte {
     private Client client;
 
     @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Commande> commande;
 
     public Compte() {
@@ -77,7 +79,7 @@ public class Compte {
         return commande;
     }
 
-    public Commande getPanier(){
+    public Commande trouvePanier(){
         for(Commande commande1: commande){
             if(commande1.isPanier()){
                 return commande1;
@@ -97,7 +99,6 @@ public class Compte {
                 ", user='" + user + '\'' +
                 ", password='" + password + '\'' +
                 ", profileName='" + profileName + '\'' +
-                ", commande=" + commande +
                 '}';
     }
 }

@@ -1,5 +1,6 @@
 package controleur;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.CommandeDao;
 import dao.CompteDao;
 import dao.JeuDao;
@@ -47,11 +48,32 @@ public class MagasinServlet extends HttpServlet {
         }
         Compte compte = CompteDao.findCompteById(1);
         request.setAttribute("compteId", compte.getIdCompte());
+
+        //Self checkout
         if (action != null && action.equals("SELF")) {
             CommandeDao.changePanier(compte.getIdCompte());
         }
+
+        //Gift
         if (action != null && action.equals("GIFT")){
-            CommandeDao.changePanierGift(compte.getIdCompte(), 2);
+            String giftIdString = request.getParameter("giftId");
+            if(giftIdString == null){
+                List<Compte> comptes = CompteDao.findAll();
+                ObjectMapper objectMapper = new ObjectMapper();
+                String comptesJson = objectMapper.writeValueAsString(comptes);
+                request.setAttribute("comptes", comptesJson);
+                String url = "chooseFriend.jsp";
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                try {
+                    rd.forward(request, response);
+                } catch (ServletException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
+            }
+            else{
+                CommandeDao.changePanierGift(compte.getIdCompte(), 2);
+            }
         }
         boolean check = false;
         //on génère le catalog de jeu
@@ -79,7 +101,7 @@ public class MagasinServlet extends HttpServlet {
 
         //Ajouter au panier si action = ACHETE,
 
-        Commande panier = compte.getPanier();
+        Commande panier = compte.trouvePanier();
         if(panier == null){
             panier = new Commande(compte, true);
             CommandeDao.insert(panier);
@@ -116,9 +138,6 @@ public class MagasinServlet extends HttpServlet {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
-
-
     }
 
     public void destroy() {
