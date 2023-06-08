@@ -1,6 +1,7 @@
 package dao;
 
 import entities.Commande;
+import entities.LigneCommande;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -69,41 +70,41 @@ public class CommandeDao {
         return commande;
     }
 
-    public static List<Commande> findCommandeByCompteId(int compteId){
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//    public static List<Commande> findCommandeByCompteId(int compteId){
+//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//
+//        String jpql = "SELECT b FROM Commande b " +
+//                "JOIN b.compte c " +
+//                "WHERE c.id = :compteId AND b.panier = false";
+//
+//        TypedQuery<Commande> query = entityManager.createQuery(jpql, Commande.class);
+//        query.setParameter("compteId", compteId);
+//
+//        List<Commande> listeCommande = query.getResultList();
+//
+//        entityManager.close();
+//        entityManagerFactory.close();
+//
+//        return listeCommande;
+//    }
 
-        String jpql = "SELECT b FROM Commande b " +
-                "JOIN b.compte c " +
-                "WHERE c.id = :compteId AND b.panier = false";
-
-        TypedQuery<Commande> query = entityManager.createQuery(jpql, Commande.class);
-        query.setParameter("compteId", compteId);
-
-        List<Commande> listeCommande = query.getResultList();
-
-        entityManager.close();
-        entityManagerFactory.close();
-
-        return listeCommande;
-    }
-
-    public static Commande findPanierByCompteId(int compteId) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-        String jpql = "SELECT b FROM Commande b " +
-                "JOIN b.compte c " +
-                "WHERE c.id = :compteId AND b.panier = true";
-
-        TypedQuery<Commande> query = entityManager.createQuery(jpql, Commande.class);
-        query.setParameter("compteId", compteId);
-
-        Commande commande = query.getSingleResult();
-
-        entityManager.close();
-        entityManagerFactory.close();
-
-        return commande;
-    }
+//    public static Commande findPanierByCompteId(int compteId) {
+//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//
+//        String jpql = "SELECT b FROM Commande b " +
+//                "JOIN b.compte c " +
+//                "WHERE c.id = :compteId AND b.panier = true";
+//
+//        TypedQuery<Commande> query = entityManager.createQuery(jpql, Commande.class);
+//        query.setParameter("compteId", compteId);
+//
+//        Commande commande = query.getSingleResult();
+//
+//        entityManager.close();
+//        entityManagerFactory.close();
+//
+//        return commande;
+//    }
 }

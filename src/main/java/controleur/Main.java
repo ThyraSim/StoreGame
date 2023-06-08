@@ -9,6 +9,8 @@ import entities.Compte;
 import entities.Jeu;
 import entities.LigneCommande;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args){
 //        JeuDao.insert(new Jeu("Chat", 29.99, "Action", "Le moyen de tout les temps"));
@@ -22,9 +24,12 @@ public class Main {
 //        CompteDao.afficherListeComptes();
 //        BibliothequeDao.afficherListeBibliotheques();
 
-//        Commande commande = CommandeDao.findCommandeById(1);
-//        LigneCommande ligne = commande.getLignes().get(0);
-//        Jeu jeu = ligne.getJeu();
-//        System.out.println(jeu.getNomJeu());
+        List<Commande> commandes = CommandeDao.findCommandeByCompteId(1);
+        for(Commande commande:commandes){
+            LigneCommande ligne = commande.getLignes().get(0);
+            Jeu jeu = ligne.getJeu();
+            System.out.println(jeu.getNomJeu());
+        }
+
     }
 }

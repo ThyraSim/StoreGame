@@ -46,7 +46,7 @@ public class MagasinServlet extends HttpServlet {
         List<Jeu> owned = new ArrayList<>();
         catalog = JeuDao.findAll();
 
-        List<Commande> commandes = CommandeDao.findCommandeByCompteId(1);
+        List<Commande> commandes = CompteDao.findCompteById(1).getCommande();
         for(Commande commande : commandes){
             for (LigneCommande ligneCommande : commande.getLignes()) {
                 Jeu jeu = ligneCommande.getJeu();

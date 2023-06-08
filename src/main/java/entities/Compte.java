@@ -72,6 +72,16 @@ public class Compte {
         return commande;
     }
 
+    public List<Commande> getPanier(){
+        List<Commande> panier = new ArrayList<>();
+        for(Commande commande1: commande){
+            if(commande1.isPanier()){
+                panier.add(commande1);
+            }
+        }
+        return panier;
+    }
+
     public void setCommande(List<Commande> commande) {
         this.commande = commande;
     }
