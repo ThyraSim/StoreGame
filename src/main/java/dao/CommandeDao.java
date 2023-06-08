@@ -1,8 +1,11 @@
 package dao;
 
 import entities.Commande;
-import entities.LigneCommande;
+import entities.Compte;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaUpdate;
+import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 
@@ -68,6 +71,72 @@ public class CommandeDao {
         Commande commande = entityManager.find(Commande.class, id);
 
         return commande;
+    }
+
+    public static void changePanier(int compteId) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaUpdate<Commande> updateQuery = criteriaBuilder.createCriteriaUpdate(Commande.class);
+            Root<Commande> root = updateQuery.from(Commande.class);
+
+            updateQuery.set(root.get("panier"), false);
+            updateQuery.where(criteriaBuilder.equal(root.get("compte").get("id"), compteId));
+
+            int updatedCount = entityManager.createQuery(updateQuery).executeUpdate();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
+    }
+
+    public static void changePanierGift(int compteId, int giftId) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaUpdate<Commande> updateQuery = criteriaBuilder.createCriteriaUpdate(Commande.class);
+            Root<Commande> root = updateQuery.from(Commande.class);
+
+            updateQuery.set(root.get("panier"), false);
+            updateQuery.set(root.get("compte"), entityManager.getReference(Compte.class, giftId));
+            updateQuery.where(
+                    criteriaBuilder.and(
+                            criteriaBuilder.equal(root.get("panier"), true),
+                            criteriaBuilder.equal(root.get("compte").get("id"), compteId)
+                    )
+            );
+
+            int updatedCount = entityManager.createQuery(updateQuery).executeUpdate();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
     }
 
 //    public static List<Commande> findCommandeByCompteId(int compteId){

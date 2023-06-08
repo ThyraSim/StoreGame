@@ -18,15 +18,13 @@ public class LigneCommande {
     @JoinColumn(name = "idCommande")
     private Commande commande;
 
-    private boolean panier;
 
     public LigneCommande() {
     }
 
-    public LigneCommande(Jeu jeu, Commande commande, boolean panier) {
+    public LigneCommande(Jeu jeu, Commande commande) {
         this.jeu = jeu;
         this.commande = commande;
-        this.panier = panier;
     }
 
     public entities.Jeu getJeu() {
@@ -45,14 +43,6 @@ public class LigneCommande {
         this.commande = commande;
     }
 
-    public boolean isPanier() {
-        return panier;
-    }
-
-    public void setPanier(boolean panier) {
-        this.panier = panier;
-    }
-
     public int getIdLigne() {
         return idLigne;
     }
@@ -66,7 +56,6 @@ public class LigneCommande {
         return "Bibliotheque{" +
                 "idBiblio=" + idLigne +
                 ", jeu=" + jeu +
-                ", panier=" + panier +
                 '}';
     }
 }
