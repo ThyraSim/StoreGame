@@ -15,8 +15,9 @@ public class Main {
     public static void main(String[] args){
 //        JeuDao.insert(new Jeu("Chat", 29.99, "Action", "Le moyen de tout les temps"));
 //        CompteDao.insert(new Compte("THEFRIEND", "Chapeau", "Orignal"));
+        CompteDao.insert(new Compte("theActualFriend", "fromage", "DaFriend"));
 //        CommandeDao.insert(new Commande(CompteDao.findCompteById(1), false));
-//        LigneCommandeDao.insert(new LigneCommande(JeuDao.findJeuById(1), CommandeDao.findCommandeById(1), false));
+//        LigneCommandeDao.insert(new LigneCommande(JeuDao.findJeuById(1), CommandeDao.findCommandeById(1)));
 //        JeuDao.delete(2);
 //        CompteDao.delete(1);
 //        LigneCommandeDao.delete(5);

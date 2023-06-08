@@ -59,10 +59,6 @@ public class ProfileServlet extends HttpServlet {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
-
-
-
     }
 
     @Override

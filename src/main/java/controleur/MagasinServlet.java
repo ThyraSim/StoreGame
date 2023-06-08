@@ -21,10 +21,18 @@ public class MagasinServlet extends HttpServlet {
     private String message;
 
     public void init() {
-//        JeuDao.insert(new Jeu("Mario",79.99,"plateforme","Mario Bros 1"));
-//        JeuDao.insert(new Jeu("Mario2",79.99,"plateforme","Mario Bros 2"));
-//        JeuDao.insert(new Jeu("Mario3",79.99,"plateforme","Mario Bros 3"));
-//        JeuDao.insert(new Jeu("Mario4",79.99,"plateforme","Mario Bros 4"));
+//        JeuDao.insert(new Jeu("Jeu de id 2",79.99,"plateforme","Mario Bros 1"));
+//        JeuDao.insert(new Jeu("Jeu de id 3",79.99,"plateforme","Mario Bros 2"));
+//        JeuDao.insert(new Jeu("Jeu de id 4",79.99,"plateforme","Mario Bros 3"));
+//        JeuDao.insert(new Jeu("jeu de id 5",79.99,"plateforme","Mario Bros 4"));
+//        JeuDao.insert(new Jeu("Jeu de id 6",79.99,"plateforme","Mario Bros 1"));
+//        JeuDao.insert(new Jeu("Jeu de id 7",79.99,"plateforme","Mario Bros 2"));
+//        JeuDao.insert(new Jeu("Jeu de id 8",79.99,"plateforme","Mario Bros 3"));
+//        JeuDao.insert(new Jeu("jeu de id 9",79.99,"plateforme","Mario Bros 4"));
+//        JeuDao.insert(new Jeu("Jeu de id 10",79.99,"plateforme","Mario Bros 1"));
+//        JeuDao.insert(new Jeu("Jeu de id 11",79.99,"plateforme","Mario Bros 2"));
+//        JeuDao.insert(new Jeu("Jeu de id 12",79.99,"plateforme","Mario Bros 3"));
+//        JeuDao.insert(new Jeu("jeu de id 13",79.99,"plateforme","Mario Bros 4"));
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,12 +47,12 @@ public class MagasinServlet extends HttpServlet {
         }
         Compte compte = CompteDao.findCompteById(1);
         request.setAttribute("compteId", compte.getIdCompte());
-//        if (action != null && action.equals("SELF")) {
-//            LigneCommandeDao.changePanier(compteId);
-//        }
-//        if (action != null && action.equals("GIFT")){
-//            LigneCommandeDao.changePanierGift(compteId, 2);
-//        }
+        if (action != null && action.equals("SELF")) {
+            CommandeDao.changePanier(compte.getIdCompte());
+        }
+        if (action != null && action.equals("GIFT")){
+            CommandeDao.changePanierGift(compte.getIdCompte(), 2);
+        }
         boolean check = false;
         //on génère le catalog de jeu
         List<Jeu> catalog;
@@ -73,14 +81,16 @@ public class MagasinServlet extends HttpServlet {
 
         Commande panier = compte.getPanier();
         if(panier == null){
-            CommandeDao.insert(new Commande(compte, true));
+            panier = new Commande(compte, true);
+            CommandeDao.insert(panier);
+
         }
-            if (action != null && action.equals("ACHETE")) {
+        if (action != null && action.equals("ACHETE")) {
             //Ajouter au panier
             String index = request.getParameter("index");
 
             Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
-            LigneCommande tempCommande = new LigneCommande(monJeu, panier, true);
+            LigneCommande tempCommande = new LigneCommande(monJeu, panier);
             panier.getLignes().add(tempCommande);
 
 

@@ -61,69 +61,7 @@ public class LigneCommandeDao {
         }
     }
 
-    public static void changePanier(int compteId) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        EntityTransaction transaction = null;
-        try {
-            transaction = entityManager.getTransaction();
-            transaction.begin();
 
-            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaUpdate<LigneCommande> updateQuery = criteriaBuilder.createCriteriaUpdate(LigneCommande.class);
-            Root<LigneCommande> root = updateQuery.from(LigneCommande.class);
 
-            updateQuery.set(root.get("panier"), false);
-            updateQuery.where(criteriaBuilder.equal(root.get("compte").get("id"), compteId));
-
-            int updatedCount = entityManager.createQuery(updateQuery).executeUpdate();
-
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-
-        } finally {
-            entityManager.close();
-            entityManagerFactory.close();
-        }
-    }
-
-    public static void changePanierGift(int compteId, int giftId) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-        EntityTransaction transaction = null;
-        try {
-            transaction = entityManager.getTransaction();
-            transaction.begin();
-
-            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaUpdate<LigneCommande> updateQuery = criteriaBuilder.createCriteriaUpdate(LigneCommande.class);
-            Root<LigneCommande> root = updateQuery.from(LigneCommande.class);
-
-            updateQuery.set(root.get("panier"), false);
-            updateQuery.set(root.get("compte"), entityManager.getReference(Compte.class, giftId));
-            updateQuery.where(
-                    criteriaBuilder.and(
-                            criteriaBuilder.equal(root.get("panier"), true),
-                            criteriaBuilder.equal(root.get("compte").get("id"), compteId)
-                    )
-            );
-
-            int updatedCount = entityManager.createQuery(updateQuery).executeUpdate();
-
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-
-        } finally {
-            entityManager.close();
-            entityManagerFactory.close();
-        }
-    }
 }
