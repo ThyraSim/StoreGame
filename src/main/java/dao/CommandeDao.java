@@ -69,7 +69,7 @@ public class CommandeDao {
         return commande;
     }
 
-    public static Commande findCommandeByCompteId(int compteId){
+    public static List<Commande> findCommandeByCompteId(int compteId){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -80,12 +80,12 @@ public class CommandeDao {
         TypedQuery<Commande> query = entityManager.createQuery(jpql, Commande.class);
         query.setParameter("compteId", compteId);
 
-        Commande commande = query.getSingleResult();
+        List<Commande> listeCommande = query.getResultList();
 
         entityManager.close();
         entityManagerFactory.close();
 
-        return commande;
+        return listeCommande;
     }
 
     public static Commande findPanierByCompteId(int compteId) {

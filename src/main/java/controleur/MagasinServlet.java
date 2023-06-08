@@ -20,10 +20,10 @@ public class MagasinServlet extends HttpServlet {
     private String message;
 
     public void init() {
-        JeuDao.insert(new Jeu("Mario",79.99,"plateforme","Mario Bros 1"));
-        JeuDao.insert(new Jeu("Mario2",79.99,"plateforme","Mario Bros 2"));
-        JeuDao.insert(new Jeu("Mario3",79.99,"plateforme","Mario Bros 3"));
-        JeuDao.insert(new Jeu("Mario4",79.99,"plateforme","Mario Bros 4"));
+//        JeuDao.insert(new Jeu("Mario",79.99,"plateforme","Mario Bros 1"));
+//        JeuDao.insert(new Jeu("Mario2",79.99,"plateforme","Mario Bros 2"));
+//        JeuDao.insert(new Jeu("Mario3",79.99,"plateforme","Mario Bros 3"));
+//        JeuDao.insert(new Jeu("Mario4",79.99,"plateforme","Mario Bros 4"));
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -46,13 +46,15 @@ public class MagasinServlet extends HttpServlet {
         List<Jeu> owned = new ArrayList<>();
         catalog = JeuDao.findAll();
 
-        Commande commande = CommandeDao.findCommandeByCompteId(1);
-        for (LigneCommande ligneCommande : commande.getLignes()) {
-            Jeu jeu = ligneCommande.getJeu();
-            if (catalog.contains(jeu)) {
-                catalog.remove(jeu);
-                if(check == true){
-                    owned.add(jeu);
+        List<Commande> commandes = CommandeDao.findCommandeByCompteId(1);
+        for(Commande commande : commandes){
+            for (LigneCommande ligneCommande : commande.getLignes()) {
+                Jeu jeu = ligneCommande.getJeu();
+                if (catalog.contains(jeu)) {
+                    catalog.remove(jeu);
+                    if(check == true){
+                        owned.add(jeu);
+                    }
                 }
             }
         }
@@ -69,29 +71,29 @@ public class MagasinServlet extends HttpServlet {
             int idLigne = Integer.parseInt(request.getParameter("idLigne"));
             LigneCommandeDao.delete(idLigne);
         }
-        Commande panier = CommandeDao.findPanierByCompteId(1);
-        if (action != null && action.equals("ACHETE")) {
-            //Ajouter au panier
-
-            String index = request.getParameter("index");
-
-            Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
-            LigneCommande tempCommande = new LigneCommande(monJeu, panier, true);
-            panier.getLignes().add(tempCommande);
-
-
-            //request.setAttribute("ajoutJeu", monJeu);
-            LigneCommandeDao.insert(tempCommande);
-        }
-        request.setAttribute("panier",panier.getLignes());
-        if(!panier.getLignes().isEmpty()){
-            for (LigneCommande ligneCommande : panier.getLignes()) {
-                Jeu jeu = ligneCommande.getJeu();
-                if (catalog.contains(jeu)) {
-                    catalog.remove(jeu);
-                }
-            }
-        }
+//        Commande panier = CommandeDao.findPanierByCompteId(1);
+//        if (action != null && action.equals("ACHETE")) {
+//            //Ajouter au panier
+//
+//            String index = request.getParameter("index");
+//
+//            Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
+//            LigneCommande tempCommande = new LigneCommande(monJeu, panier, true);
+//            panier.getLignes().add(tempCommande);
+//
+//
+//            //request.setAttribute("ajoutJeu", monJeu);
+//            LigneCommandeDao.insert(tempCommande);
+//        }
+//        request.setAttribute("panier",panier.getLignes());
+//        if(!panier.getLignes().isEmpty()){
+//            for (LigneCommande ligneCommande : panier.getLignes()) {
+//                Jeu jeu = ligneCommande.getJeu();
+//                if (catalog.contains(jeu)) {
+//                    catalog.remove(jeu);
+//                }
+//            }
+//        }
         Boolean noOwned = true;
         request.setAttribute("noOwned", noOwned);
         String url = "magasin.jsp";
