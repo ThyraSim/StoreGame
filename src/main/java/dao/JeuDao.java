@@ -31,17 +31,17 @@ public class JeuDao {
                 Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = null;
         try {
-            //Permet d'utiliser les fonctions pour manipuler la bd
+
             entityManager = entityManagerFactory.createEntityManager();
 
             entityManager.getTransaction().begin();
-            //Cherche le id  dans la classe Jeu (rajoute un merge)
+
             entityManager.remove(entityManager.find(Jeu.class, id));
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();//Permet de supprimer l'insertion s'il y a eu un probleme
-            e.printStackTrace();//affiche l'exception
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
             return false;
         }
 
@@ -52,9 +52,7 @@ public class JeuDao {
                 Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-
-        //  Query query = entityManager.createNativeQuery("select * from Jeu");// un Object
-        Query query = entityManager.createQuery("select i from Jeu i");//le type Jeu criteria
+        Query query = entityManager.createQuery("select i from Jeu i");
         return query.getResultList();
     }
 

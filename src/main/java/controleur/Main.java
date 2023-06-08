@@ -16,11 +16,11 @@ public class Main {
 //        JeuDao.insert(new Jeu("Chat", 29.99, "Action", "Le moyen de tout les temps"));
 //        CompteDao.insert(new Compte("THEFRIEND", "Chapeau", "Orignal"));
 //        BibliothequeDao.insert(new Bibliotheque(JeuDao.findJeuById(1), CompteDao.findCompteById(1), true, false));
-        //JeuDao.delete(2);
-        //CompteDao.delete(1);
-        //BibliothequeDao.delete(2);
-        //JeuDao.afficherListeJeux();
-        //CompteDao.afficherListeComptes();
-        //BibliothequeDao.afficherListeBibliotheques();
+//        JeuDao.delete(2);
+//        CompteDao.delete(1);
+//        BibliothequeDao.delete(2);
+//        JeuDao.afficherListeJeux();
+//        CompteDao.afficherListeComptes();
+//        BibliothequeDao.afficherListeBibliotheques();
     }
 }

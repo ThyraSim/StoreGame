@@ -31,17 +31,16 @@ public class BibliothequeDao {
                 Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = null;
         try {
-            //Permet d'utiliser les fonctions pour manipuler la bd
             entityManager = entityManagerFactory.createEntityManager();
 
             entityManager.getTransaction().begin();
-            //Cherche le id  dans la classe bibliotheque (rajoute un merge)
+
             entityManager.remove(entityManager.find(Bibliotheque.class, id));
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();//Permet de supprimer l'insertion s'il y a eu un probleme
-            e.printStackTrace();//affiche l'exception
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
             return false;
         }
 
@@ -52,9 +51,7 @@ public class BibliothequeDao {
                 Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-
-        //  Query query = entityManager.createNativeQuery("select * from bibliotheque");// un Object
-        Query query = entityManager.createQuery("select i from Bibliotheque i");//le type bibliotheque criteria
+        Query query = entityManager.createQuery("select i from Bibliotheque i");
         return query.getResultList();
     }
 
@@ -119,7 +116,6 @@ public class BibliothequeDao {
             updateQuery.set(root.get("panier"), false);
             updateQuery.where(criteriaBuilder.equal(root.get("compte").get("id"), compteId));
 
-            // Execute the update query
             int updatedCount = entityManager.createQuery(updateQuery).executeUpdate();
 
             transaction.commit();
@@ -127,7 +123,7 @@ public class BibliothequeDao {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            // Handle or log the exception appropriately
+
         } finally {
             entityManager.close();
             entityManagerFactory.close();
@@ -156,7 +152,6 @@ public class BibliothequeDao {
                     )
             );
 
-            // Execute the update query
             int updatedCount = entityManager.createQuery(updateQuery).executeUpdate();
 
             transaction.commit();
@@ -164,7 +159,7 @@ public class BibliothequeDao {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            // Handle or log the exception appropriately
+
         } finally {
             entityManager.close();
             entityManagerFactory.close();

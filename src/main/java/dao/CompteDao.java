@@ -30,17 +30,17 @@ public class CompteDao {
                 Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = null;
         try {
-            //Permet d'utiliser les fonctions pour manipuler la bd
+
             entityManager = entityManagerFactory.createEntityManager();
 
             entityManager.getTransaction().begin();
-            //Cherche le id  dans la classe compte (rajoute un merge)
+
             entityManager.remove(entityManager.find(Compte.class, id));
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();//Permet de supprimer l'insertion s'il y a eu un probleme
-            e.printStackTrace();//affiche l'exception
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
             return false;
         }
 
@@ -52,8 +52,7 @@ public class CompteDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 
-        //  Query query = entityManager.createNativeQuery("select * from compte");// un Object
-        Query query = entityManager.createQuery("select i from Compte i");//le type compte criteria
+        Query query = entityManager.createQuery("select i from Compte i");
         return query.getResultList();
     }
 
