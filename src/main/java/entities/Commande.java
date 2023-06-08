@@ -16,7 +16,7 @@ public class Commande {
     @JoinColumn(name = "idCompte")
     Compte compte;
 
-    @OneToMany(mappedBy = "commande", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
     private List<LigneCommande> lignes = new ArrayList<>();
 
     private boolean panier;

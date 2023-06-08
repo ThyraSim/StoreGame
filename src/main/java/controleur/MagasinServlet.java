@@ -33,6 +33,10 @@ public class MagasinServlet extends HttpServlet {
             response.sendRedirect("http://localhost:82/error.html");
         }
         String action = request.getParameter("action");
+        if (action != null && action.equals("DELETE")) {
+            int idLigne = Integer.parseInt(request.getParameter("idLigne"));
+            LigneCommandeDao.delete(idLigne);
+        }
         Compte compte = CompteDao.findCompteById(1);
         request.setAttribute("compteId", compte.getIdCompte());
 //        if (action != null && action.equals("SELF")) {
@@ -66,10 +70,7 @@ public class MagasinServlet extends HttpServlet {
         // AJOUTER JEU AU PANIER
 
         //Ajouter au panier si action = ACHETE,
-        if (action != null && action.equals("DELETE")){
-            int idLigne = Integer.parseInt(request.getParameter("idLigne"));
-            LigneCommandeDao.delete(idLigne);
-        }
+
         Commande panier = compte.getPanier();
         if(panier == null){
             CommandeDao.insert(new Commande(compte, true));

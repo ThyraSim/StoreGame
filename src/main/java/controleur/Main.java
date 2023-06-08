@@ -19,7 +19,7 @@ public class Main {
 //        LigneCommandeDao.insert(new LigneCommande(JeuDao.findJeuById(1), CommandeDao.findCommandeById(1), false));
 //        JeuDao.delete(2);
 //        CompteDao.delete(1);
-        LigneCommandeDao.delete(5);
+//        LigneCommandeDao.delete(5);
 //        JeuDao.afficherListeJeux();
 //        CompteDao.afficherListeComptes();
 //        BibliothequeDao.afficherListeBibliotheques();
