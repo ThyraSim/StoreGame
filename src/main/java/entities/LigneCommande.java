@@ -1,18 +1,14 @@
 package entities;
 
-
-
 import jakarta.persistence.*;
 
-
 @Entity
-@Table(name = "bibliotheque")
-public class Bibliotheque {
+@Table(name = "LigneCommande")
+public class LigneCommande {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idBiblio;
-
+    private int idLigne;
 
     @ManyToOne
     @JoinColumn(name = "idJeu")
@@ -25,10 +21,10 @@ public class Bibliotheque {
     private boolean favori;
     private boolean panier;
 
-    public Bibliotheque() {
+    public LigneCommande() {
     }
 
-    public Bibliotheque(Jeu jeu, Compte compte, boolean favori, boolean panier) {
+    public LigneCommande(Jeu jeu, Compte compte, boolean favori, boolean panier) {
         this.jeu = jeu;
         this.compte = compte;
         this.favori = favori;
@@ -67,18 +63,18 @@ public class Bibliotheque {
         this.panier = panier;
     }
 
-    public int getIdBiblio() {
-        return idBiblio;
+    public int getIdLigne() {
+        return idLigne;
     }
 
-    public void setIdBiblio(int idBiblio) {
-        this.idBiblio = idBiblio;
+    public void setIdLigne(int idBiblio) {
+        this.idLigne = idBiblio;
     }
 
     @Override
     public String toString() {
         return "Bibliotheque{" +
-                "idBiblio=" + idBiblio +
+                "idBiblio=" + idLigne +
                 ", jeu=" + jeu +
                 ", compte=" + compte +
                 ", favori=" + favori +
@@ -86,4 +82,3 @@ public class Bibliotheque {
                 '}';
     }
 }
-

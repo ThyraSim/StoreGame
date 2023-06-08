@@ -1,10 +1,10 @@
 package controleur;
 
-import dao.BibliothequeDao;
 import dao.CompteDao;
 import dao.JeuDao;
-import entities.Bibliotheque;
+import dao.LigneCommandeDao;
 import entities.Jeu;
+import entities.LigneCommande;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -33,10 +33,10 @@ public class MagasinServlet extends HttpServlet {
         int compteId = 1;
         request.setAttribute("compteId", compteId);
         if (action != null && action.equals("SELF")) {
-            BibliothequeDao.changePanier(compteId);
+            LigneCommandeDao.changePanier(compteId);
         }
         if (action != null && action.equals("GIFT")){
-            BibliothequeDao.changePanierGift(compteId, 2);
+            LigneCommandeDao.changePanierGift(compteId, 2);
         }
         boolean check = false;
         //on génère le catalog de jeu
@@ -44,9 +44,9 @@ public class MagasinServlet extends HttpServlet {
         List<Jeu> owned = new ArrayList<>();
         catalog = JeuDao.findAll();
 
-        List<Bibliotheque> bibliotheques = BibliothequeDao.findBibliothequesByCompteId(1);
-        for (Bibliotheque bibliotheque : bibliotheques) {
-            Jeu jeu = bibliotheque.getJeu();
+        List<LigneCommande> ligneCommandeList = LigneCommandeDao.findLignesCommandeByCompteId(1);
+        for (LigneCommande ligneCommande : ligneCommandeList) {
+            Jeu jeu = ligneCommande.getJeu();
             if (catalog.contains(jeu)) {
                 catalog.remove(jeu);
                 if(check == true){
@@ -64,27 +64,27 @@ public class MagasinServlet extends HttpServlet {
 
         //Ajouter au panier si action = ACHETE,
         if (action != null && action.equals("DELETE")){
-            int idBiblio = Integer.parseInt(request.getParameter("idBiblio"));
-            BibliothequeDao.delete(idBiblio);
+            int idLigne = Integer.parseInt(request.getParameter("idLigne"));
+            LigneCommandeDao.delete(idLigne);
         }
-        List<Bibliotheque> panier = BibliothequeDao.findPanierByCompteId(1);
+        List<LigneCommande> panier = LigneCommandeDao.findPanierByCompteId(1);
         if (action != null && action.equals("ACHETE")) {
             //Ajouter au panier
 
             String index = request.getParameter("index");
 
             Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
-            Bibliotheque tempBiblio = new Bibliotheque(monJeu, CompteDao.findCompteById(1), false, true);
-            panier.add(tempBiblio);
+            LigneCommande tempCommande = new LigneCommande(monJeu, CompteDao.findCompteById(1), false, true);
+            panier.add(tempCommande);
 
 
             //request.setAttribute("ajoutJeu", monJeu);
-            BibliothequeDao.insert(tempBiblio);
+            LigneCommandeDao.insert(tempCommande);
         }
         request.setAttribute("panier",panier);
         if(!panier.isEmpty()){
-            for (Bibliotheque bibliotheque : panier) {
-                Jeu jeu = bibliotheque.getJeu();
+            for (LigneCommande ligneCommande : panier) {
+                Jeu jeu = ligneCommande.getJeu();
                 if (catalog.contains(jeu)) {
                     catalog.remove(jeu);
                 }

@@ -1,7 +1,7 @@
 package dao;
 
-import entities.Bibliotheque;
 import entities.Compte;
+import entities.LigneCommande;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaUpdate;
@@ -9,16 +9,15 @@ import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 
-public class BibliothequeDao {
-
-    public static void insert(Bibliotheque bibliotheque){
+public class LigneCommandeDao {
+    public static void insert(LigneCommande ligneCommande){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = null;
         try{
             entityManager = entityManagerFactory.createEntityManager();
 
             entityManager.getTransaction().begin();
-            entityManager.persist(bibliotheque);
+            entityManager.persist(ligneCommande);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
@@ -35,7 +34,7 @@ public class BibliothequeDao {
 
             entityManager.getTransaction().begin();
 
-            entityManager.remove(entityManager.find(Bibliotheque.class, id));
+            entityManager.remove(entityManager.find(LigneCommande.class, id));
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {
@@ -46,57 +45,57 @@ public class BibliothequeDao {
 
     }
 
-    public static List<Bibliotheque> findAll() {
+    public static List<LigneCommande> findAll() {
         EntityManagerFactory entityManagerFactory =
                 Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Query query = entityManager.createQuery("select i from Bibliotheque i");
+        Query query = entityManager.createQuery("select i from LigneCommande i");
         return query.getResultList();
     }
 
-    public static List<Bibliotheque> findBibliothequesByCompteId(int compteId) {
+    public static List<LigneCommande> findLignesCommandeByCompteId(int compteId) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        String jpql = "SELECT b FROM Bibliotheque b " +
+        String jpql = "SELECT b FROM LigneCommande b " +
                 "JOIN b.compte c " +
                 "WHERE c.id = :compteId AND b.panier = false";
 
-        TypedQuery<Bibliotheque> query = entityManager.createQuery(jpql, Bibliotheque.class);
+        TypedQuery<LigneCommande> query = entityManager.createQuery(jpql, LigneCommande.class);
         query.setParameter("compteId", compteId);
 
-        List<Bibliotheque> bibliotheques = query.getResultList();
+        List<LigneCommande> ligneCommandeList = query.getResultList();
 
         entityManager.close();
         entityManagerFactory.close();
 
-        return bibliotheques;
+        return ligneCommandeList;
     }
 
-    public static List<Bibliotheque> findPanierByCompteId(int compteId) {
+    public static List<LigneCommande> findPanierByCompteId(int compteId) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        String jpql = "SELECT b FROM Bibliotheque b " +
+        String jpql = "SELECT b FROM LigneCommande b " +
                 "JOIN b.compte c " +
                 "WHERE c.id = :compteId AND b.panier = true";
 
-        TypedQuery<Bibliotheque> query = entityManager.createQuery(jpql, Bibliotheque.class);
+        TypedQuery<LigneCommande> query = entityManager.createQuery(jpql, LigneCommande.class);
         query.setParameter("compteId", compteId);
 
-        List<Bibliotheque> bibliotheques = query.getResultList();
+        List<LigneCommande> ligneCommandeList = query.getResultList();
 
         entityManager.close();
         entityManagerFactory.close();
 
-        return bibliotheques;
+        return ligneCommandeList;
     }
 
-    public static void afficherListeBibliotheque() {
-        List<Bibliotheque> bibliothequeList = findAll();
-        for(Bibliotheque bibliotheque: bibliothequeList) {
-            System.out.print(bibliotheque + " ");
+    public static void afficherListeLigneCommande() {
+        List<LigneCommande> ligneCommandeList = findAll();
+        for(LigneCommande ligneCommande: ligneCommandeList) {
+            System.out.print(ligneCommande + " ");
         }
     }
 
@@ -110,8 +109,8 @@ public class BibliothequeDao {
             transaction.begin();
 
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaUpdate<Bibliotheque> updateQuery = criteriaBuilder.createCriteriaUpdate(Bibliotheque.class);
-            Root<Bibliotheque> root = updateQuery.from(Bibliotheque.class);
+            CriteriaUpdate<LigneCommande> updateQuery = criteriaBuilder.createCriteriaUpdate(LigneCommande.class);
+            Root<LigneCommande> root = updateQuery.from(LigneCommande.class);
 
             updateQuery.set(root.get("panier"), false);
             updateQuery.where(criteriaBuilder.equal(root.get("compte").get("id"), compteId));
@@ -140,8 +139,8 @@ public class BibliothequeDao {
             transaction.begin();
 
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaUpdate<Bibliotheque> updateQuery = criteriaBuilder.createCriteriaUpdate(Bibliotheque.class);
-            Root<Bibliotheque> root = updateQuery.from(Bibliotheque.class);
+            CriteriaUpdate<LigneCommande> updateQuery = criteriaBuilder.createCriteriaUpdate(LigneCommande.class);
+            Root<LigneCommande> root = updateQuery.from(LigneCommande.class);
 
             updateQuery.set(root.get("panier"), false);
             updateQuery.set(root.get("compte"), entityManager.getReference(Compte.class, giftId));
@@ -165,5 +164,4 @@ public class BibliothequeDao {
             entityManagerFactory.close();
         }
     }
-
 }

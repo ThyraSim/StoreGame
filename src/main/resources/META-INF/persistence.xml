@@ -8,7 +8,7 @@
 
     <class>entities.Jeu</class>
     <class>entities.Compte</class>
-    <class>entities.Bibliotheque</class>
+    <class>entities.LigneCommande</class>
     <!--<class>entities.panier</class>-->
 
     <properties>

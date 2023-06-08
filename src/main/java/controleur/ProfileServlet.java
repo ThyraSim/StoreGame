@@ -1,13 +1,12 @@
 package controleur;
 
-import entities.Bibliotheque;
 import entities.Compte;
+import entities.LigneCommande;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet(name = "ProfileServlet", value = "/ProfileServlet")
 public class ProfileServlet extends HttpServlet {
@@ -38,7 +37,7 @@ public class ProfileServlet extends HttpServlet {
 
         Compte compte = new Compte();
         compte.setProfileName(request.getParameter("profileName"));
-        Bibliotheque bibliotheque = new Bibliotheque();
+        LigneCommande ligneBibliotheque = new LigneCommande();
         //bibliotheque.setCompte(request.getParameter("user"));
 
     }
