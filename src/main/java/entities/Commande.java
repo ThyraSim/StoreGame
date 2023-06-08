@@ -2,6 +2,7 @@ package entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class Commande {
     Compte compte;
 
     @OneToMany(mappedBy = "commande", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<LigneCommande> lignes;
+    private List<LigneCommande> lignes = new ArrayList<>();
 
     private boolean panier;
 

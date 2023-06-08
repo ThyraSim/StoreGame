@@ -5,6 +5,7 @@ import dao.CompteDao;
 import dao.JeuDao;
 import dao.LigneCommandeDao;
 import entities.Commande;
+import entities.Compte;
 import entities.Jeu;
 import entities.LigneCommande;
 
@@ -32,8 +33,8 @@ public class MagasinServlet extends HttpServlet {
             response.sendRedirect("http://localhost:82/error.html");
         }
         String action = request.getParameter("action");
-        int compteId = 1;
-        request.setAttribute("compteId", compteId);
+        Compte compte = CompteDao.findCompteById(1);
+        request.setAttribute("compteId", compte.getIdCompte());
 //        if (action != null && action.equals("SELF")) {
 //            LigneCommandeDao.changePanier(compteId);
 //        }
@@ -46,7 +47,7 @@ public class MagasinServlet extends HttpServlet {
         List<Jeu> owned = new ArrayList<>();
         catalog = JeuDao.findAll();
 
-        List<Commande> commandes = CompteDao.findCompteById(1).getCommande();
+        List<Commande> commandes = compte.getCommande();
         for(Commande commande : commandes){
             for (LigneCommande ligneCommande : commande.getLignes()) {
                 Jeu jeu = ligneCommande.getJeu();
@@ -64,36 +65,36 @@ public class MagasinServlet extends HttpServlet {
 
         // AJOUTER JEU AU PANIER
 
-
-
         //Ajouter au panier si action = ACHETE,
         if (action != null && action.equals("DELETE")){
             int idLigne = Integer.parseInt(request.getParameter("idLigne"));
             LigneCommandeDao.delete(idLigne);
         }
-//        Commande panier = CommandeDao.findPanierByCompteId(1);
-//        if (action != null && action.equals("ACHETE")) {
-//            //Ajouter au panier
-//
-//            String index = request.getParameter("index");
-//
-//            Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
-//            LigneCommande tempCommande = new LigneCommande(monJeu, panier, true);
-//            panier.getLignes().add(tempCommande);
-//
-//
-//            //request.setAttribute("ajoutJeu", monJeu);
-//            LigneCommandeDao.insert(tempCommande);
-//        }
-//        request.setAttribute("panier",panier.getLignes());
-//        if(!panier.getLignes().isEmpty()){
-//            for (LigneCommande ligneCommande : panier.getLignes()) {
-//                Jeu jeu = ligneCommande.getJeu();
-//                if (catalog.contains(jeu)) {
-//                    catalog.remove(jeu);
-//                }
-//            }
-//        }
+        Commande panier = compte.getPanier();
+        if(panier == null){
+            CommandeDao.insert(new Commande(compte, true));
+        }
+        if (action != null && action.equals("ACHETE")) {
+            //Ajouter au panier
+            String index = request.getParameter("index");
+
+            Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
+            LigneCommande tempCommande = new LigneCommande(monJeu, panier, true);
+            panier.getLignes().add(tempCommande);
+
+
+            //request.setAttribute("ajoutJeu", monJeu);
+            LigneCommandeDao.insert(tempCommande);
+        }
+        if(!panier.getLignes().isEmpty()){
+            request.setAttribute("panier",panier.getLignes());
+            for (LigneCommande ligneCommande : panier.getLignes()) {
+                Jeu jeu = ligneCommande.getJeu();
+                if (catalog.contains(jeu)) {
+                    catalog.remove(jeu);
+                }
+            }
+        }
         Boolean noOwned = true;
         request.setAttribute("noOwned", noOwned);
         String url = "magasin.jsp";

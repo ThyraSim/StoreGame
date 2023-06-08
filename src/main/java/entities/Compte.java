@@ -72,14 +72,13 @@ public class Compte {
         return commande;
     }
 
-    public List<Commande> getPanier(){
-        List<Commande> panier = new ArrayList<>();
+    public Commande getPanier(){
         for(Commande commande1: commande){
             if(commande1.isPanier()){
-                panier.add(commande1);
+                return commande1;
             }
         }
-        return panier;
+        return null;
     }
 
     public void setCommande(List<Commande> commande) {
