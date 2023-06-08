@@ -20,6 +20,8 @@
 <body>
 <h1><%= "CHAOS!!!!!!!" %></h1>
 <br/>
+<a href="login.jsp">Login</a>
+<br>
 <a href="hello-servlet">Hello Servlet</a>
 <br>
 <a href="profile.jsp">Profile</a>
