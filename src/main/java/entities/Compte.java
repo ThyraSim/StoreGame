@@ -12,13 +12,20 @@ public class Compte {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCompte")
     private int idCompte;
 
+    @Column(name = "username")
     private String user;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "profilename")
     private String profileName;
+
+    @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
+    private List<Commande> commande;
 
     public Compte() {
     }
@@ -61,6 +68,14 @@ public class Compte {
         this.profileName = profileName;
     }
 
+    public List<Commande> getCommande() {
+        return commande;
+    }
+
+    public void setCommande(List<Commande> commande) {
+        this.commande = commande;
+    }
+
     @Override
     public String toString() {
         return "Compte{" +
@@ -68,6 +83,7 @@ public class Compte {
                 ", user='" + user + '\'' +
                 ", password='" + password + '\'' +
                 ", profileName='" + profileName + '\'' +
+                ", commande=" + commande +
                 '}';
     }
 }

@@ -14,20 +14,18 @@ public class LigneCommande {
     @JoinColumn(name = "idJeu")
     private Jeu jeu;
 
-    @OneToOne
-    @JoinColumn(name = "idCompte")
-    private Compte compte;
+    @ManyToOne
+    @JoinColumn(name = "idCommande")
+    private Commande commande;
 
-    private boolean favori;
     private boolean panier;
 
     public LigneCommande() {
     }
 
-    public LigneCommande(Jeu jeu, Compte compte, boolean favori, boolean panier) {
+    public LigneCommande(Jeu jeu, Commande commande, boolean panier) {
         this.jeu = jeu;
-        this.compte = compte;
-        this.favori = favori;
+        this.commande = commande;
         this.panier = panier;
     }
 
@@ -39,20 +37,12 @@ public class LigneCommande {
         this.jeu = jeu;
     }
 
-    public Compte getCompte() {
-        return compte;
+    public Commande getCommande() {
+        return commande;
     }
 
-    public void setCompte(Compte compte) {
-        this.compte = compte;
-    }
-
-    public boolean isFavori() {
-        return favori;
-    }
-
-    public void setFavori(boolean favori) {
-        this.favori = favori;
+    public void setCommande(Commande commande) {
+        this.commande = commande;
     }
 
     public boolean isPanier() {
@@ -76,8 +66,6 @@ public class LigneCommande {
         return "Bibliotheque{" +
                 "idBiblio=" + idLigne +
                 ", jeu=" + jeu +
-                ", compte=" + compte +
-                ", favori=" + favori +
                 ", panier=" + panier +
                 '}';
     }

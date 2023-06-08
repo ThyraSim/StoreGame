@@ -54,44 +54,6 @@ public class LigneCommandeDao {
         return query.getResultList();
     }
 
-    public static List<LigneCommande> findLignesCommandeByCompteId(int compteId) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-        String jpql = "SELECT b FROM LigneCommande b " +
-                "JOIN b.compte c " +
-                "WHERE c.id = :compteId AND b.panier = false";
-
-        TypedQuery<LigneCommande> query = entityManager.createQuery(jpql, LigneCommande.class);
-        query.setParameter("compteId", compteId);
-
-        List<LigneCommande> ligneCommandeList = query.getResultList();
-
-        entityManager.close();
-        entityManagerFactory.close();
-
-        return ligneCommandeList;
-    }
-
-    public static List<LigneCommande> findPanierByCompteId(int compteId) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-        String jpql = "SELECT b FROM LigneCommande b " +
-                "JOIN b.compte c " +
-                "WHERE c.id = :compteId AND b.panier = true";
-
-        TypedQuery<LigneCommande> query = entityManager.createQuery(jpql, LigneCommande.class);
-        query.setParameter("compteId", compteId);
-
-        List<LigneCommande> ligneCommandeList = query.getResultList();
-
-        entityManager.close();
-        entityManagerFactory.close();
-
-        return ligneCommandeList;
-    }
-
     public static void afficherListeLigneCommande() {
         List<LigneCommande> ligneCommandeList = findAll();
         for(LigneCommande ligneCommande: ligneCommandeList) {
