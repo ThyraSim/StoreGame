@@ -53,7 +53,7 @@
                             <td>${compte.profileName}</td>
                             <td>
                                 <form action="MagasinServlet" method="POST">
-                                    <input type="hidden" name="giftId">
+                                    <input type="hidden" name="giftId" value="${compte.idCompte}">
                                     <input type="hidden" name="action" value="GIFT">
                                     <input type="submit" value="<fmt:message key="choose"/>">
                                 </form>
