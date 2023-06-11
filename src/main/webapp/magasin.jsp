@@ -49,10 +49,10 @@
 <div>
     <h1><fmt:message key="panierTitle" /></h1>
     <ul>
-        <c:forEach var="ligne" items="${panier}">
-            <li>${ligne.jeu.nomJeu} | ${ligne.jeu.prix} | ${ligne.jeu.genre} | ${ligne.jeu.description}</li>
+        <c:forEach var="jeu" items="${listeJeux}">
+            <li>${jeu.nomJeu} | ${jeu.prix} | ${jeu.genre} | ${jeu.description}</li>
             <form action="MagasinServlet" method="POST">
-                <input type="hidden" name="idLigne" value="${ligne.idLigne}">
+                <input type="hidden" name="idJeu" value="${jeu.idJeu}">
                 <input type="hidden" name="action" value="DELETE">
                 <input type="submit" value="<fmt:message key='removeCommand' />">
             </form>

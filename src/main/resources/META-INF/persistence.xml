@@ -8,7 +8,6 @@
 
     <class>entities.Jeu</class>
     <class>entities.Compte</class>
-    <class>entities.LigneCommande</class>
     <class>entities.Commande</class>
     <class>entities.Client</class>
     <!--<class>entities.panier</class>-->

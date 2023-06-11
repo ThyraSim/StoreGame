@@ -31,10 +31,6 @@ public class ConfigStartServlet extends HttpServlet {
 
             CommandeDao.insert(new Commande(CompteDao.findCompteById(1), false));
             CommandeDao.insert(new Commande(CompteDao.findCompteById(1), true));
-            LigneCommandeDao.insert(new LigneCommande(JeuDao.findJeuById(2), CommandeDao.findCommandeById(2)));
-            LigneCommandeDao.insert(new LigneCommande(JeuDao.findJeuById(3), CommandeDao.findCommandeById(2)));
-
-            LigneCommandeDao.insert(new LigneCommande(JeuDao.findJeuById(1), CommandeDao.findCommandeById(1)));
 
 
         }

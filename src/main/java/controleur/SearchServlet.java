@@ -15,7 +15,6 @@ import java.util.List;
 import util.Utilitaire;
 
 @WebServlet(name = "SearchServlet", value = "/SearchServlet")
-
 public class SearchServlet extends HttpServlet {
         protected void processRequest(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {

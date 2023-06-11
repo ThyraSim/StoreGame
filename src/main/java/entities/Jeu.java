@@ -1,7 +1,10 @@
 package entities;
 
+import dao.JeuDao;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -13,7 +16,6 @@ public class Jeu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idJeu;
 
-
     private String nomJeu;
 
     private double prix;
@@ -22,7 +24,13 @@ public class Jeu {
 
     private String description;
 
-    // Constructeurs, getters et setters
+    @ManyToMany
+    @JoinTable(
+            name = "commande_jeu",
+            joinColumns = @JoinColumn(name="idJeu"),
+            inverseJoinColumns = @JoinColumn(name="idCommande")
+    )
+    private List<Commande> commandes = new ArrayList<>();
 
     public Jeu() {
     }
@@ -74,6 +82,14 @@ public class Jeu {
         this.description = description;
     }
 
+    public List<Commande> getCommandes() {
+        return commandes;
+    }
+
+    public void setCommandes(List<Commande> commandes) {
+        this.commandes = commandes;
+    }
+
     @Override
     public String toString() {
         return "Jeu{" +
@@ -96,5 +112,18 @@ public class Jeu {
     @Override
     public int hashCode(){
         return Objects.hash(idJeu);
+    }
+
+    public void removeCommande(Commande commande){
+        for(Commande commande1: commandes){
+            if(commande1.getIdCommande() == commande.getIdCommande()){
+                commandes.remove(commande1);
+            }
+        }
+        //JeuDao.update(this);
+    }
+
+    public void addCommande(Commande commande){
+        commandes.add(commande);
     }
 }

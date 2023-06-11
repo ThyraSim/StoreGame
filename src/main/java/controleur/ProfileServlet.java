@@ -4,7 +4,6 @@ import dao.CompteDao;
 import entities.Commande;
 import entities.Compte;
 import entities.Jeu;
-import entities.LigneCommande;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,7 +19,6 @@ public class ProfileServlet extends HttpServlet {
 
         Compte compte = new Compte();
         compte.setProfileName(request.getParameter("profileName"));
-        LigneCommande ligneBibliotheque = new LigneCommande();
         //bibliotheque.setCompte(request.getParameter("user"));
 
         //récupère le compte id
@@ -40,9 +38,9 @@ public class ProfileServlet extends HttpServlet {
 
         for (Commande commande : listCommandePasse
         ) {
-            for (LigneCommande ligneCommande : commande.getLignes()
+            for (Jeu jeu : commande.getJeux()
             ) {
-                listeJeuOwned.add(ligneCommande.getJeu());
+                listeJeuOwned.add(jeu);
             }
         }
 

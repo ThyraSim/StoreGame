@@ -1,5 +1,6 @@
 package dao;
 
+import entities.Commande;
 import entities.Compte;
 import entities.Jeu;
 import jakarta.persistence.EntityManager;
@@ -71,4 +72,37 @@ public class JeuDao {
 
         return jeu;
     }
+
+//    public static boolean update(Jeu updatedJeu) {
+//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+//        EntityManager entityManager = null;
+//
+//        try {
+//            entityManager = entityManagerFactory.createEntityManager();
+//            entityManager.getTransaction().begin();
+//
+//            Jeu existingJeu = entityManager.find(Jeu.class, updatedJeu.getIdJeu());
+//
+//            if (existingJeu != null) {
+//                // Update the properties
+//                existingJeu.setCommandes(updatedJeu.getCommandes());
+//                // ... update other properties as needed
+//
+//                entityManager.getTransaction().commit();
+//                return true;
+//            } else {
+//                return false; // Commande not found
+//            }
+//        } catch (Exception e) {
+//            if (entityManager != null && entityManager.getTransaction().isActive()) {
+//                entityManager.getTransaction().rollback();
+//            }
+//            e.printStackTrace();
+//            return false;
+//        } finally {
+//            if (entityManager != null) {
+//                entityManager.close();
+//            }
+//        }
+//    }
 }

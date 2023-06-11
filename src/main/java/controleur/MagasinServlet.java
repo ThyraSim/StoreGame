@@ -1,14 +1,11 @@
 package controleur;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.CommandeDao;
 import dao.CompteDao;
 import dao.JeuDao;
-import dao.LigneCommandeDao;
 import entities.Commande;
 import entities.Compte;
 import entities.Jeu;
-import entities.LigneCommande;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -22,18 +19,6 @@ public class MagasinServlet extends HttpServlet {
     private String message;
 
     public void init() {
-//        JeuDao.insert(new Jeu("Jeu de id 2",79.99,"plateforme","Mario Bros 1"));
-//        JeuDao.insert(new Jeu("Jeu de id 3",79.99,"plateforme","Mario Bros 2"));
-//        JeuDao.insert(new Jeu("Jeu de id 4",79.99,"plateforme","Mario Bros 3"));
-//        JeuDao.insert(new Jeu("jeu de id 5",79.99,"plateforme","Mario Bros 4"));
-//        JeuDao.insert(new Jeu("Jeu de id 6",79.99,"plateforme","Mario Bros 1"));
-//        JeuDao.insert(new Jeu("Jeu de id 7",79.99,"plateforme","Mario Bros 2"));
-//        JeuDao.insert(new Jeu("Jeu de id 8",79.99,"plateforme","Mario Bros 3"));
-//        JeuDao.insert(new Jeu("jeu de id 9",79.99,"plateforme","Mario Bros 4"));
-//        JeuDao.insert(new Jeu("Jeu de id 10",79.99,"plateforme","Mario Bros 1"));
-//        JeuDao.insert(new Jeu("Jeu de id 11",79.99,"plateforme","Mario Bros 2"));
-//        JeuDao.insert(new Jeu("Jeu de id 12",79.99,"plateforme","Mario Bros 3"));
-//        JeuDao.insert(new Jeu("jeu de id 13",79.99,"plateforme","Mario Bros 4"));
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,10 +27,6 @@ public class MagasinServlet extends HttpServlet {
             response.sendRedirect("http://localhost:82/error.html");
         }
         String action = request.getParameter("action");
-        if (action != null && action.equals("DELETE")) {
-            int idLigne = Integer.parseInt(request.getParameter("idLigne"));
-            LigneCommandeDao.delete(idLigne);
-        }
         Compte compte = CompteDao.findCompteById(1);
         request.setAttribute("compteId", compte.getIdCompte());
 
@@ -80,8 +61,7 @@ public class MagasinServlet extends HttpServlet {
 
         List<Commande> commandes = compte.getCommande();
         for(Commande commande : commandes){
-            for (LigneCommande ligneCommande : commande.getLignes()) {
-                Jeu jeu = ligneCommande.getJeu();
+            for (Jeu jeu : commande.getJeux()) {
                 if (catalog.contains(jeu)) {
                     catalog.remove(jeu);
                     if(check == true){
@@ -104,22 +84,20 @@ public class MagasinServlet extends HttpServlet {
             CommandeDao.insert(panier);
 
         }
+        if (action != null && action.equals("DELETE")) {
+            int idJeu = Integer.parseInt(request.getParameter("idJeu"));
+            panier.removeJeu(idJeu);
+        }
         if (action != null && action.equals("ACHETE")) {
             //Ajouter au panier
             String index = request.getParameter("index");
 
             Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
-            LigneCommande tempCommande = new LigneCommande(monJeu, panier);
-            panier.getLignes().add(tempCommande);
-
-
-            //request.setAttribute("ajoutJeu", monJeu);
-            LigneCommandeDao.insert(tempCommande);
+            panier.addJeu(monJeu);
         }
-        if(!panier.getLignes().isEmpty()){
-            request.setAttribute("panier",panier.getLignes());
-            for (LigneCommande ligneCommande : panier.getLignes()) {
-                Jeu jeu = ligneCommande.getJeu();
+        if(!panier.getJeux().isEmpty()){
+            request.setAttribute("listeJeux",panier.getJeux());
+            for (Jeu jeu : panier.getJeux()) {
                 if (catalog.contains(jeu)) {
                     catalog.remove(jeu);
                 }

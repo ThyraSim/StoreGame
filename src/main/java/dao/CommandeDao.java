@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaUpdate;
 import jakarta.persistence.criteria.Root;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -138,6 +139,45 @@ public class CommandeDao {
             entityManagerFactory.close();
         }
     }
+
+    @Transactional
+    public static boolean update(Commande updatedCommande) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+        EntityManager entityManager = null;
+
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+
+            Commande existingCommande = entityManager.find(Commande.class, updatedCommande.getIdCommande());
+
+            if (existingCommande != null) {
+                entityManager.detach(existingCommande);
+
+                existingCommande.setJeux(updatedCommande.getJeux());
+
+                entityManager.merge(existingCommande); // Merge the updated entity
+
+                entityManager.getTransaction().commit();
+                return true;
+            } else {
+                return false; // Commande not found
+            }
+        } catch (Exception e) {
+            if (entityManager != null && entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
+    }
+
+
+
 
 //    public static List<Commande> findCommandeByCompteId(int compteId){
 //        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");

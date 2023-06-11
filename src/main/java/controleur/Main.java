@@ -3,27 +3,42 @@ package controleur;
 import dao.CommandeDao;
 import dao.CompteDao;
 import dao.JeuDao;
-import dao.LigneCommandeDao;
 import entities.Commande;
 import entities.Compte;
 import entities.Jeu;
-import entities.LigneCommande;
-
-import java.util.List;
 
 public class Main {
     public static void main(String[] args){
 //        JeuDao.insert(new Jeu("Chat", 29.99, "Action", "Le moyen de tout les temps"));
+//        JeuDao.insert(new Jeu("Jeu de id 2",79.99,"plateforme","Mario Bros 1"));
+//        JeuDao.insert(new Jeu("Jeu de id 3",79.99,"plateforme","Mario Bros 2"));
+//        JeuDao.insert(new Jeu("Jeu de id 4",79.99,"plateforme","Mario Bros 3"));
+//        JeuDao.insert(new Jeu("jeu de id 5",79.99,"plateforme","Mario Bros 4"));
+//        JeuDao.insert(new Jeu("Jeu de id 6",79.99,"plateforme","Mario Bros 1"));
+//        JeuDao.insert(new Jeu("Jeu de id 7",79.99,"plateforme","Mario Bros 2"));
+//        JeuDao.insert(new Jeu("Jeu de id 8",79.99,"plateforme","Mario Bros 3"));
+//        JeuDao.insert(new Jeu("jeu de id 9",79.99,"plateforme","Mario Bros 4"));
+//        JeuDao.insert(new Jeu("Jeu de id 10",79.99,"plateforme","Mario Bros 1"));
+//        JeuDao.insert(new Jeu("Jeu de id 11",79.99,"plateforme","Mario Bros 2"));
+//        JeuDao.insert(new Jeu("Jeu de id 12",79.99,"plateforme","Mario Bros 3"));
+//        JeuDao.insert(new Jeu("jeu de id 13",79.99,"plateforme","Mario Bros 4"));
 //        CompteDao.insert(new Compte("THEFRIEND", "Chapeau", "Orignal"));
-        CompteDao.insert(new Compte("theActualFriend", "fromage", "DaFriend"));
+//        CompteDao.insert(new Compte("theActualFriend", "fromage", "DaFriend"));
 //        CommandeDao.insert(new Commande(CompteDao.findCompteById(1), false));
-//        LigneCommandeDao.insert(new LigneCommande(JeuDao.findJeuById(1), CommandeDao.findCommandeById(1)));
+
+
 //        JeuDao.delete(2);
 //        CompteDao.delete(1);
 //        LigneCommandeDao.delete(5);
 //        JeuDao.afficherListeJeux();
 //        CompteDao.afficherListeComptes();
 //        BibliothequeDao.afficherListeBibliotheques();
+//        Commande commande = CommandeDao.findCommandeById(1);
+//        Jeu jeu = JeuDao.findJeuById(2);
+//        commande.addJeu(jeu);
+//        commande.removeJeu(1);
+
+
 
 //        List<Commande> commandes = CommandeDao.findCommandeByCompteId(1);
 //        for(Commande commande:commandes){

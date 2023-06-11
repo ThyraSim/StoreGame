@@ -1,6 +1,7 @@
 package entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dao.CommandeDao;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -18,8 +19,14 @@ public class Commande {
     @JoinColumn(name = "idCompte")
     Compte compte;
 
-    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
-    private List<LigneCommande> lignes = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.REFRESH})
+    @JoinTable(
+            name = "commande_jeu",
+            joinColumns = @JoinColumn(name="idcommande"),
+            inverseJoinColumns = @JoinColumn(name="idJeu")
+    )
+    private List<Jeu> jeux = new ArrayList<>();
 
     private boolean panier;
 
@@ -47,14 +54,6 @@ public class Commande {
         this.compte = compte;
     }
 
-    public List<LigneCommande> getLignes() {
-        return lignes;
-    }
-
-    public void setLignes(List<LigneCommande> lignes) {
-        this.lignes = lignes;
-    }
-
     public boolean isPanier() {
         return panier;
     }
@@ -63,12 +62,36 @@ public class Commande {
         this.panier = panier;
     }
 
+    public List<Jeu> getJeux() {
+        return jeux;
+    }
+
+    public void setJeux(List<Jeu> jeux) {
+        this.jeux = jeux;
+    }
+
     @Override
     public String toString() {
         return "Commande{" +
                 "idCommande=" + idCommande +
-                ", lignes=" + lignes +
+                ", compte=" + compte +
+                ", jeux=" + jeux +
                 ", panier=" + panier +
                 '}';
+    }
+
+    public void removeJeu(int idJeu){
+        for(Jeu jeu: jeux){
+            if(jeu.getIdJeu() == idJeu){
+                jeux.remove(jeu);
+                //jeu.removeCommande(this);
+            }
+        }
+        CommandeDao.update(this);
+    }
+
+    public void addJeu(Jeu jeu){
+        jeux.add(jeu);
+        CommandeDao.update(this);
     }
 }
