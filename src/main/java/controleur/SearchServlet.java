@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import util.Utilitaire;
 
 @WebServlet(name = "SearchServlet", value = "/SearchServlet")
 
@@ -19,22 +20,8 @@ public class SearchServlet extends HttpServlet {
         protected void processRequest(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
             String searchTerm = request.getParameter("searchInput");
-            List<Compte> comptes = CompteDao.findAll();
 
-            List<Compte> compteResult = new ArrayList<>();
-
-            for (Compte compte : comptes) {
-                System.out.println("Un compte");
-                System.out.println(compte.getProfileName());
-                System.out.println("Le terme");
-                System.out.println(searchTerm);
-                if (compte.getProfileName().equals(searchTerm)) {
-                    System.out.println("Success");
-                    compteResult.add(compte);
-                }
-            }
-            System.out.println("Results:");
-            System.out.println(compteResult);
+            List<Compte> compteResult = Utilitaire.findCompteByProfileName(searchTerm);
             request.setAttribute("compteResult", compteResult);
             RequestDispatcher rd = request.getRequestDispatcher("chooseFriend.jsp");
             try {

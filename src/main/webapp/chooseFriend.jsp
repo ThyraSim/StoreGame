@@ -30,11 +30,39 @@
             <input type="text" id="searchInput" name="searchInput" placeholder="<fmt:message key="search"/>">
             <input type="submit" value="<fmt:message key='btnRecherche' />">
         </form>
-        <c:if test="${not empty compteResult}">
-            <c:forEach var="compte" items="${compteResult}">
-                <p>${compte.user}</p>
-            </c:forEach>
-        </c:if>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        <fmt:message key="idcompteTableHeader" />
+                    </th>
+                    <th>
+                        <fmt:message key="userTableHeader" />
+                    </th>
+                    <th>
+                        <fmt:message key="profileNameTableHeader" />
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:if test="${not empty compteResult}">
+                    <c:forEach var="compte" items="${compteResult}">
+                        <tr>
+                            <td>${compte.idCompte}</td>
+                            <td>${compte.user}</td>
+                            <td>${compte.profileName}</td>
+                            <td>
+                                <form action="MagasinServlet" method="POST">
+                                    <input type="hidden" name="giftId">
+                                    <input type="hidden" name="action" value="GIFT">
+                                    <input type="submit" value="<fmt:message key="choose"/>">
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+            </tbody>
+        </table>
     </body>
 </fmt:bundle>
 </html>

@@ -57,11 +57,7 @@ public class MagasinServlet extends HttpServlet {
         //Gift
         if (action != null && action.equals("GIFT")){
             String giftIdString = request.getParameter("giftId");
-            if(giftIdString == null){
-                List<Compte> comptes = CompteDao.findAll();
-                ObjectMapper objectMapper = new ObjectMapper();
-                String comptesJson = objectMapper.writeValueAsString(comptes);
-                request.setAttribute("comptes", comptesJson);
+            if(giftIdString == null){ //Bouton Acheter pour un ami de la page magasin.jsp
                 String url = "chooseFriend.jsp";
                 RequestDispatcher rd = request.getRequestDispatcher(url);
                 try {
@@ -71,10 +67,11 @@ public class MagasinServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
             }
-            else{
-                CommandeDao.changePanierGift(compte.getIdCompte(), 2);
+            else{ //Bouton Choisir de la page chooseFriend.jsp
+                CommandeDao.changePanierGift(compte.getIdCompte(), Integer.parseInt(giftIdString));
             }
         }
+
         boolean check = false;
         //on génère le catalog de jeu
         List<Jeu> catalog;
