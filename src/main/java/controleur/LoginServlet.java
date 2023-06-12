@@ -45,7 +45,8 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect("MagasinServlet?action=ACHETE&index=" + index);
                     return;
                 } else{
-                    response.sendRedirect("profile.jsp");
+                    response.sendRedirect("ProfileServlet?idCompte="+compte.getIdCompte()); // Exemple de redirection vers une page de tableau de bord
+
                     return;
                 }
             }
