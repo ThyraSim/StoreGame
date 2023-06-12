@@ -15,8 +15,9 @@ public class Client {
     private String adressePhysique;
     private String adresseCourriel;
 
-    @OneToMany(mappedBy = "client")
-    private List<Compte> compte;
+    @OneToOne
+    @JoinColumn(name = "idCompte")
+    private Compte compte;
 
     public Client() {
     }
@@ -68,14 +69,13 @@ public class Client {
         this.idClient = id;
     }
 
-    public List<Compte> getCompte() {
+    public Compte getCompte() {
         return compte;
     }
 
-    public void setCompte(List<Compte> compte) {
+    public void setCompte(Compte compte) {
         this.compte = compte;
     }
-
 
     @Override
     public String toString() {

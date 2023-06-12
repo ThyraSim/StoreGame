@@ -26,8 +26,7 @@ public class Compte {
     private String profileName;
 
 
-    @ManyToOne
-    @JoinColumn(name = "idClient")
+    @OneToOne (mappedBy = "compte")
     private Client client;
 
     @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
