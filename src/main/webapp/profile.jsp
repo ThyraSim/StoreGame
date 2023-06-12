@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Profil utilisateur</title>
@@ -37,20 +36,26 @@
             margin-right: 10px;
         }
     </style>
-</head>
+
+
 <body>
-<fmt:bundle basename="MessagesBundle">
 <div class="profile">
     <div class="profile-image"></div>
-    <h2>Nom de l'utilisateur</h2>
+    <h2>${compte.profileName}</h2>
 </div>
+<h2>Liste de Jeu</h2>
 <h3><fmt:message key="favoritTitle"/>:</h3>
+<c:if test="${not empty commandes}">
     <ul>
-        <c:forEach var="jeu" items="${listeJeuOwned}">
-            <li>${jeu.nomJeu} | ${jeu.prix} | ${jeu.genre} | ${jeu.description}</li>
-
+        <c:forEach var="commande" items="${commandes}">
+            <c:if test="${not empty commande.jeux}">
+                <c:forEach var="jeu" items="${commande.jeux}">
+                    <li>${jeu.nomJeu} | ${jeu.prix} | ${jeu.genre} | ${jeu.description}</li>
+                </c:forEach>
+            </c:if>
         </c:forEach>
+
     </ul>
-</fmt:bundle>
+</c:if>
 </body>
 </html>
