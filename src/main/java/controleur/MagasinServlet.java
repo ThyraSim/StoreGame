@@ -36,7 +36,7 @@ public class MagasinServlet extends HttpServlet {
         boolean check = false;
         //on génère le catalog de jeu
         List<Jeu> catalog;
-//        List<Jeu> owned = new ArrayList<>();
+        List<Jeu> owned = new ArrayList<>();
         catalog = JeuDao.findAll();
         Commande panier = new Commande();
         if(compte != null){
@@ -45,15 +45,14 @@ public class MagasinServlet extends HttpServlet {
                 for (Jeu jeu : commande.getJeux()) {
                     if (catalog.contains(jeu)) {
                         catalog.remove(jeu);
-//                        if(check == true){
-//                            owned.add(jeu);
-//                        }
+                        owned.add(jeu);
                     }
                 }
             }
             panier = compte.trouvePanier();
             if(panier == null){
                 panier = new Commande(compte, true);
+                compte.createPanier(panier);
                 CommandeDao.insert(panier);
             }
         }
@@ -63,8 +62,6 @@ public class MagasinServlet extends HttpServlet {
         }
         if (action != null && action.equals("ACHETE")) {
             String index = request.getParameter("index");
-            System.out.println("chien:");
-            System.out.println(index);
             if (compte == null) {
                 // User is not logged in, redirect to Log in Servlet
                 response.sendRedirect("LoginServlet?index=" + index);
@@ -73,7 +70,9 @@ public class MagasinServlet extends HttpServlet {
             //Ajouter au panier
 
             Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
-            panier.addJeu(monJeu);
+            if(!panier.getJeux().contains(monJeu)){
+                panier.addJeu(monJeu);
+            }
         }
         if(!panier.getJeux().isEmpty()){
             request.setAttribute("listeJeux",panier.getJeux());
@@ -84,6 +83,13 @@ public class MagasinServlet extends HttpServlet {
             }
         }
         request.setAttribute("catalog", catalog);
+        boolean noOwned = true;
+        for(Jeu jeu:owned){
+            if(panier.getJeux().contains(jeu)){
+                noOwned = false;
+            }
+        }
+        request.setAttribute("noOwned", noOwned);
         String url = "magasin.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(url);
         try {

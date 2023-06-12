@@ -30,9 +30,9 @@ public class Compte {
     @JoinColumn(name = "idClient")
     private Client client;
 
-    @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<Commande> commande;
+    private List<Commande> commande = new ArrayList<>();
 
     public Compte() {
     }
@@ -86,6 +86,10 @@ public class Compte {
             }
         }
         return null;
+    }
+
+    public void createPanier(Commande panier){
+        commande.add(panier);
     }
 
     public void setCommande(List<Commande> commande) {
