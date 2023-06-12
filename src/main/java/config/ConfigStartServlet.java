@@ -16,7 +16,7 @@ public class ConfigStartServlet extends HttpServlet {
         if (JeuDao.findAll().isEmpty() && CommandeDao.findAll().isEmpty() && ClientDao.findAll().isEmpty() && CompteDao.findAll().isEmpty()) {
 
             Client client1 = new Client("admin", "admin", null, null);
-            Client client2 = new Client("Beaudry", "Simon", "55 rue de l'orme", "Tyzral@gmail.com");
+            Client client2 = new Client("Beaudry", "Simon", "5150 rues des ormes", "Tyzral@gmail.com");
             Client client3 = new Client("Mercier", "Francis", "221B Baker Street", "Grimworld@gmail.com");
             Client client4 = new Client("Ami", "Ami", "50 rue l'Amitié", "ami@gmail.com");
 
