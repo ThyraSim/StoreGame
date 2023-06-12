@@ -24,7 +24,7 @@ public class Main {
 //        JeuDao.insert(new Jeu("jeu de id 13",79.99,"plateforme","Mario Bros 4"));
 //        CompteDao.insert(new Compte("THEFRIEND", "Chapeau", "Orignal"));
 //        CompteDao.insert(new Compte("theActualFriend", "fromage", "DaFriend"));
-
+        CompteDao.delete(3);
 //        CommandeDao.insert(new Commande(CompteDao.findCompteById(1), false));
 //          Compte compte = CompteDao.findCompteById(1);
 //          Commande commande = compte.getCommande().get(0);

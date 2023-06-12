@@ -50,10 +50,11 @@
         <c:forEach var="commande" items="${commandes}">
             <c:if test="${not empty commande.jeux}">
                 <c:forEach var="jeu" items="${commande.jeux}">
-                    <li>${jeu.nomJeu} | ${jeu.prix} | <span class="badge bg-secondary">${jeu.genre}</span> | ${jeu.description}</li>
+                    <li>${jeu.nomJeu} | ${jeu.genre} | ${jeu.description}</li>
                 </c:forEach>
             </c:if>
         </c:forEach>
+
     </ul>
 </c:if>
 </body>
