@@ -26,11 +26,16 @@ public class LoginServlet extends HttpServlet {
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        List<Compte> compteList = CompteDao.findAll();
+        List<Compte> compteList = (List<Compte>) session.getAttribute("ListeComptes");
+        if(compteList == null){
+            compteList = CompteDao.findAll();
+            session.setAttribute("ListeComptes", compteList);
+        }
         String index = request.getParameter("index");
         request.setAttribute("index", index);
         System.out.println("chien:");
@@ -39,9 +44,8 @@ public class LoginServlet extends HttpServlet {
             if (compte.getUser().equals(username) && compte.getPassword().equals(password)) {
                 // L'utilisateur est authentifié
                 // Ajoutez votre logique ici pour rediriger ou effectuer d'autres opérations
-                HttpSession session = request.getSession();
                 session.setAttribute("loggedInAccount", compte);
-                if(index != null){
+                    if(index != null){
                     response.sendRedirect("MagasinServlet?action=ACHETE&index=" + index);
                     return;
                 } else{

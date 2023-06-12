@@ -26,6 +26,8 @@ public class CheckOutServlet extends HttpServlet {
             response.sendRedirect("http://localhost:82/error.html");
         }
 
+        Commande panier = (Commande) session.getAttribute("panier");
+
         //Récupération de l'action de la requête
         String action = request.getParameter("action");
 
@@ -35,7 +37,7 @@ public class CheckOutServlet extends HttpServlet {
         //Self checkout
         if (action != null && action.equals("SELF")) {
             CommandeDao.changePanier(compte.getIdCompte());
-            for(Commande commande : compte.getCommande()){
+            for(Commande commande : compte.getCommandes()){
                 if(commande.isPanier()){
                     commande.setPanier(false);
                 }
@@ -56,12 +58,13 @@ public class CheckOutServlet extends HttpServlet {
                 }
             }
             else{ //Bouton Choisir de la page chooseFriend.jsp
-                for(Commande commande : compte.getCommande()){
+                for(Commande commande : compte.getCommandes()){
                     if(commande.isPanier()){
                         commande.setPanier(false);
                     }
                 }
                 CommandeDao.changePanierGift(compte.getIdCompte(), Integer.parseInt(giftIdString));
+                compte.removeCommande(panier);
             }
         }
         String url = "MagasinServlet";

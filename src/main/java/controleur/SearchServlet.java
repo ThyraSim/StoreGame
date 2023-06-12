@@ -2,6 +2,7 @@ package controleur;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.CompteDao;
+import entities.Commande;
 import entities.Compte;
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -19,8 +20,11 @@ public class SearchServlet extends HttpServlet {
         protected void processRequest(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
             String searchTerm = request.getParameter("searchInput");
-
-            List<Compte> compteResult = Utilitaire.findCompteByProfileName(searchTerm);
+            HttpSession session = request.getSession();
+            List<Compte> comptes = (List<Compte>) session.getAttribute("ListeComptes");
+            Compte compte = (Compte) session.getAttribute("loggedInAccount");
+            Commande panier = (Commande) session.getAttribute("panier");
+            List<Compte> compteResult = Utilitaire.findCompteByProfileName(searchTerm, comptes, compte, panier);
             request.setAttribute("compteResult", compteResult);
             RequestDispatcher rd = request.getRequestDispatcher("chooseFriend.jsp");
             try {
