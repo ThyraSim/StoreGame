@@ -10,8 +10,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
+<fmt:bundle basename="MessagesBundle">
 <head>
-    <title>Profil utilisateur</title>
+    <title><fmt:message key="userProfileTitle" /></title>
     <link
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             rel="stylesheet"
@@ -51,4 +52,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
 </body>
+</fmt:bundle>
 </html>

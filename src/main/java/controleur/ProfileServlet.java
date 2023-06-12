@@ -17,15 +17,15 @@ public class ProfileServlet extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        int idCompte = Integer.parseInt(request.getParameter("idCompte"));
-
-        // Charger le compte depuis la BD
-        Compte compte = CompteDao.findCompteById(idCompte);
+        HttpSession session = request.getSession();
+        Compte compte = (Compte) session.getAttribute("loggedInAccount");
+        if(compte == null){
+            response.sendRedirect("LoginServlet");
+            return;
+        }
 
         // Charger les commandes du compte
         List<Commande> commandes = compte.getCommandes();
-        System.out.println("chat");
-        System.out.println(compte);
         request.setAttribute("compte", compte);
 
         request.setAttribute("commandes", commandes);
