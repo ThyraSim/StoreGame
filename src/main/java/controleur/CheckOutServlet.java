@@ -26,6 +26,8 @@ public class CheckOutServlet extends HttpServlet {
             response.sendRedirect("http://localhost:82/error.html");
         }
 
+        Commande panier = (Commande) session.getAttribute("panier");
+
         //Récupération de l'action de la requête
         String action = request.getParameter("action");
 
@@ -62,6 +64,7 @@ public class CheckOutServlet extends HttpServlet {
                     }
                 }
                 CommandeDao.changePanierGift(compte.getIdCompte(), Integer.parseInt(giftIdString));
+                compte.removeCommande(panier);
             }
         }
         String url = "MagasinServlet";

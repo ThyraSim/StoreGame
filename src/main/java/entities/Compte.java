@@ -96,6 +96,14 @@ public class Compte {
         }
     }
 
+    public void removeCommande(Commande commande){
+        for(Commande commande1:commandes){
+            if(commande1.getIdCommande() == commande.getIdCommande()){
+                commandes.remove(commande1);
+            }
+        }
+    }
+
     public void createPanier(Commande panier){
         commandes.add(panier);
     }
