@@ -5,60 +5,10 @@
   Time: 13:55
   To change this template use File | Settings | File Templates.
 --%>
-<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
-<%--<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title>Profil utilisateur</title>--%>
-<%--    <link--%>
-<%--            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"--%>
-<%--            rel="stylesheet"--%>
-<%--            crossorigin="anonymous"/>--%>
-
-<%--    <style>--%>
-<%--        .profile {--%>
-<%--            display: flex;--%>
-<%--            align-items: center;--%>
-<%--            margin-bottom: 10px;--%>
-<%--        }--%>
-
-<%--        .profile-image {--%>
-<%--            width: 50px;--%>
-<%--            height: 50px;--%>
-<%--            background-color: red;--%>
-<%--            border-radius: 50%;--%>
-<%--            margin-right: 10px;--%>
-<%--        }--%>
-<%--    </style>--%>
-
-
-<%--<body>--%>
-<%--<div class="profile">--%>
-<%--    <div class="profile-image"></div>--%>
-<%--    <h2>${compte.profileName}</h2>--%>
-<%--</div>--%>
-<%--<h2>Liste de Jeu</h2>--%>
-<%--<h3><fmt:message key="favoritTitle"/>:</h3>--%>
-<%--<c:if test="${not empty commandes}">--%>
-<%--    <ul>--%>
-<%--        <c:forEach var="commande" items="${commandes}">--%>
-<%--            <c:if test="${not empty commande.jeux}">--%>
-<%--                <c:forEach var="jeu" items="${commande.jeux}">--%>
-<%--                    <li>${jeu.nomJeu} | ${jeu.genre} | ${jeu.description}</li>--%>
-<%--                </c:forEach>--%>
-<%--            </c:if>--%>
-<%--        </c:forEach>--%>
-
-<%--    </ul>--%>
-<%--</c:if>--%>
-<%--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>--%>
-<%--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>--%>
-<%--<script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>--%>
-<%--</body>--%>
-<%--</html>--%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Profil utilisateur</title>
@@ -80,14 +30,14 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h2>Liste de Jeu</h2>
+            <h2><fmt:message key="listeJeuTitle"/></h2>
             <h3><fmt:message key="favoritTitle"/>:</h3>
             <c:if test="${not empty commandes}">
                 <ul class="list-group">
                     <c:forEach var="commande" items="${commandes}">
                         <c:if test="${not empty commande.jeux}">
                             <c:forEach var="jeu" items="${commande.jeux}">
-                                <li class="list-group-item">${jeu.nomJeu} | ${jeu.genre} | ${jeu.description}</li>
+                                <li class="list-group-item">${jeu.nomJeu} | <fmt:message key="${jeu.genre}" /> | ${jeu.description}</li>
                             </c:forEach>
                         </c:if>
                     </c:forEach>
