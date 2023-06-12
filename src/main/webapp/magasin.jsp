@@ -59,13 +59,13 @@
         </c:forEach>
     </ul>
     <c:if test="${noOwned}">
-        <form action="MagasinServlet" method="POST">
+        <form action="CheckOutServlet" method="POST">
             <input type="hidden" name="liste" value="${compteId}">
             <input type="hidden" name="action" value="SELF">
             <input type="submit" value="<fmt:message key='selfCommand' />">
         </form>
     </c:if>
-    <form action="MagasinServlet" method="POST">
+    <form action="CheckOutServlet" method="POST">
         <input type="hidden" name="liste" value="${compteId}">
         <input type="hidden" name="action" value="GIFT">
         <input type="submit" value="<fmt:message key='giftCommand' />">
