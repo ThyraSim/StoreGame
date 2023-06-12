@@ -32,7 +32,7 @@ public class Compte {
 
     @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<Commande> commande = new ArrayList<>();
+    private List<Commande> commandes = new ArrayList<>();
 
     public Compte() {
     }
@@ -75,12 +75,12 @@ public class Compte {
         this.profileName = profileName;
     }
 
-    public List<Commande> getCommande() {
-        return commande;
+    public List<Commande> getCommandes() {
+        return commandes;
     }
 
     public Commande trouvePanier(){
-        for(Commande commande1: commande){
+        for(Commande commande1: commandes){
             if(commande1.isPanier()){
                 return commande1;
             }
@@ -88,12 +88,20 @@ public class Compte {
         return null;
     }
 
-    public void createPanier(Commande panier){
-        commande.add(panier);
+    public void updateCommande(Commande commande){
+        for(Commande commande1:commandes){
+            if(commande1.getIdCommande() == commande.getIdCommande()){
+                commandes.set(commandes.indexOf(commande1), commande);
+            }
+        }
     }
 
-    public void setCommande(List<Commande> commande) {
-        this.commande = commande;
+    public void createPanier(Commande panier){
+        commandes.add(panier);
+    }
+
+    public void setCommande(List<Commande> commandes) {
+        this.commandes = commandes;
     }
 
     @Override

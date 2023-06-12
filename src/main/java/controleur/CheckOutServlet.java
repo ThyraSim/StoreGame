@@ -35,7 +35,7 @@ public class CheckOutServlet extends HttpServlet {
         //Self checkout
         if (action != null && action.equals("SELF")) {
             CommandeDao.changePanier(compte.getIdCompte());
-            for(Commande commande : compte.getCommande()){
+            for(Commande commande : compte.getCommandes()){
                 if(commande.isPanier()){
                     commande.setPanier(false);
                 }
@@ -56,7 +56,7 @@ public class CheckOutServlet extends HttpServlet {
                 }
             }
             else{ //Bouton Choisir de la page chooseFriend.jsp
-                for(Commande commande : compte.getCommande()){
+                for(Commande commande : compte.getCommandes()){
                     if(commande.isPanier()){
                         commande.setPanier(false);
                     }

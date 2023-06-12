@@ -30,22 +30,35 @@ public class MagasinServlet extends HttpServlet {
         //Récupération de l'action de la requête
         String action = request.getParameter("action");
 
+        //Récupération de tous les comptes
+        List<Compte> comptes = (List<Compte>) session.getAttribute("ListeComptes");
+
+        //Pour la première ouverture
+        if(comptes == null){
+            comptes = CompteDao.findAll();
+            session.setAttribute("ListeComptes", comptes);
+        }
+
         //Récupération du code connecté
         Compte compte = (Compte) session.getAttribute("loggedInAccount");
 
         boolean check = false;
-        //on génère le catalog de jeu
-        List<Jeu> catalog;
+        //on récupère le catalog de jeu
+        List<Jeu> catalog = (List<Jeu>) session.getAttribute("ListeJeux");
+        if(catalog == null){ //Génère le catalog à la première ouverture
+            catalog = JeuDao.findAll();
+        }
         List<Jeu> owned = new ArrayList<>();
-        catalog = JeuDao.findAll();
         Commande panier = new Commande();
         if(compte != null){
-            List<Commande> commandes = compte.getCommande();
+            List<Commande> commandes = compte.getCommandes();
             for(Commande commande : commandes){
-                for (Jeu jeu : commande.getJeux()) {
-                    if (catalog.contains(jeu)) {
-                        catalog.remove(jeu);
-                        owned.add(jeu);
+                if(!commande.isPanier()){
+                    for (Jeu jeu : commande.getJeux()) {
+                        if (catalog.contains(jeu)) {
+                            catalog.remove(jeu);
+                            owned.add(jeu);
+                        }
                     }
                 }
             }
@@ -59,6 +72,7 @@ public class MagasinServlet extends HttpServlet {
         if (action != null && action.equals("DELETE")) {
             int idJeu = Integer.parseInt(request.getParameter("idJeu"));
             panier.removeJeu(idJeu);
+            compte.updateCommande(panier);
         }
         if (action != null && action.equals("ACHETE")) {
             String index = request.getParameter("index");
@@ -72,6 +86,7 @@ public class MagasinServlet extends HttpServlet {
             Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
             if(!panier.getJeux().contains(monJeu)){
                 panier.addJeu(monJeu);
+                compte.updateCommande(panier);
             }
         }
         if(!panier.getJeux().isEmpty()){
@@ -90,6 +105,7 @@ public class MagasinServlet extends HttpServlet {
             }
         }
         request.setAttribute("noOwned", noOwned);
+        session.setAttribute("panier", panier);
         String url = "magasin.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(url);
         try {
