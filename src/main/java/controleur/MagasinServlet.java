@@ -26,71 +26,51 @@ public class MagasinServlet extends HttpServlet {
         if (session == null) {
             response.sendRedirect("http://localhost:82/error.html");
         }
+
+        //Récupération de l'action de la requête
         String action = request.getParameter("action");
-        Compte compte = CompteDao.findCompteById(1);
-        request.setAttribute("compteId", compte.getIdCompte());
 
-        //Self checkout
-        if (action != null && action.equals("SELF")) {
-            CommandeDao.changePanier(compte.getIdCompte());
-        }
-
-        //Gift
-        if (action != null && action.equals("GIFT")){
-            String giftIdString = request.getParameter("giftId");
-            if(giftIdString == null){ //Bouton Acheter pour un ami de la page magasin.jsp
-                String url = "chooseFriend.jsp";
-                RequestDispatcher rd = request.getRequestDispatcher(url);
-                try {
-                    rd.forward(request, response);
-                } catch (ServletException e) {
-                    e.printStackTrace();
-                    throw new RuntimeException(e);
-                }
-            }
-            else{ //Bouton Choisir de la page chooseFriend.jsp
-                CommandeDao.changePanierGift(compte.getIdCompte(), Integer.parseInt(giftIdString));
-            }
-        }
+        //Récupération du code connecté
+        Compte compte = (Compte) session.getAttribute("loggedInAccount");
 
         boolean check = false;
         //on génère le catalog de jeu
         List<Jeu> catalog;
-        List<Jeu> owned = new ArrayList<>();
+//        List<Jeu> owned = new ArrayList<>();
         catalog = JeuDao.findAll();
-
-        List<Commande> commandes = compte.getCommande();
-        for(Commande commande : commandes){
-            for (Jeu jeu : commande.getJeux()) {
-                if (catalog.contains(jeu)) {
-                    catalog.remove(jeu);
-                    if(check == true){
-                        owned.add(jeu);
+        Commande panier = new Commande();
+        if(compte != null){
+            List<Commande> commandes = compte.getCommande();
+            for(Commande commande : commandes){
+                for (Jeu jeu : commande.getJeux()) {
+                    if (catalog.contains(jeu)) {
+                        catalog.remove(jeu);
+//                        if(check == true){
+//                            owned.add(jeu);
+//                        }
                     }
                 }
             }
-        }
-
-        request.setAttribute("catalog", catalog);
-        request.setAttribute("owned", owned);
-
-        // AJOUTER JEU AU PANIER
-
-        //Ajouter au panier si action = ACHETE,
-
-        Commande panier = compte.trouvePanier();
-        if(panier == null){
-            panier = new Commande(compte, true);
-            CommandeDao.insert(panier);
-
+            panier = compte.trouvePanier();
+            if(panier == null){
+                panier = new Commande(compte, true);
+                CommandeDao.insert(panier);
+            }
         }
         if (action != null && action.equals("DELETE")) {
             int idJeu = Integer.parseInt(request.getParameter("idJeu"));
             panier.removeJeu(idJeu);
         }
         if (action != null && action.equals("ACHETE")) {
-            //Ajouter au panier
             String index = request.getParameter("index");
+            System.out.println("chien:");
+            System.out.println(index);
+            if (compte == null) {
+                // User is not logged in, redirect to Log in Servlet
+                response.sendRedirect("LoginServlet?index=" + index);
+                return;
+            }
+            //Ajouter au panier
 
             Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
             panier.addJeu(monJeu);
@@ -103,8 +83,7 @@ public class MagasinServlet extends HttpServlet {
                 }
             }
         }
-        Boolean noOwned = true;
-        request.setAttribute("noOwned", noOwned);
+        request.setAttribute("catalog", catalog);
         String url = "magasin.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(url);
         try {

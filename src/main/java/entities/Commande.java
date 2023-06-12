@@ -3,6 +3,7 @@ package entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dao.CommandeDao;
 import jakarta.persistence.*;
+import util.Utilitaire;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,14 +85,12 @@ public class Commande {
         for(Jeu jeu: jeux){
             if(jeu.getIdJeu() == idJeu){
                 jeux.remove(jeu);
-                //jeu.removeCommande(this);
             }
         }
         CommandeDao.update(this);
     }
 
     public void addJeu(Jeu jeu){
-        jeux.add(jeu);
-        CommandeDao.update(this);
+        Utilitaire.addJeu(this, jeu);
     }
 }

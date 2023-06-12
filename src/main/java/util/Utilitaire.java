@@ -1,7 +1,10 @@
 package util;
 
+import dao.CommandeDao;
 import dao.CompteDao;
+import entities.Commande;
 import entities.Compte;
+import entities.Jeu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,13 @@ public class Utilitaire {
             }
         }
         return compteResult;
+    }
+
+    public static void addJeu(Commande commande, Jeu jeu){
+        List<Jeu> jeux = new ArrayList<>();
+        jeux.add(jeu);
+        commande.setJeux(jeux);
+        CommandeDao.update(commande);
     }
 
 }
