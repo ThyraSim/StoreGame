@@ -29,7 +29,7 @@ public class ProfileServlet extends HttpServlet {
         compte = CompteDao.findCompteById(compteiD);
 
         // on récupère la liste de toutes les commandes passé
-        List<Commande> listCommandePasse = compte.getCommande();
+        List<Commande> listCommandePasse = compte.getCommandes();
 
         //déclare la list qui va contenir les jeu des commandes passé
         List<Jeu> listeJeuOwned = new ArrayList<>();

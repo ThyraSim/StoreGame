@@ -92,10 +92,8 @@ public class Commande {
                 break;
             }
         }
-
         CommandeDao.update(this);
     }
-
 
     public void addJeu(Jeu jeu){
         jeux.add(jeu);
