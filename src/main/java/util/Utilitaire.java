@@ -21,12 +21,4 @@ public class Utilitaire {
         }
         return compteResult;
     }
-
-    public static void addJeu(Commande commande, Jeu jeu){
-        List<Jeu> jeux = new ArrayList<>();
-        jeux.add(jeu);
-        commande.setJeux(jeux);
-        CommandeDao.update(commande);
-    }
-
 }

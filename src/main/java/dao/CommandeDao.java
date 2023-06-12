@@ -2,6 +2,7 @@ package dao;
 
 import entities.Commande;
 import entities.Compte;
+import entities.Jeu;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaUpdate;
@@ -152,9 +153,12 @@ public class CommandeDao {
             Commande existingCommande = entityManager.find(Commande.class, updatedCommande.getIdCommande());
 
             if (existingCommande != null) {
-                entityManager.detach(existingCommande);
+                existingCommande.getJeux().clear(); // Clear the existing Jeux collection
 
-                existingCommande.setJeux(updatedCommande.getJeux());
+                // Add the Jeu objects from the updatedCommande to the existingCommande
+                for (Jeu jeu : updatedCommande.getJeux()) {
+                    existingCommande.getJeux().add(jeu);
+                }
 
                 entityManager.merge(existingCommande); // Merge the updated entity
 
@@ -175,6 +179,8 @@ public class CommandeDao {
             }
         }
     }
+
+
 
 
 

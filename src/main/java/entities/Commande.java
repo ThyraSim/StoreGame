@@ -3,9 +3,9 @@ package entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dao.CommandeDao;
 import jakarta.persistence.*;
-import util.Utilitaire;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -81,16 +81,24 @@ public class Commande {
                 '}';
     }
 
-    public void removeJeu(int idJeu){
-        for(Jeu jeu: jeux){
-            if(jeu.getIdJeu() == idJeu){
-                jeux.remove(jeu);
+    public void removeJeu(int idJeu) {
+        Iterator<Jeu> iterator = jeux.iterator();
+
+        while (iterator.hasNext()) {
+            Jeu jeu = iterator.next();
+
+            if (jeu.getIdJeu() == idJeu) {
+                iterator.remove();
+                break;
             }
         }
+
         CommandeDao.update(this);
     }
 
+
     public void addJeu(Jeu jeu){
-        Utilitaire.addJeu(this, jeu);
+        jeux.add(jeu);
+        CommandeDao.update(this);
     }
 }
