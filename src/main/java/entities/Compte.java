@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -96,13 +97,19 @@ public class Compte {
         }
     }
 
-    public void removeCommande(Commande commande){
-        for(Commande commande1:commandes){
-            if(commande1.getIdCommande() == commande.getIdCommande()){
-                commandes.remove(commande1);
+    public void removeCommande(Commande commande) {
+        Iterator<Commande> iterator = commandes.iterator();
+
+        while (iterator.hasNext()) {
+            Commande commande1 = iterator.next();
+
+            if (commande1.getIdCommande() == commande.getIdCommande()) {
+                iterator.remove();
+                break;
             }
         }
     }
+
 
     public void createPanier(Commande panier){
         commandes.add(panier);
