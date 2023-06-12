@@ -51,8 +51,8 @@
     <label for="username">Nom d'utilisateur:</label>
     <input type="text" id="username" name="username" required><br><br>
 
-    <label for="profileUser">Nom de Profile:</label>
-    <input type="text" id="profileUser" name="profileUser" required><br><br>
+    <label for="profileName">Nom de Profile:</label>
+    <input type="text" id="profileName" name="profileName" required><br><br>
 
     <label for="password">Mot de passe:</label>
     <input type="password" id="password" name="password" required><br><br>
