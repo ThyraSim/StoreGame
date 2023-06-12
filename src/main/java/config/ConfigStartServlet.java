@@ -26,10 +26,10 @@ public class ConfigStartServlet extends HttpServlet {
             CompteDao.insert(new Compte("THEFRIEND", "123", "ami"));
 
 
-            client1.setCompte(CompteDao.findCompteById(1));
-            client2.setCompte(CompteDao.findCompteById(2));
-            client3.setCompte(CompteDao.findCompteById(3));
-            client4.setCompte(CompteDao.findCompteById(4));
+//            client1.setCompte(CompteDao.findCompteById(1));
+//            client2.setCompte(CompteDao.findCompteById(2));
+//            client3.setCompte(CompteDao.findCompteById(3));
+//            client4.setCompte(CompteDao.findCompteById(4));
 
             ClientDao.insert(client1);
             ClientDao.insert(client2);

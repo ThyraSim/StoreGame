@@ -75,7 +75,6 @@ public class Commande {
     public String toString() {
         return "Commande{" +
                 "idCommande=" + idCommande +
-                ", compte=" + compte +
                 ", jeux=" + jeux +
                 ", panier=" + panier +
                 '}';

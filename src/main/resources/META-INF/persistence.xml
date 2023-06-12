@@ -10,7 +10,6 @@
     <class>entities.Compte</class>
     <class>entities.Commande</class>
     <class>entities.Client</class>
-    <!--<class>entities.panier</class>-->
 
     <properties>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/storeGame?createDatabaseIfNotExist=true"/>

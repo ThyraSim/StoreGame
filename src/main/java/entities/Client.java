@@ -15,10 +15,6 @@ public class Client {
     private String adressePhysique;
     private String adresseCourriel;
 
-    @OneToOne
-    @JoinColumn(name = "idCompte")
-    private Compte compte;
-
     public Client() {
     }
 
@@ -69,14 +65,6 @@ public class Client {
         this.idClient = id;
     }
 
-    public Compte getCompte() {
-        return compte;
-    }
-
-    public void setCompte(Compte compte) {
-        this.compte = compte;
-    }
-
     @Override
     public String toString() {
         return "Client{" +
@@ -85,7 +73,6 @@ public class Client {
                 ", prenom='" + prenom + '\'' +
                 ", adressePhysique='" + adressePhysique + '\'' +
                 ", adresseCourriel='" + adresseCourriel + '\'' +
-                ", compte=" + compte +
                 '}';
     }
 }

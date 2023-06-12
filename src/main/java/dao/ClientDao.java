@@ -1,7 +1,7 @@
 package dao;
 
 import entities.Client;
-import entities.Jeu;
+import entities.Compte;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -11,30 +11,29 @@ import java.util.List;
 
 public class ClientDao {
 
-    public static void insert(Client client){
+    public static void insert(Client client) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
-        EntityManager entityManager = null;
-        try{
-            entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+        try {
             entityManager.getTransaction().begin();
             entityManager.persist(client);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
         }
     }
+
     public static boolean delete(Integer id) {
-        EntityManagerFactory entityManagerFactory =
-                Persistence.createEntityManagerFactory("connection");
-        EntityManager entityManager = null;
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
         try {
-
-            entityManager = entityManagerFactory.createEntityManager();
-
             entityManager.getTransaction().begin();
-
             entityManager.remove(entityManager.find(Client.class, id));
             entityManager.getTransaction().commit();
             return true;
@@ -42,26 +41,60 @@ public class ClientDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
         }
-
     }
 
     public static List<Client> findAll() {
-        EntityManagerFactory entityManagerFactory =
-                Persistence.createEntityManagerFactory("connection");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Query query = entityManager.createQuery("select i from Client i");
-        return query.getResultList();
+        try {
+            Query query = entityManager.createQuery("SELECT c FROM Client c");
+            return query.getResultList();
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
     }
-
 
     public static Client findClientById(int id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Client client = entityManager.find(Client.class, id);
+        try {
+            return entityManager.find(Client.class, id);
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
+    }
 
-        return client;
+    public static Client findClientByCompteId(int compteId) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        try {
+            return entityManager.find(Client.class, compteId);
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
+    }
+
+    public static Client findClientByCompte(Compte compte) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        try {
+            Query query = entityManager.createQuery("SELECT c FROM Client c WHERE c.compte = :compte");
+            query.setParameter("compte", compte);
+            return (Client) query.getSingleResult();
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
     }
 }

@@ -10,31 +10,29 @@ import java.util.List;
 
 public class CompteDao {
 
-    public static void insert(Compte compte){
+    public static void insert(Compte compte) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
-        EntityManager entityManager = null;
-        try{
-            entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+        try {
             entityManager.getTransaction().begin();
             entityManager.persist(compte);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
         }
     }
 
     public static boolean delete(Integer id) {
-        EntityManagerFactory entityManagerFactory =
-                Persistence.createEntityManagerFactory("connection");
-        EntityManager entityManager = null;
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
         try {
-
-            entityManager = entityManagerFactory.createEntityManager();
-
             entityManager.getTransaction().begin();
-
             entityManager.remove(entityManager.find(Compte.class, id));
             entityManager.getTransaction().commit();
             return true;
@@ -42,23 +40,28 @@ public class CompteDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
         }
-
     }
 
     public static List<Compte> findAll() {
-        EntityManagerFactory entityManagerFactory =
-                Persistence.createEntityManagerFactory("connection");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-
-        Query query = entityManager.createQuery("select i from Compte i");
-        return query.getResultList();
+        try {
+            Query query = entityManager.createQuery("SELECT i FROM Compte i");
+            return query.getResultList();
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
     }
 
     public static void afficherListeComptes() {
         List<Compte> compteList = findAll();
-        for(Compte compte: compteList) {
+        for (Compte compte : compteList) {
             System.out.print(compte + " ");
         }
     }
@@ -67,8 +70,11 @@ public class CompteDao {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Compte compte = entityManager.find(Compte.class, id);
-
-        return compte;
+        try {
+            return entityManager.find(Compte.class, id);
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
     }
 }

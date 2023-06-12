@@ -48,11 +48,10 @@ public class CommandeDao {
 
     }
 
-        public static List<Commande> findAll() {
+    public static List<Commande> findAll() {
         EntityManagerFactory entityManagerFactory =
                 Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-
 
         Query query = entityManager.createQuery("select i from Commande i");
 

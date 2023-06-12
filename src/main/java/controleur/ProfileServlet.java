@@ -31,7 +31,6 @@ public class ProfileServlet extends HttpServlet {
         request.setAttribute("commandes", commandes);
         RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
         dispatcher.forward(request, response);
-
     }
 
     @Override

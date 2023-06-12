@@ -26,8 +26,8 @@ public class Compte {
     @Column(name = "profilename")
     private String profileName;
 
-
-    @OneToOne (mappedBy = "compte")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
     private Client client;
 
     @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -118,6 +118,18 @@ public class Compte {
         this.commandes = commandes;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setCommandes(List<Commande> commandes) {
+        this.commandes = commandes;
+    }
+
     @Override
     public String toString() {
         return "Compte{" +
@@ -125,6 +137,8 @@ public class Compte {
                 ", user='" + user + '\'' +
                 ", password='" + password + '\'' +
                 ", profileName='" + profileName + '\'' +
+                ", client=" + client +
+                ", commandes=" + commandes +
                 '}';
     }
 }
