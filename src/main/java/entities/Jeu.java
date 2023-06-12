@@ -20,7 +20,9 @@ public class Jeu {
 
     private double prix;
 
-    private String genre;
+    @ManyToOne
+    @JoinColumn(name="idGenre")
+    private Genre genre;
 
     private String description;
 
@@ -35,7 +37,7 @@ public class Jeu {
     public Jeu() {
     }
 
-    public Jeu(String nomJeu, double prix, String genre, String description) {
+    public Jeu(String nomJeu, double prix, Genre genre, String description) {
         this.nomJeu = nomJeu;
         this.prix = prix;
         this.genre = genre;
@@ -66,11 +68,11 @@ public class Jeu {
         this.prix = prix;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 
