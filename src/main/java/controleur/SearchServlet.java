@@ -24,7 +24,7 @@ public class SearchServlet extends HttpServlet {
             List<Compte> comptes = (List<Compte>) session.getAttribute("ListeComptes");
             Compte compte = (Compte) session.getAttribute("loggedInAccount");
             Commande panier = (Commande) session.getAttribute("panier");
-            List<Compte> compteResult = Utilitaire.findCompteByProfileName(searchTerm, comptes, compte);
+            List<Compte> compteResult = Utilitaire.findCompteByProfileName(searchTerm, comptes, compte, panier);
             request.setAttribute("compteResult", compteResult);
             RequestDispatcher rd = request.getRequestDispatcher("chooseFriend.jsp");
             try {

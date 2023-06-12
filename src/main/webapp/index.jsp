@@ -22,8 +22,6 @@
 <br/>
 <a href="login.jsp">Login</a>
 <br>
-<a href="hello-servlet">Hello Servlet</a>
-<br>
 <a href="ProfileServlet"> vers profile servlet</a>
 <br>
 <form action="MagasinServlet" method="POST">

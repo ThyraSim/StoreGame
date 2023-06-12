@@ -47,12 +47,12 @@
 </form>
 
 <h1 id="registrationTitle" style="display: none;">Création de compte</h1>
-<form id="registrationForm" action="registerProcess.jsp" method="post" style="display: none;">
+<form id="registrationForm" action="/CreationCompteServlet" method="post" style="display: none;">
     <label for="username">Nom d'utilisateur:</label>
     <input type="text" id="username" name="username" required><br><br>
 
-    <label for="profileUser">Nom de Profile:</label>
-    <input type="text" id="profileUser" name="profileUser" required><br><br>
+    <label for="profileName">Nom de Profile:</label>
+    <input type="text" id="profileName" name="profileName" required><br><br>
 
     <label for="password">Mot de passe:</label>
     <input type="password" id="password" name="password" required><br><br>
