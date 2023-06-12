@@ -105,6 +105,8 @@ public class MagasinServlet extends HttpServlet {
             }
         }
         request.setAttribute("noOwned", noOwned);
+        System.out.println("Chat");
+        System.out.println(panier);
         session.setAttribute("panier", panier);
         String url = "magasin.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(url);

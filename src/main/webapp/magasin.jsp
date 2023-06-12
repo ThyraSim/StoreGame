@@ -126,8 +126,8 @@
                         </div>
                         <div class="card-body">
                             <p class="card-text">${jeu.description}</p>
-                            <p><strong>Genre:</strong> ${jeu.genre}</p>
-                            <p><strong>Price:</strong> ${jeu.prix}</p>
+                            <p><strong>Genre:</strong><fmt:message key="${jeu.genre}" /></p>
+                            <p><strong><fmt:message key="Price" /></strong> ${jeu.prix}</p>
                             <form action="MagasinServlet" method="POST">
                                 <input type="hidden" name="index" value="${jeu.idJeu}">
                                 <input type="hidden" name="action" value="ACHETE">
@@ -143,30 +143,32 @@
         </div>
 
         <div class="mt-5">
-            <h2><fmt:message key="panierTitle" /></h2>
-            <ul class="list-group">
-                <c:forEach var="jeu" items="${listeJeux}">
-                    <li class="list-group-item">${jeu.nomJeu} | ${jeu.prix} | ${jeu.genre} | ${jeu.description}
-                        <form action="MagasinServlet" method="POST" class="float-right">
-                            <input type="hidden" name="idJeu" value="${jeu.idJeu}">
-                            <input type="hidden" name="action" value="DELETE">
-                            <button type="submit" class="btn btn-danger"><fmt:message key='removeCommand' /></button>
-                        </form>
-                    </li>
-                </c:forEach>
-            </ul>
-            <c:if test="${noOwned}">
+            <c:if test="${not empty panier.jeux}">
+                <h2><fmt:message key="panierTitle" /></h2>
+                <ul class="list-group">
+                    <c:forEach var="jeu" items="${listeJeux}">
+                        <li class="list-group-item">${jeu.nomJeu} | ${jeu.prix} | <fmt:message key="${jeu.genre}" /> | ${jeu.description}
+                            <form action="MagasinServlet" method="POST" class="float-right">
+                                <input type="hidden" name="idJeu" value="${jeu.idJeu}">
+                                <input type="hidden" name="action" value="DELETE">
+                                <button type="submit" class="btn btn-danger"><fmt:message key='removeCommand' /></button>
+                            </form>
+                        </li>
+                    </c:forEach>
+                </ul>
+                <c:if test="${noOwned}">
+                    <form action="CheckOutServlet" method="POST" class="mt-4">
+                        <input type="hidden" name="liste" value="${compteId}">
+                        <input type="hidden" name="action" value="SELF">
+                        <button type="submit" class="btn btn-success"><fmt:message key='selfCommand' /></button>
+                    </form>
+                </c:if>
                 <form action="CheckOutServlet" method="POST" class="mt-4">
                     <input type="hidden" name="liste" value="${compteId}">
-                    <input type="hidden" name="action" value="SELF">
-                    <button type="submit" class="btn btn-success"><fmt:message key='selfCommand' /></button>
+                    <input type="hidden" name="action" value="GIFT">
+                    <button type="submit" class="btn btn-warning"><fmt:message key='giftCommand' /></button>
                 </form>
             </c:if>
-            <form action="CheckOutServlet" method="POST" class="mt-4">
-                <input type="hidden" name="liste" value="${compteId}">
-                <input type="hidden" name="action" value="GIFT">
-                <button type="submit" class="btn btn-warning"><fmt:message key='giftCommand' /></button>
-            </form>
         </div>
     </div>
 </fmt:bundle>
