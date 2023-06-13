@@ -41,6 +41,8 @@ public class MagasinServlet extends HttpServlet {
 
         }
 
+
+
         //Récupération du code connecté
         Compte compte = (Compte) session.getAttribute("loggedInAccount");
 
@@ -60,7 +62,19 @@ public class MagasinServlet extends HttpServlet {
         session.setAttribute("genreList",genreList);
 
 
+        // on détermine le prix maximun pour les fournchettes de prix pour le filtre
 
+        Double maxPrice = (Double) session.getAttribute("maxPrice");
+        if (maxPrice == null) {
+            maxPrice = 0.0;
+            for (Jeu jeu : catalog) {
+                if (jeu.getPrix() > maxPrice) {
+                    maxPrice = jeu.getPrix();
+                }
+            }
+            session.setAttribute("maxPrice", maxPrice);
+        }
+        request.setAttribute("maxPrice", maxPrice);
 
 
 

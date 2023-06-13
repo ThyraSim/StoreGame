@@ -118,7 +118,7 @@
     <div class="container">
         <div class="row">
             <h1><fmt:message key="FilterHeader"/></h1>
-            <label>Genre</label>
+
             <select id="genre" class="form-control form-control-lg">
                 <option value=""><fmt:message key="FilterAllGenre"/></option>
                 <c:forEach var="genre" items="${genreList}" varStatus="loop">
@@ -130,9 +130,22 @@
         <div class="row">
             <label> <fmt:message key="FilterByName"/></label>
             <input type="text" id="gameNameInput">
-            <button id="btnSearchByName"> <fmt:message key="FilterbyNameButton"/></button>
+            <button id="btnSearchByName"><fmt:message key="FilterSearch"/></button>
 
 
+        </div>
+
+        <div class="row">
+            <select id="priceFilter">
+                <c:forEach begin="0" end="${maxPrice/10}" var="i">
+                    <c:set var="minPriceRange" value="${i*10+1}" />
+                    <c:set var="maxPriceRange" value="${(i+1)*10}" />
+                    <option value="${minPriceRange}-${maxPriceRange}" minPriceRange="${minPriceRange}" maxPriceRange="${maxPriceRange}">
+                            ${minPriceRange}-${maxPriceRange} $
+                    </option>
+                </c:forEach>
+            </select>
+            <button id="btnSearchByPriceRange"><fmt:message key="FilterSearch"/></button>
         </div>
     </div>
 
@@ -141,12 +154,13 @@
 
         <div class="row">
             <c:forEach var="jeu" items="${catalog}">
-                <div name="Card-Game" genre="${jeu.genre}" gameName="${jeu.nomJeu}" class="col-md-12 mb-4">
+                <div name="Card-Game" genre="${jeu.genre}" gameName="${jeu.nomJeu}" gamePrice="${jeu.prix}"
+                     class="col-md-12 mb-4">
                     <div class="card text-center">
                         <div class="card-header">
                             <h5 class="card-title">${jeu.nomJeu}</h5>
                         </div>
-                        <div class="card-body" >
+                        <div class="card-body">
                             <p class="card-text">${jeu.description}</p>
                             <p><strong>Genre:</strong><fmt:message key="${jeu.genre}"/></p>
                             <p><strong><fmt:message key="Price"/></strong> ${jeu.prix}</p>
