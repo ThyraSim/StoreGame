@@ -116,34 +116,46 @@
 <fmt:bundle basename="MessagesBundle">
 
     <div class="container">
-        <h1><fmt:message key="FilterHeader"/></h1>
-        <label>Genre</label>
-        <select class="form-control form-control-lg">
-            <c:forEach var="genre" items="${genreList}">
-                <option>${genre.name}</option>
-            </c:forEach>
-        </select>
+        <div class="row">
+            <h1><fmt:message key="FilterHeader"/></h1>
+            <label>Genre</label>
+            <select id="genre" class="form-control form-control-lg">
+                <option value=""><fmt:message key="FilterAllGenre"/></option>
+                <c:forEach var="genre" items="${genreList}" varStatus="loop">
+                    <option>${genre.name}</option>
+                </c:forEach>
+            </select>
+        </div>
+
+        <div class="row">
+            <label> <fmt:message key="FilterByName"/></label>
+            <input type="text" id="gameNameInput">
+            <button id="btnSearchByName"> <fmt:message key="FilterbyNameButton"/></button>
+
+
+        </div>
     </div>
 
     <div class="container">
-        <h1 class="text-center my-3"><fmt:message key="listeJeuTitle" /></h1>
+        <h1 class="text-center my-3"><fmt:message key="listeJeuTitle"/></h1>
 
         <div class="row">
             <c:forEach var="jeu" items="${catalog}">
-                <div class="col-md-12 mb-4">
+                <div name="Card-Game" genre="${jeu.genre}" gameName="${jeu.nomJeu}" class="col-md-12 mb-4">
                     <div class="card text-center">
                         <div class="card-header">
                             <h5 class="card-title">${jeu.nomJeu}</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" >
                             <p class="card-text">${jeu.description}</p>
-                            <p><strong>Genre:</strong><fmt:message key="${jeu.genre}" /></p>
-                            <p><strong><fmt:message key="Price" /></strong> ${jeu.prix}</p>
+                            <p><strong>Genre:</strong><fmt:message key="${jeu.genre}"/></p>
+                            <p><strong><fmt:message key="Price"/></strong> ${jeu.prix}</p>
                             <form action="MagasinServlet" method="POST">
                                 <input type="hidden" name="index" value="${jeu.idJeu}">
                                 <input type="hidden" name="action" value="ACHETE">
                                 <div class="card-footer text-muted">
-                                    <button type="submit" class="btn btn-primary"><fmt:message key='buyCommand' /></button>
+                                    <button type="submit" class="btn btn-primary"><fmt:message
+                                            key='buyCommand'/></button>
                                 </div>
                             </form>
                         </div>
@@ -155,14 +167,15 @@
 
         <div class="mt-5">
             <c:if test="${not empty panier.jeux}">
-                <h2><fmt:message key="panierTitle" /></h2>
+                <h2><fmt:message key="panierTitle"/></h2>
                 <ul class="list-group">
                     <c:forEach var="jeu" items="${listeJeux}">
-                        <li class="list-group-item">${jeu.nomJeu} | ${jeu.prix} | <fmt:message key="${jeu.genre}" /> | ${jeu.description}
+                        <li class="list-group-item">${jeu.nomJeu} | ${jeu.prix} | <fmt:message key="${jeu.genre}"/>
+                            | ${jeu.description}
                             <form action="MagasinServlet" method="POST" class="float-right">
                                 <input type="hidden" name="idJeu" value="${jeu.idJeu}">
                                 <input type="hidden" name="action" value="DELETE">
-                                <button type="submit" class="btn btn-danger"><fmt:message key='removeCommand' /></button>
+                                <button type="submit" class="btn btn-danger"><fmt:message key='removeCommand'/></button>
                             </form>
                         </li>
                     </c:forEach>
@@ -171,22 +184,28 @@
                     <form action="CheckOutServlet" method="POST" class="mt-4">
                         <input type="hidden" name="liste" value="${compteId}">
                         <input type="hidden" name="action" value="SELF">
-                        <button type="submit" class="btn btn-success"><fmt:message key='selfCommand' /></button>
+                        <button type="submit" class="btn btn-success"><fmt:message key='selfCommand'/></button>
                     </form>
                 </c:if>
                 <form action="CheckOutServlet" method="POST" class="mt-4">
                     <input type="hidden" name="liste" value="${compteId}">
                     <input type="hidden" name="action" value="GIFT">
-                    <button type="submit" class="btn btn-warning"><fmt:message key='giftCommand' /></button>
+                    <button type="submit" class="btn btn-warning"><fmt:message key='giftCommand'/></button>
                 </form>
             </c:if>
         </div>
     </div>
 </fmt:bundle>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+<script src="scripts/ScriptFilter.js"></script>
+
 
 </body>
 </html>
