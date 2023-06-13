@@ -23,3 +23,26 @@ $(document).ready(function() {
         }
     });
 });
+
+$(document).ready(function() {
+    $('#btnSearchByPriceRange').click(function() {
+        // Récupérer la plage de prix sélectionnée
+        var selectedRange = $('#priceFilter option:selected');
+        var minPriceRange = selectedRange.attr('minPriceRange');
+        var maxPriceRange = selectedRange.attr('maxPriceRange');
+
+        // Afficher la plage de prix sélectionnée dans la console
+        console.log("Recherche selon la plage de prix : " + minPriceRange + " - " + maxPriceRange);
+
+        // Effectuer la recherche en fonction de la plage de prix sélectionnée
+        $('div[name="Card-Game"]').each(function() {
+            var gamePrice = parseFloat($(this).attr('gamePrice'));
+            if (gamePrice >= minPriceRange && gamePrice <= maxPriceRange) {
+                $(this).show(); // Afficher l'élément s'il correspond à la plage de prix
+            } else {
+                $(this).hide(); // Masquer l'élément s'il ne correspond pas à la plage de prix
+            }
+        });
+    });
+});
+
