@@ -114,6 +114,17 @@
 <%--        </div>--%>
 <body>
 <fmt:bundle basename="MessagesBundle">
+
+    <div class="container">
+        <h1><fmt:message key="FilterHeader"/></h1>
+        <label>Genre</label>
+        <select class="form-control form-control-lg">
+            <c:forEach var="genre" items="${genreList}">
+                <option>${genre.name}</option>
+            </c:forEach>
+        </select>
+    </div>
+
     <div class="container">
         <h1 class="text-center my-3"><fmt:message key="listeJeuTitle" /></h1>
 

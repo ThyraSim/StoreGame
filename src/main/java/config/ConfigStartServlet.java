@@ -7,11 +7,14 @@ import entities.*;
 import javax.servlet.ServletException;
 
 import javax.servlet.http.HttpServlet;
+import java.util.List;
 
 
 public class ConfigStartServlet extends HttpServlet {
 
     public void init() throws ServletException {
+
+
 
         if (JeuDao.findAll().isEmpty() && CommandeDao.findAll().isEmpty() && ClientDao.findAll().isEmpty() && CompteDao.findAll().isEmpty()) {
 
@@ -168,6 +171,11 @@ public class ConfigStartServlet extends HttpServlet {
 
 
         }
+
+
+
+
+
     }
 }
 

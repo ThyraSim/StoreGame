@@ -2,10 +2,10 @@ package controleur;
 
 import dao.CommandeDao;
 import dao.CompteDao;
+import dao.GenreDao;
 import dao.JeuDao;
-import entities.Commande;
-import entities.Compte;
-import entities.Jeu;
+import entities.*;
+
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -37,6 +37,8 @@ public class MagasinServlet extends HttpServlet {
         if(comptes == null){
             comptes = CompteDao.findAll();
             session.setAttribute("ListeComptes", comptes);
+
+
         }
 
         //Récupération du code connecté
@@ -48,6 +50,20 @@ public class MagasinServlet extends HttpServlet {
         if(catalog == null){ //Génère le catalog à la première ouverture
             catalog = JeuDao.findAll();
         }
+
+        //on récupère la liste des genre
+        List<Genre> genreList = (List<Genre>) session.getAttribute("genreList");
+        if (genreList == null) {
+            //génère la liste des genre à la première ouverture
+            genreList =  GenreDao.findAll();
+        }
+        session.setAttribute("genreList",genreList);
+
+
+
+
+
+
         List<Jeu> owned = new ArrayList<>();
         Commande panier = new Commande();
         if(compte != null){
@@ -98,12 +114,14 @@ public class MagasinServlet extends HttpServlet {
             }
         }
         request.setAttribute("catalog", catalog);
+
         boolean noOwned = true;
         for(Jeu jeu:owned){
             if(panier.getJeux().contains(jeu)){
                 noOwned = false;
             }
         }
+
         request.setAttribute("noOwned", noOwned);
         System.out.println("Chat");
         System.out.println(panier);
