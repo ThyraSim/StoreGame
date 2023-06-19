@@ -10,7 +10,10 @@
         <load-on-startup>1</load-on-startup>
 
     </servlet>
-
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>helloServlet</servlet-name>-->
+<!--        <url-pattern>/hello-servlet</url-pattern>-->
+<!--    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>ConfigStartServlet</servlet-name>
         <url-pattern>/ConfigStartServlet</url-pattern>
