@@ -145,7 +145,6 @@
                     </option>
                 </c:forEach>
             </select>
-            <button id="btnSearchByPriceRange"><fmt:message key="FilterSearch"/></button>
         </div>
     </div>
 
