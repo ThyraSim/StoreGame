@@ -7,18 +7,23 @@
     <servlet>
         <servlet-name>ConfigStartServlet</servlet-name>
         <servlet-class>config.ConfigStartServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
 
+        <load-on-startup>1</load-on-startup>
     </servlet>
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>helloServlet</servlet-name>-->
-<!--        <url-pattern>/hello-servlet</url-pattern>-->
-<!--    </servlet-mapping>-->
+    <servlet>
+        <servlet-name>MagasinServlet</servlet-name>
+        <servlet-class>controleur.MagasinServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MagasinServlet</servlet-name>
+        <url-pattern>/MagasinServlet</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ConfigStartServlet</servlet-name>
         <url-pattern>/ConfigStartServlet</url-pattern>
     </servlet-mapping>
-
-
-
+<welcome-file-list>
+    <welcome-file>MagasinServlet</welcome-file>
+</welcome-file-list>
 </web-app>
