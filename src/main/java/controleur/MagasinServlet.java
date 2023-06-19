@@ -62,7 +62,7 @@ public class MagasinServlet extends HttpServlet {
         session.setAttribute("genreList",genreList);
 
 
-        // on détermine le prix maximun pour les fournchettes de prix pour le filtre
+        // on détermine le prix maximun pour les fournchettes de prix pour le filtre des prix
 
         Double maxPrice = (Double) session.getAttribute("maxPrice");
         if (maxPrice == null) {
@@ -77,7 +77,8 @@ public class MagasinServlet extends HttpServlet {
         request.setAttribute("maxPrice", maxPrice);
 
 
-
+        // On parcourt la liste des jeux deja commander qui ne sont pas un panier on retire du catalog pour affichage et
+        //on ajoute a la liste des jeux possédé.
         List<Jeu> owned = new ArrayList<>();
         Commande panier = new Commande();
         if(compte != null){
@@ -86,8 +87,10 @@ public class MagasinServlet extends HttpServlet {
                 if(!commande.isPanier()){
                     for (Jeu jeu : commande.getJeux()) {
                         if (catalog.contains(jeu)) {
-                            catalog.remove(jeu);
+                            jeu.setOwned(true); // ajouter boolean est posséder
+//                            catalog.remove(jeu);  // on va retirer cette ligne et utiliser le boolean a la place
                             owned.add(jeu);
+
                         }
                     }
                 }

@@ -26,6 +26,9 @@ public class Jeu {
 
     private String description;
 
+    @Transient
+    private boolean IsOwned;
+
     @ManyToMany
     @JoinTable(
             name = "commande_jeu",
@@ -42,6 +45,14 @@ public class Jeu {
         this.prix = prix;
         this.genre = genre;
         this.description = description;
+    }
+
+    public boolean isOwned() {
+        return IsOwned;
+    }
+
+    public void setOwned(boolean owned) {
+        IsOwned = owned;
     }
 
     public int getIdJeu() {

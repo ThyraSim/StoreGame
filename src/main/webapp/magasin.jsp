@@ -115,99 +115,103 @@
 <body>
 <fmt:bundle basename="MessagesBundle">
 
-    <div class="container">
-        <div class="row">
-            <h1><fmt:message key="FilterHeader"/></h1>
+<div class="container">
+    <div class="row">
+        <h1><fmt:message key="FilterHeader"/></h1>
 
-            <select id="genre" class="form-control form-control-lg">
-                <option value=""><fmt:message key="FilterAllGenre"/></option>
-                <c:forEach var="genre" items="${genreList}" varStatus="loop">
-                    <option>${genre.name}</option>
-                </c:forEach>
-            </select>
-        </div>
-
-        <div class="row">
-            <label> <fmt:message key="FilterByName"/></label>
-            <input type="text" id="gameNameInput">
-            <button id="btnSearchByName"><fmt:message key="FilterSearch"/></button>
-
-
-        </div>
-
-        <div class="row">
-            <select id="priceFilter">
-                <c:forEach begin="0" end="${maxPrice/10}" var="i">
-                    <c:set var="minPriceRange" value="${i*10+1}" />
-                    <c:set var="maxPriceRange" value="${(i+1)*10}" />
-                    <option value="${minPriceRange}-${maxPriceRange}" minPriceRange="${minPriceRange}" maxPriceRange="${maxPriceRange}">
-                            ${minPriceRange}-${maxPriceRange} $
-                    </option>
-                </c:forEach>
-            </select>
-        </div>
+        <select id="genre" class="form-control form-control-lg">
+            <option value=""><fmt:message key="FilterAllGenre"/></option>
+            <c:forEach var="genre" items="${genreList}" varStatus="loop">
+                <option>${genre.name}</option>
+            </c:forEach>
+        </select>
     </div>
 
-    <div class="container">
-        <h1 class="text-center my-3"><fmt:message key="listeJeuTitle"/></h1>
+    <div class="row">
+        <label> <fmt:message key="FilterByName"/></label>
+        <input type="text" id="gameNameInput">
+        <button id="btnSearchByName"><fmt:message key="FilterSearch"/></button>
 
-        <div class="row">
-            <c:forEach var="jeu" items="${catalog}">
-                <div name="Card-Game" genre="${jeu.genre}" gameName="${jeu.nomJeu}" gamePrice="${jeu.prix}"
-                     class="col-md-12 mb-4">
-                    <div class="card text-center">
-                        <div class="card-header">
-                            <h5 class="card-title">${jeu.nomJeu}</h5>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">${jeu.description}</p>
-                            <p><strong>Genre:</strong><fmt:message key="${jeu.genre}"/></p>
-                            <p><strong><fmt:message key="Price"/></strong> ${jeu.prix}</p>
-                            <form action="MagasinServlet" method="POST">
-                                <input type="hidden" name="index" value="${jeu.idJeu}">
-                                <input type="hidden" name="action" value="ACHETE">
-                                <div class="card-footer text-muted">
-                                    <button type="submit" class="btn btn-primary"><fmt:message
-                                            key='buyCommand'/></button>
-                                </div>
-                            </form>
-                        </div>
 
-                    </div>
-                </div>
+    </div>
+
+    <div class="row">
+        <select id="priceFilter">
+            <c:forEach begin="0" end="${maxPrice/10}" var="i">
+                <c:set var="minPriceRange" value="${i*10+1}"/>
+                <c:set var="maxPriceRange" value="${(i+1)*10}"/>
+                <option value="${minPriceRange}-${maxPriceRange}" minPriceRange="${minPriceRange}"
+                        maxPriceRange="${maxPriceRange}">
+                        ${minPriceRange}-${maxPriceRange} $
+                </option>
             </c:forEach>
-        </div>
+        </select>
+    </div>
+</div>
 
-        <div class="mt-5">
-            <c:if test="${not empty panier.jeux}">
-                <h2><fmt:message key="panierTitle"/></h2>
-                <ul class="list-group">
-                    <c:forEach var="jeu" items="${listeJeux}">
-                        <li class="list-group-item">${jeu.nomJeu} | ${jeu.prix} | <fmt:message key="${jeu.genre}"/>
-                            | ${jeu.description}
-                            <form action="MagasinServlet" method="POST" class="float-right">
-                                <input type="hidden" name="idJeu" value="${jeu.idJeu}">
-                                <input type="hidden" name="action" value="DELETE">
-                                <button type="submit" class="btn btn-danger"><fmt:message key='removeCommand'/></button>
-                            </form>
-                        </li>
-                    </c:forEach>
-                </ul>
-                <c:if test="${noOwned}">
-                    <form action="CheckOutServlet" method="POST" class="mt-4">
-                        <input type="hidden" name="liste" value="${compteId}">
-                        <input type="hidden" name="action" value="SELF">
-                        <button type="submit" class="btn btn-success"><fmt:message key='selfCommand'/></button>
-                    </form>
-                </c:if>
+<div class="container">
+    <h1 class="text-center my-3"><fmt:message key="listeJeuTitle"/></h1>
+
+    <div class="row">
+        <
+        <c:forEach var="jeu" items="${catalog}">
+            <c:if test="!jeu.isOwned">
+            <div name="Card-Game" genre="${jeu.genre}" gameName="${jeu.nomJeu}" gamePrice="${jeu.prix}"
+                 class="col-md-12 mb-4">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h5 class="card-title">${jeu.nomJeu}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">${jeu.description}</p>
+                        <p><strong>Genre:</strong><fmt:message key="${jeu.genre}"/></p>
+                        <p><strong><fmt:message key="Price"/></strong> ${jeu.prix}</p>
+                        <form action="MagasinServlet" method="POST">
+                            <input type="hidden" name="index" value="${jeu.idJeu}">
+                            <input type="hidden" name="action" value="ACHETE">
+                            <div class="card-footer text-muted">
+                                <button type="submit" class="btn btn-primary"><fmt:message
+                                        key='buyCommand'/></button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </c:if>
+        </c:forEach>
+    </div>
+
+    <div class="mt-5">
+        <c:if test="${not empty panier.jeux}">
+            <h2><fmt:message key="panierTitle"/></h2>
+            <ul class="list-group">
+                <c:forEach var="jeu" items="${listeJeux}">
+                    <li class="list-group-item">${jeu.nomJeu} | ${jeu.prix} | <fmt:message key="${jeu.genre}"/>
+                        | ${jeu.description}
+                        <form action="MagasinServlet" method="POST" class="float-right">
+                            <input type="hidden" name="idJeu" value="${jeu.idJeu}">
+                            <input type="hidden" name="action" value="DELETE">
+                            <button type="submit" class="btn btn-danger"><fmt:message key='removeCommand'/></button>
+                        </form>
+                    </li>
+                </c:forEach>
+            </ul>
+            <c:if test="${noOwned}">
                 <form action="CheckOutServlet" method="POST" class="mt-4">
                     <input type="hidden" name="liste" value="${compteId}">
-                    <input type="hidden" name="action" value="GIFT">
-                    <button type="submit" class="btn btn-warning"><fmt:message key='giftCommand'/></button>
+                    <input type="hidden" name="action" value="SELF">
+                    <button type="submit" class="btn btn-success"><fmt:message key='selfCommand'/></button>
                 </form>
             </c:if>
-        </div>
+            <form action="CheckOutServlet" method="POST" class="mt-4">
+                <input type="hidden" name="liste" value="${compteId}">
+                <input type="hidden" name="action" value="GIFT">
+                <button type="submit" class="btn btn-warning"><fmt:message key='giftCommand'/></button>
+            </form>
+        </c:if>
     </div>
+</div>
 </fmt:bundle>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
