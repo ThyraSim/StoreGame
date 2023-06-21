@@ -1,78 +1,3 @@
-<%--&lt;%&ndash;--%>
-<%--  Created by IntelliJ IDEA.--%>
-<%--  User: simbe--%>
-<%--  Date: 2023-06-05--%>
-<%--  Time: 13:55--%>
-<%--  To change this template use File | Settings | File Templates.--%>
-<%--&ndash;%&gt;--%>
-
-<%--<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>--%>
-<%--<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%--<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>--%>
-
-<%--<!DOCTYPE html>--%>
-<%--<html>--%>
-
-<%--&lt;%&ndash;<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>&ndash;%&gt;--%>
-
-<%--<head>--%>
-
-<%--    <title>Title</title>--%>
-<%--    <link--%>
-<%--            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"--%>
-<%--            rel="stylesheet"--%>
-<%--            crossorigin="anonymous"/>--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<fmt:bundle basename="MessagesBundle">--%>
-
-<%--<h1><fmt:message key="listeJeuTitle" /></h1>--%>
-
-<%--<c:forEach var="jeu" items="${catalog}">--%>
-<%--    <div>--%>
-<%--        <p>${jeu.nomJeu} | ${jeu.prix} | ${jeu.genre} | ${jeu.description}</p>--%>
-<%--        <form action="MagasinServlet" method="POST">--%>
-<%--            <input type="hidden" name="index" value="${jeu.idJeu}">--%>
-<%--            <input type="hidden" name="action" value="ACHETE">--%>
-<%--            <input type="submit" value="<fmt:message key='buyCommand' />">--%>
-<%--        </form>--%>
-<%--    </div>--%>
-<%--</c:forEach>--%>
-
-<%--<div>--%>
-<%--    <h1><fmt:message key="panierTitle" /></h1>--%>
-<%--    <ul>--%>
-<%--        <c:forEach var="jeu" items="${listeJeux}">--%>
-<%--            <li>${jeu.nomJeu} | ${jeu.prix} | ${jeu.genre} | ${jeu.description}</li>--%>
-<%--            <form action="MagasinServlet" method="POST">--%>
-<%--                <input type="hidden" name="idJeu" value="${jeu.idJeu}">--%>
-<%--                <input type="hidden" name="action" value="DELETE">--%>
-<%--                <input type="submit" value="<fmt:message key='removeCommand' />">--%>
-<%--            </form>--%>
-<%--        </c:forEach>--%>
-<%--    </ul>--%>
-<%--    <c:if test="${noOwned}">--%>
-<%--        <form action="CheckOutServlet" method="POST">--%>
-<%--            <input type="hidden" name="liste" value="${compteId}">--%>
-<%--            <input type="hidden" name="action" value="SELF">--%>
-<%--            <input type="submit" value="<fmt:message key='selfCommand' />">--%>
-<%--        </form>--%>
-<%--    </c:if>--%>
-<%--    <form action="CheckOutServlet" method="POST">--%>
-<%--        <input type="hidden" name="liste" value="${compteId}">--%>
-<%--        <input type="hidden" name="action" value="GIFT">--%>
-<%--        <input type="submit" value="<fmt:message key='giftCommand' />">--%>
-<%--    </form>--%>
-<%--</div>--%>
-
-<%--</fmt:bundle>--%>
-
-<%--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>--%>
-<%--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>--%>
-<%--<script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>--%>
-
-<%--</body>--%>
-<%--</html>--%>
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -115,7 +40,9 @@
 <body>
 <fmt:bundle basename="MessagesBundle">
 
+<%--    SECTION DES FILTRES --%>
     <div class="container">
+        <%--FILTRE DU GENRE--%>
         <div class="row">
             <h1><fmt:message key="FilterHeader"/></h1>
 
@@ -126,7 +53,7 @@
                 </c:forEach>
             </select>
         </div>
-
+        <%--FILTRE DU NOM--%>
         <div class="row">
             <label> <fmt:message key="FilterByName"/></label>
             <input type="text" id="gameNameInput">
@@ -135,6 +62,7 @@
 
         </div>
 
+        <%--FILTRE DU PRIX--%>
         <div class="row">
             <select id="priceFilter">
                 <c:forEach begin="0" end="${maxPrice/10}" var="i">
@@ -148,6 +76,18 @@
         </div>
     </div>
 
+
+    <%--FILTRE POUR AFFICHER TOUS LES JEUX--%>
+    <div>
+    <form action="MagasinServlet" method="GET">
+        <label for="ownedCheckbox">Jeux possédés</label>
+        <input type="checkbox" id="ownedCheckbox" name="owned" value="true">
+        <input type="hidden" name="action" value="desactiverOwnedFiltre">
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+
+<%--    AFFICHER LE CATALOG DE JEU ( par défaut catalog exclu les jeux du panier et ceux du déjà posséder--%>
     <div class="container">
         <h1 class="text-center my-3"><fmt:message key="listeJeuTitle"/></h1>
 
@@ -162,11 +102,18 @@
                         <div class="card-body">
                             <p class="card-text">${jeu.description}</p>
                             <p><strong>Genre:</strong><fmt:message key="${jeu.genre}"/></p>
-                            <p><strong><fmt:message key="Price"/></strong> ${jeu.prix}</p>
+                            <p><strong><fmt:message key="Price"/></strong> ${jeu.prix}$</p>
                             <form action="AcheteServlet" method="POST">
                                 <input type="hidden" name="index" value="${jeu.idJeu}">
                                 <input type="hidden" name="action" value="ACHETE">
                                 <div class="card-footer text-muted">
+                            <%-- Lorsque le filtre Afficher tous les jeux, le catalog inclus maintenant les jeux deja posseder--%>
+                                    <c:forEach var="ownedGame" items="${owned}">
+                                        <c:if test="${ownedGame.idJeu eq jeu.idJeu}">
+                                            <p><fmt:message key="AlreadyPossessed"/></p>
+                                        </c:if>
+                                    </c:forEach>
+
                                     <button type="submit" class="btn btn-primary"><fmt:message
                                             key='buyCommand'/></button>
                                 </div>
@@ -177,12 +124,14 @@
             </c:forEach>
         </div>
 
+
+<%--        PANIER--%>
         <div class="mt-5">
             <c:if test="${not empty panier.jeux}">
                 <h2><fmt:message key="panierTitle"/></h2>
                 <ul class="list-group">
                     <c:forEach var="jeu" items="${listePanier}">
-                        <li class="list-group-item">${jeu.nomJeu} | ${jeu.prix} | <fmt:message key="${jeu.genre}"/>
+                        <li class="list-group-item">${jeu.nomJeu} | ${jeu.prix}$     | <fmt:message key="${jeu.genre}"/>
                             | ${jeu.description}
                             <form action="DeleteServlet" method="POST" class="float-right">
                                 <input type="hidden" name="idJeu" value="${jeu.idJeu}">
@@ -192,6 +141,9 @@
                         </li>
                     </c:forEach>
                 </ul>
+
+            <%--Dans la servlet on associe une valeur bolean "noOwned" qui est a false  si un produit du panier est possédé par l'utilisateur--%>
+            <%--Ainsi le bouton pour acheter à soi-même est désactiver car seulement 1 copie de jeu par compte--%>
                 <c:if test="${noOwned}">
                     <form action="CheckOutServlet" method="POST" class="mt-4">
                         <input type="hidden" name="liste" value="${compteId}">
@@ -199,6 +151,7 @@
                         <button type="submit" class="btn btn-success"><fmt:message key='selfCommand'/></button>
                     </form>
                 </c:if>
+            <%--Le bouton acheté pour un cadeau, c'est-à-dire donnée à un autre compte --%>
                 <form action="CheckOutServlet" method="POST" class="mt-4">
                     <input type="hidden" name="liste" value="${compteId}">
                     <input type="hidden" name="action" value="GIFT">

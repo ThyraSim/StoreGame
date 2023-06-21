@@ -46,12 +46,30 @@ public class OwnedFiltre implements Filter {
 
         //Parcourt L'historique des commandes du compte, en excluant le panier, va retirer les jeux du catalog
         // et ajouter à la listedes jeu Owned
+        String action = request.getParameter("action");
 
-        if(compte != null){
+
+        //Si action est desactiverOwnedFiltre (cad tous voir tous jeux deja posséder) on va rajouter les jeux posséder dans le catalog
+        //et redirigé vers le filtre suivant
+
+        if (compte != null && action != null && action.contains("desactiverOwnedFiltre")) {
+            List<Jeu> listeJeuOwn = (List<Jeu>) session.getAttribute("owned");
+            for (Jeu jeuOwn :
+                    listeJeuOwn) {
+                catalog.add(jeuOwn);
+                session.setAttribute("catalog", catalog);
+            }
+
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+
+        if (compte != null) {
             List<Jeu> owned = new ArrayList<>();
             List<Commande> commandes = compte.getCommandes();
-            for(Commande commande : commandes){
-                if(!commande.isPanier()){  // exclu le panier
+            for (Commande commande : commandes) {
+                if (!commande.isPanier()) {  // exclu le panier
                     for (Jeu jeu : commande.getJeux()) {
                         if (catalog.contains(jeu)) {
                             catalog.remove(jeu);
@@ -73,4 +91,7 @@ public class OwnedFiltre implements Filter {
     public void destroy() {
         Filter.super.destroy();
     }
+
+
+
 }
