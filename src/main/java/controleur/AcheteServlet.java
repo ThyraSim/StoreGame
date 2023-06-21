@@ -5,6 +5,7 @@ import dao.JeuDao;
 import entities.Commande;
 import entities.Compte;
 import entities.Jeu;
+import service.MagasinService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,33 +28,21 @@ public class AcheteServlet extends HttpServlet {
             response.sendRedirect("http://localhost:82/error.html");
         }
 
-        Compte compte = (Compte) session.getAttribute("loggedInAccount");
-        Commande panier = (Commande) session.getAttribute("panier");
+        //Récupération du compte de l'utilisateur
+        Compte compte = MagasinService.getCompte(session);
 
         String index = request.getParameter("index");
         if (compte == null) {
-            // User is not logged in, redirect to Log in Servlet
+            // L'utilisateur n'est pas connecté, envoie au login
             response.sendRedirect("LoginServlet?index=" + index);
             return;
         }
-        //Ajouter au panier
+
+        //Trouve le jeu selon l'index
         Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
-        if(panier == null){
-            panier = new Commande();
-            panier = compte.trouvePanier();
-            if(panier == null){
-                panier = new Commande(compte, true);
-                compte.createPanier(panier);
-                CommandeDao.insert(panier);
-            }
-        }
 
-        if(!panier.getJeux().contains(monJeu)){
-            panier.addJeu(monJeu);
-            compte.updateCommande(panier);
-        }
-
-        session.setAttribute("panier", panier);
+        //Récupération, création et remplissage de panier
+        managePanier(session, compte, monJeu);
 
         RequestDispatcher rd = request.getRequestDispatcher("/MagasinServlet");
         try {
@@ -77,5 +66,30 @@ public class AcheteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+    }
+
+    /**
+     * Cette fonction s'occupe de trouver le panier s'il existe et le créer s'il n'existe pas
+     * Elle va ensuite vérifier que le jeu n'est pas déjà dans le panier
+     * Le jeu sera ensuite ajouté au panier
+     * @param session
+     * @param compte
+     * @param monJeu
+     */
+    private void managePanier(HttpSession session, Compte compte, Jeu monJeu){
+        Commande panier = MagasinService.getPanier(session);
+        if(panier == null){
+            panier = compte.trouvePanier();
+            if(panier == null){
+                panier = new Commande(compte, true);
+                compte.createPanier(panier);
+                CommandeDao.insert(panier);
+            }
+        }
+        if(!panier.getJeux().contains(monJeu)){
+            panier.addJeu(monJeu);
+            compte.updateCommande(panier);
+        }
+        session.setAttribute("panier", panier);
     }
 }

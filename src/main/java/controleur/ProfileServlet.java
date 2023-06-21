@@ -4,6 +4,7 @@ import dao.CompteDao;
 import entities.Commande;
 import entities.Compte;
 import entities.Jeu;
+import service.MagasinService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -18,7 +19,7 @@ public class ProfileServlet extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         HttpSession session = request.getSession();
-        Compte compte = (Compte) session.getAttribute("loggedInAccount");
+        Compte compte = MagasinService.getCompte(session);
         if(compte == null){
             response.sendRedirect("LoginServlet");
             return;

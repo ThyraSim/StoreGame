@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import service.MagasinService;
 import util.Utilitaire;
 
 @WebServlet(name = "SearchServlet", value = "/SearchServlet")
@@ -21,9 +23,9 @@ public class SearchServlet extends HttpServlet {
                 throws ServletException, IOException {
             String searchTerm = request.getParameter("searchInput");
             HttpSession session = request.getSession();
-            List<Compte> comptes = (List<Compte>) session.getAttribute("ListeComptes");
-            Compte compte = (Compte) session.getAttribute("loggedInAccount");
-            Commande panier = (Commande) session.getAttribute("panier");
+            List<Compte> comptes = MagasinService.getListCompte(session);
+            Compte compte = MagasinService.getCompte(session);
+            Commande panier = MagasinService.getPanier(session);
             List<Compte> compteResult = Utilitaire.findCompteByProfileName(searchTerm, comptes, compte, panier);
             request.setAttribute("compteResult", compteResult);
             RequestDispatcher rd = request.getRequestDispatcher("chooseFriend.jsp");

@@ -4,6 +4,7 @@ import dao.CommandeDao;
 import entities.Commande;
 import entities.Compte;
 import entities.Jeu;
+import service.MagasinService;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -32,8 +33,8 @@ public class PanierFiltre implements Filter {
             return;
         }
 
-        List<Jeu> catalog = (List<Jeu>) session.getAttribute("catalog");
-        Compte compte = (Compte) session.getAttribute("loggedInAccount");
+        List<Jeu> catalog = MagasinService.getCatalog(session);
+        Compte compte = getCompte(session);
 
         if(compte != null){
             Commande panier = compte.trouvePanier();
@@ -61,6 +62,11 @@ public class PanierFiltre implements Filter {
     public void destroy() {
         Filter.super.destroy();
     }
-    // PanierFiltre implementation
+
+
+
+    public Compte getCompte(HttpSession session){
+        return (Compte) session.getAttribute("loggedInAccount");
+    }
 }
 

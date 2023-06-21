@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
+import service.MagasinService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,11 +32,8 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        List<Compte> compteList = (List<Compte>) session.getAttribute("ListeComptes");
-        if(compteList == null){
-            compteList = CompteDao.findAll();
-            session.setAttribute("ListeComptes", compteList);
-        }
+        List<Compte> compteList = MagasinService.getListCompte(session);
+
         String index = request.getParameter("index");
         request.setAttribute("index", index);
         for (Compte compte : compteList) {
@@ -48,7 +46,6 @@ public class LoginServlet extends HttpServlet {
                     return;
                 } else{
                     response.sendRedirect("ProfileServlet?idCompte="+compte.getIdCompte()); // Exemple de redirection vers une page de tableau de bord
-
                     return;
                 }
             }

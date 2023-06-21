@@ -4,6 +4,7 @@ import dao.JeuDao;
 import entities.Commande;
 import entities.Compte;
 import entities.Jeu;
+import service.MagasinService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.http.HttpRequest;
 
 @WebServlet(name = "DeleteServlet", value = "/DeleteServlet")
 public class DeleteServlet extends HttpServlet {
@@ -26,14 +28,8 @@ public class DeleteServlet extends HttpServlet {
             response.sendRedirect("http://localhost:82/error.html");
         }
 
-        Compte compte = (Compte) session.getAttribute("loggedInAccount");
-        Commande panier = (Commande) session.getAttribute("panier");
-
-        int idJeu = Integer.parseInt(request.getParameter("idJeu"));
-        panier.removeJeu(idJeu);
-        compte.updateCommande(panier);
-
-        session.setAttribute("panier", panier);
+        //Retire le jeu du panier
+        retirerJeu(session, request);
 
         String url = "MagasinServlet";
         RequestDispatcher rd = request.getRequestDispatcher(url);
@@ -58,5 +54,21 @@ public class DeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+    }
+
+    /**
+     * Retire le jeu du panier et rafraîchi l'attribut panier
+     * @param session
+     * @param request
+     */
+    private void retirerJeu(HttpSession session, HttpServletRequest request){
+        Compte compte = MagasinService.getCompte(session);
+        Commande panier = MagasinService.getPanier(session);
+
+        int idJeu = Integer.parseInt(request.getParameter("idJeu"));
+        panier.removeJeu(idJeu);
+        compte.updateCommande(panier);
+
+        session.setAttribute("panier", panier);
     }
 }

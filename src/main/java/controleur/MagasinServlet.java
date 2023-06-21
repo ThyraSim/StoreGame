@@ -1,17 +1,12 @@
 package controleur;
 
-import dao.CommandeDao;
-import dao.CompteDao;
-import dao.GenreDao;
-import dao.JeuDao;
 import entities.*;
-
+import service.MagasinService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "MagasinServlet", value = "/MagasinServlet")
@@ -27,43 +22,17 @@ public class MagasinServlet extends HttpServlet {
             response.sendRedirect("http://localhost:82/error.html");
         }
 
-        //Récupération de tous les comptes
-        List<Compte> comptes = (List<Compte>) session.getAttribute("ListeComptes");
-
-        //Pour la première ouverture
-        if(comptes == null){
-            comptes = CompteDao.findAll();
-            session.setAttribute("ListeComptes", comptes);
-        }
-
         //On récupère la liste des genre
-        List<Genre> genreList = (List<Genre>) session.getAttribute("genreList");
-        if (genreList == null) {
-            //génère la liste des genre à la première ouverture
-            genreList =  GenreDao.findAll();
-        }
-        session.setAttribute("genreList",genreList);
-        List<Jeu> catalog = (List<Jeu>) session.getAttribute("catalog");
+        List<Genre> genreList = MagasinService.getGenres(session);
 
-        // on détermine le prix maximun pour les fournchettes de prix pour le filtre
-        Double maxPrice = 0.0;
-        for (Jeu jeu : catalog) {
-            if (jeu.getPrix() > maxPrice) {
-                maxPrice = jeu.getPrix();
-            }
-        }
+        //Récupération du catalog (Les jeux à afficher)
+        List<Jeu> catalog = MagasinService.getCatalog(session);
 
-        List<Jeu> owned = (List<Jeu>) session.getAttribute("owned");
-        Commande panier = (Commande) session.getAttribute("panier");
+        //On détermine le prix maximun pour les fournchettes de prix pour le filtre
+        Double maxPrice = getMaxPrix(catalog);
 
-        boolean noOwned = true;
-        if(owned != null){
-            for(Jeu jeu:owned){
-                if(panier.getJeux().contains(jeu)){
-                    noOwned = false;
-                }
-            }
-        }
+        //Détermine si un produit du panier est possédé par l'utilisateur
+        boolean noOwned = getNoOwned(session);
 
         request.setAttribute("noOwned", noOwned);
         request.setAttribute("maxPrice", maxPrice);
@@ -90,6 +59,42 @@ public class MagasinServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+    }
+
+
+    /**
+     * Vérifie si un produit du panier est aussi présent dans la liste des jeux possédés de l'utilisateur
+     * Cette donnée servira à désactiver le bouton de self checkout
+     * @param session
+     * @return noOwned
+     */
+    private boolean getNoOwned(HttpSession session){
+        List<Jeu> owned = MagasinService.getOwned(session);
+        Commande panier = MagasinService.getPanier(session);
+        if(owned != null){
+            for(Jeu jeu:owned){
+                if(panier.getJeux().contains(jeu)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Retourne le prix du jeu étant le plus dispendieux
+     * Cette donnée servira au filtre par prix dans magasin.jsp
+     * @param catalog
+     * @return maxPrice
+     */
+    private double getMaxPrix(List<Jeu> catalog){
+        Double maxPrice = 0.0;
+        for (Jeu jeu : catalog) {
+            if (jeu.getPrix() > maxPrice) {
+                maxPrice = jeu.getPrix();
+            }
+        }
+        return maxPrice;
     }
 }
 

@@ -6,6 +6,7 @@ import dao.JeuDao;
 import entities.Commande;
 import entities.Compte;
 import entities.Jeu;
+import service.MagasinService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -26,22 +27,17 @@ public class CheckOutServlet extends HttpServlet {
             response.sendRedirect("http://localhost:82/error.html");
         }
 
-        Commande panier = (Commande) session.getAttribute("panier");
+        Commande panier = MagasinService.getPanier(session);
 
         //Récupération de l'action de la requête
         String action = request.getParameter("action");
 
         //Récupération du code connecté
-        Compte compte = (Compte) session.getAttribute("loggedInAccount");
+        Compte compte = MagasinService.getCompte(session);
 
         //Self checkout
         if (action != null && action.equals("SELF")) {
-            CommandeDao.changePanier(compte.getIdCompte());
-            for(Commande commande : compte.getCommandes()){
-                if(commande.isPanier()){
-                    commande.setPanier(false);
-                }
-            }
+             selfCheckOut(compte);
         }
 
         //Gift
@@ -58,15 +54,11 @@ public class CheckOutServlet extends HttpServlet {
                 }
             }
             else{ //Bouton Choisir de la page chooseFriend.jsp
-                for(Commande commande : compte.getCommandes()){
-                    if(commande.isPanier()){
-                        commande.setPanier(false);
-                    }
-                }
-                CommandeDao.changePanierGift(compte.getIdCompte(), Integer.parseInt(giftIdString));
-                compte.removeCommande(panier);
+                giftCheckout(compte, panier, giftIdString);
             }
         }
+
+
         String url = "MagasinServlet";
         RequestDispatcher rd = request.getRequestDispatcher(url);
         try {
@@ -90,6 +82,46 @@ public class CheckOutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+    }
+
+    /**
+     * Change le boolean panier du panier en false dans la bd, il ne sera donc plus un panier, il deviendra owned.
+     * @param compte
+     */
+    private void selfCheckOut(Compte compte){
+        //Change dans l'objet (application)
+        setPanier(compte);
+
+        //Change dans la db
+        CommandeDao.changePanier(compte.getIdCompte());
+    }
+
+    /**
+     * Change le boolean panier du panier en false dans la bd, il ne sera donc plus un panier, il deviendra owned.
+     * Change aussi l'id du compte pour qu'il corresponde à celui de l'ami choisi
+     * @param compte
+     * @param panier
+     * @param giftIdString
+     */
+    private void giftCheckout(Compte compte, Commande panier, String giftIdString){
+        //Set panier dans l'objet (application)
+        setPanier(compte);
+
+        //Set panier et commande dans la db
+        CommandeDao.changePanierGift(compte.getIdCompte(), Integer.parseInt(giftIdString));
+        compte.removeCommande(panier);
+    }
+
+    /**
+     * Change le boolean dans l'objet seulement et non la bd
+     * @param compte
+     */
+    private void setPanier(Compte compte){
+        for(Commande commande : compte.getCommandes()){
+            if(commande.isPanier()){
+                commande.setPanier(false);
+            }
+        }
     }
 }
 

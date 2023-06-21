@@ -4,6 +4,7 @@ import dao.JeuDao;
 import entities.Commande;
 import entities.Compte;
 import entities.Jeu;
+import service.MagasinService;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -24,9 +25,7 @@ public class OwnedFiltre implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        /**
-         * Création de response et request de type http pour des manipulations plus faciles
-         */
+        //Création de response et request de type http pour des manipulations plus faciles
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
@@ -39,25 +38,10 @@ public class OwnedFiltre implements Filter {
         }
 
         //Récupère le compte connecté (s'il y a lieu
-        Compte compte = (Compte) session.getAttribute("loggedInAccount");
+        Compte compte = MagasinService.getCompte(session);
 
         //Création de la liste de jeux
-        List<Jeu> catalog = null;
-
-        //Récupération de la liste de tous les jeux (avant filtrage)
-        if (session.getAttribute("ListeJeux") != null) {
-            /**
-             * new ArrayList nous permet de séparer l'objet catalog de l'attribut de session
-             * Nous pourrons alors modifier catalog pour l'affichage sans pour autant affecter la liste originale
-             */
-            catalog = new ArrayList<>((List<Jeu>) session.getAttribute("ListeJeux"));
-        }
-
-        //Création du catalog (Lors de l'ouverture du programme pour la première fois)
-        if (catalog == null) {
-            catalog = JeuDao.findAll();
-            session.setAttribute("ListeJeux", catalog);
-        }
+        List<Jeu> catalog = MagasinService.getCompleteList(session);
 
         if(compte != null){
             List<Jeu> owned = new ArrayList<>();
