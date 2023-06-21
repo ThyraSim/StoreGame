@@ -45,10 +45,6 @@ public class MagasinServlet extends HttpServlet {
         session.setAttribute("genreList",genreList);
         List<Jeu> catalog = (List<Jeu>) session.getAttribute("catalog");
 
-
-        List<Jeu> owned = (List<Jeu>) session.getAttribute("owned");
-        Commande panier = (Commande) session.getAttribute("panier");
-
         // on détermine le prix maximun pour les fournchettes de prix pour le filtre
         Double maxPrice = 0.0;
         for (Jeu jeu : catalog) {
@@ -56,6 +52,9 @@ public class MagasinServlet extends HttpServlet {
                 maxPrice = jeu.getPrix();
             }
         }
+
+        List<Jeu> owned = (List<Jeu>) session.getAttribute("owned");
+        Commande panier = (Commande) session.getAttribute("panier");
 
         boolean noOwned = true;
         if(owned != null){
@@ -65,7 +64,6 @@ public class MagasinServlet extends HttpServlet {
                 }
             }
         }
-
 
         request.setAttribute("noOwned", noOwned);
         request.setAttribute("maxPrice", maxPrice);

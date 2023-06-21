@@ -14,8 +14,6 @@ public class ConfigStartServlet extends HttpServlet {
 
     public void init() throws ServletException {
 
-
-
         if (JeuDao.findAll().isEmpty() && CommandeDao.findAll().isEmpty() && ClientDao.findAll().isEmpty() && CompteDao.findAll().isEmpty()) {
 
             Client client1 = new Client("admin", "admin", null, null);
@@ -167,9 +165,6 @@ public class ConfigStartServlet extends HttpServlet {
             //Ajout 1 jeu
             CommandeDao.insert(commande3);
             commande3.addJeu(JeuDao.findJeuById(12));
-
-
-
         }
 
 

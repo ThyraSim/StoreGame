@@ -181,7 +181,7 @@
             <c:if test="${not empty panier.jeux}">
                 <h2><fmt:message key="panierTitle"/></h2>
                 <ul class="list-group">
-                    <c:forEach var="jeu" items="${listeJeux}">
+                    <c:forEach var="jeu" items="${listePanier}">
                         <li class="list-group-item">${jeu.nomJeu} | ${jeu.prix} | <fmt:message key="${jeu.genre}"/>
                             | ${jeu.description}
                             <form action="DeleteServlet" method="POST" class="float-right">

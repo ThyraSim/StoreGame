@@ -34,10 +34,9 @@ public class PanierFiltre implements Filter {
 
         List<Jeu> catalog = (List<Jeu>) session.getAttribute("catalog");
         Compte compte = (Compte) session.getAttribute("loggedInAccount");
-        Commande panier;
 
         if(compte != null){
-            panier = compte.trouvePanier();
+            Commande panier = compte.trouvePanier();
             if(panier == null){
                 panier = new Commande(compte, true);
                 compte.createPanier(panier);
@@ -45,7 +44,7 @@ public class PanierFiltre implements Filter {
             }
 
             if(!panier.getJeux().isEmpty()){
-                request.setAttribute("listeJeux",panier.getJeux());
+                request.setAttribute("listePanier",panier.getJeux());
                 for (Jeu jeu : panier.getJeux()) {
                     if (catalog.contains(jeu)) {
                         catalog.remove(jeu);
