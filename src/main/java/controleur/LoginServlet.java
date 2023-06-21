@@ -38,15 +38,13 @@ public class LoginServlet extends HttpServlet {
         }
         String index = request.getParameter("index");
         request.setAttribute("index", index);
-        System.out.println("chien:");
-        System.out.println(index);
         for (Compte compte : compteList) {
             if (compte.getUser().equals(username) && compte.getPassword().equals(password)) {
                 // L'utilisateur est authentifié
                 // Ajoutez votre logique ici pour rediriger ou effectuer d'autres opérations
                 session.setAttribute("loggedInAccount", compte);
                     if(index != null){
-                    response.sendRedirect("MagasinServlet?action=ACHETE&index=" + index);
+                    response.sendRedirect("AcheteServlet?index=" + index);
                     return;
                 } else{
                     response.sendRedirect("ProfileServlet?idCompte="+compte.getIdCompte()); // Exemple de redirection vers une page de tableau de bord

@@ -163,7 +163,7 @@
                             <p class="card-text">${jeu.description}</p>
                             <p><strong>Genre:</strong><fmt:message key="${jeu.genre}"/></p>
                             <p><strong><fmt:message key="Price"/></strong> ${jeu.prix}</p>
-                            <form action="MagasinServlet" method="POST">
+                            <form action="AcheteServlet" method="POST">
                                 <input type="hidden" name="index" value="${jeu.idJeu}">
                                 <input type="hidden" name="action" value="ACHETE">
                                 <div class="card-footer text-muted">
@@ -172,7 +172,6 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </c:forEach>
@@ -185,7 +184,7 @@
                     <c:forEach var="jeu" items="${listeJeux}">
                         <li class="list-group-item">${jeu.nomJeu} | ${jeu.prix} | <fmt:message key="${jeu.genre}"/>
                             | ${jeu.description}
-                            <form action="MagasinServlet" method="POST" class="float-right">
+                            <form action="DeleteServlet" method="POST" class="float-right">
                                 <input type="hidden" name="idJeu" value="${jeu.idJeu}">
                                 <input type="hidden" name="action" value="DELETE">
                                 <button type="submit" class="btn btn-danger"><fmt:message key='removeCommand'/></button>

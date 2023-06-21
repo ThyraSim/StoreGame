@@ -27,9 +27,6 @@ public class MagasinServlet extends HttpServlet {
             response.sendRedirect("http://localhost:82/error.html");
         }
 
-        //Récupération de l'action de la requête
-        String action = request.getParameter("action");
-
         //Récupération de tous les comptes
         List<Compte> comptes = (List<Compte>) session.getAttribute("ListeComptes");
 
@@ -37,109 +34,41 @@ public class MagasinServlet extends HttpServlet {
         if(comptes == null){
             comptes = CompteDao.findAll();
             session.setAttribute("ListeComptes", comptes);
-
-
         }
 
-
-
-        //Récupération du code connecté
-        Compte compte = (Compte) session.getAttribute("loggedInAccount");
-
-        boolean check = false;
-        //on récupère le catalog de jeu
-        List<Jeu> catalog = (List<Jeu>) session.getAttribute("ListeJeux");
-        if(catalog == null){ //Génère le catalog à la première ouverture
-            catalog = JeuDao.findAll();
-        }
-
-        //on récupère la liste des genre
+        //On récupère la liste des genre
         List<Genre> genreList = (List<Genre>) session.getAttribute("genreList");
         if (genreList == null) {
             //génère la liste des genre à la première ouverture
             genreList =  GenreDao.findAll();
         }
         session.setAttribute("genreList",genreList);
+        List<Jeu> catalog = (List<Jeu>) session.getAttribute("catalog");
 
+
+        List<Jeu> owned = (List<Jeu>) session.getAttribute("owned");
+        Commande panier = (Commande) session.getAttribute("panier");
 
         // on détermine le prix maximun pour les fournchettes de prix pour le filtre
-
-        Double maxPrice = (Double) session.getAttribute("maxPrice");
-        if (maxPrice == null) {
-            maxPrice = 0.0;
-            for (Jeu jeu : catalog) {
-                if (jeu.getPrix() > maxPrice) {
-                    maxPrice = jeu.getPrix();
-                }
-            }
-            session.setAttribute("maxPrice", maxPrice);
-        }
-        request.setAttribute("maxPrice", maxPrice);
-
-
-
-        List<Jeu> owned = new ArrayList<>();
-        Commande panier = new Commande();
-        if(compte != null){
-            List<Commande> commandes = compte.getCommandes();
-            for(Commande commande : commandes){
-                if(!commande.isPanier()){
-                    for (Jeu jeu : commande.getJeux()) {
-                        if (catalog.contains(jeu)) {
-                            catalog.remove(jeu);
-                            owned.add(jeu);
-                        }
-                    }
-                }
-            }
-            panier = compte.trouvePanier();
-            if(panier == null){
-                panier = new Commande(compte, true);
-                compte.createPanier(panier);
-                CommandeDao.insert(panier);
+        Double maxPrice = 0.0;
+        for (Jeu jeu : catalog) {
+            if (jeu.getPrix() > maxPrice) {
+                maxPrice = jeu.getPrix();
             }
         }
-        if (action != null && action.equals("DELETE")) {
-            int idJeu = Integer.parseInt(request.getParameter("idJeu"));
-            panier.removeJeu(idJeu);
-            compte.updateCommande(panier);
-        }
-        if (action != null && action.equals("ACHETE")) {
-            String index = request.getParameter("index");
-            if (compte == null) {
-                // User is not logged in, redirect to Log in Servlet
-                response.sendRedirect("LoginServlet?index=" + index);
-                return;
-            }
-            //Ajouter au panier
-
-            Jeu monJeu = JeuDao.findJeuById(Integer.parseInt(index));
-            if(!panier.getJeux().contains(monJeu)){
-                panier.addJeu(monJeu);
-                compte.updateCommande(panier);
-            }
-        }
-        if(!panier.getJeux().isEmpty()){
-            request.setAttribute("listeJeux",panier.getJeux());
-            for (Jeu jeu : panier.getJeux()) {
-                if (catalog.contains(jeu)) {
-                    catalog.remove(jeu);
-                }
-            }
-        }
-        request.setAttribute("catalog", catalog);
 
         boolean noOwned = true;
-        for(Jeu jeu:owned){
-            if(panier.getJeux().contains(jeu)){
-                noOwned = false;
+        if(owned != null){
+            for(Jeu jeu:owned){
+                if(panier.getJeux().contains(jeu)){
+                    noOwned = false;
+                }
             }
         }
 
+
         request.setAttribute("noOwned", noOwned);
-        System.out.println("Chat");
-        System.out.println(panier);
-        session.setAttribute("panier", panier);
+        request.setAttribute("maxPrice", maxPrice);
         String url = "magasin.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(url);
         try {
