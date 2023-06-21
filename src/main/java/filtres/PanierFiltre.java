@@ -36,6 +36,8 @@ public class PanierFiltre implements Filter {
         List<Jeu> catalog = MagasinService.getCatalog(session);
         Compte compte = getCompte(session);
 
+        //On vérifie si l'il y a un compte et on récupère le panie, le cas échéant on crée un nouveau panier
+
         if(compte != null){
             Commande panier = compte.trouvePanier();
             if(panier == null){
@@ -44,6 +46,8 @@ public class PanierFiltre implements Filter {
                 CommandeDao.insert(panier);
             }
 
+
+           //Si le panier n'est pas vide, on récupère la liste des jeux du panier et on retire du catalog "dynamique" des jeux.
             if(!panier.getJeux().isEmpty()){
                 request.setAttribute("listePanier",panier.getJeux());
                 for (Jeu jeu : panier.getJeux()) {

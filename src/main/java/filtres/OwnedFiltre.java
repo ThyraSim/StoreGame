@@ -43,11 +43,15 @@ public class OwnedFiltre implements Filter {
         //Création de la liste de jeux
         List<Jeu> catalog = MagasinService.getCompleteList(session);
 
+
+        //Parcourt L'historique des commandes du compte, en excluant le panier, va retirer les jeux du catalog
+        // et ajouter à la listedes jeu Owned
+
         if(compte != null){
             List<Jeu> owned = new ArrayList<>();
             List<Commande> commandes = compte.getCommandes();
             for(Commande commande : commandes){
-                if(!commande.isPanier()){
+                if(!commande.isPanier()){  // exclu le panier
                     for (Jeu jeu : commande.getJeux()) {
                         if (catalog.contains(jeu)) {
                             catalog.remove(jeu);
