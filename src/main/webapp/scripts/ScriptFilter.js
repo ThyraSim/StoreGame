@@ -43,5 +43,14 @@ $(document).ready(function() {
             }
         });
     });
+
+    //Faire un submit lorsque bouton cocher
+    document.getElementById('ownedCheckbox').addEventListener('change', function() {
+        if (this.checked) {
+            this.parentNode.submit(); // Automatically submit the form when checkbox is checked
+        }
+    });
+
+
 });
 

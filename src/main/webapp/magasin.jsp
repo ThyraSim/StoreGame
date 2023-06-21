@@ -80,10 +80,10 @@
     <%--FILTRE POUR AFFICHER TOUS LES JEUX--%>
     <div>
     <form action="MagasinServlet" method="GET">
-        <label for="ownedCheckbox">Jeux possédés</label>
-        <input type="checkbox" id="ownedCheckbox" name="owned" value="true">
+        <label for="chkAfficherToutJeu"><fmt:message key="FilerAllGame"/></label>
+        <input type="checkbox" id="chkAfficherToutJeu" name="owned" value="true">
         <input type="hidden" name="action" value="desactiverOwnedFiltre">
-        <button type="submit">Submit</button>
+
     </form>
     </div>
 
