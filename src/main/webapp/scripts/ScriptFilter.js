@@ -1,3 +1,5 @@
+
+console.log("initjs")
 $(document).ready(function() {
     $('#btnSearchByName').click(function() {
 
@@ -22,9 +24,9 @@ $(document).ready(function() {
             $('div[name="Card-Game"][genre="' + selectedGenre + '"]').show(); // Afficher les jeux correspondant au genre sélectionné
         }
     });
-});
 
-$(document).ready(function() {
+
+
     $('#priceFilter').change(function() {
         // Récupérer la plage de prix sélectionnée
         var selectedRange = $('#priceFilter option:selected');
@@ -44,11 +46,17 @@ $(document).ready(function() {
         });
     });
 
-    //Faire un submit lorsque bouton cocher
-    document.getElementById('ownedCheckbox').addEventListener('change', function() {
+    $('#chkAfficherToutJeu').change(function() {
+
+        console.log("checkChangeEventWork");
         if (this.checked) {
-            this.parentNode.submit(); // Automatically submit the form when checkbox is checked
+            $('#actionInput').val('desactiverOwnedFiltre');
+        } else {
+            $('#actionInput').val('');
         }
+
+        // Submit the form
+        $('#FormAfficherToutJeu').submit();
     });
 
 

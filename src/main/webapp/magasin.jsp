@@ -79,10 +79,13 @@
 
     <%--FILTRE POUR AFFICHER TOUS LES JEUX--%>
     <div>
-    <form action="MagasinServlet" method="GET">
-        <label for="chkAfficherToutJeu"><fmt:message key="FilerAllGame"/></label>
-        <input type="checkbox" id="chkAfficherToutJeu" name="owned" value="true">
-        <input type="hidden" name="action" value="desactiverOwnedFiltre">
+    <form id="FormAfficherToutJeu" action="MagasinServlet" method="GET">
+        <input type="hidden" id="actionInput" name="action" value="">
+        <label ><fmt:message key="FilerAllGame"/></label>
+        <input  type="checkbox" id="chkAfficherToutJeu"
+               <c:if test="${AfficherToutJeu == 'true'}">checked</c:if>
+        >
+
 
     </form>
     </div>
@@ -162,13 +165,10 @@
     </div>
 </fmt:bundle>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
 <script src="scripts/ScriptFilter.js"></script>
 
 

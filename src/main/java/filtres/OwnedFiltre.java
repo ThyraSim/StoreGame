@@ -58,6 +58,8 @@ public class OwnedFiltre implements Filter {
                     listeJeuOwn) {
                 catalog.add(jeuOwn);
                 session.setAttribute("catalog", catalog);
+                request.setAttribute("AfficherToutJeu",true);
+
             }
 
             filterChain.doFilter(request, response);
