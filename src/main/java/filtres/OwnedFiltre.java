@@ -49,22 +49,9 @@ public class OwnedFiltre implements Filter {
         String action = request.getParameter("action");
 
 
-        //Si action est desactiverOwnedFiltre (cad tous voir tous jeux deja posséder) on va rajouter les jeux posséder dans le catalog
-        //et redirigé vers le filtre suivant
 
-        if (compte != null && action != null && action.contains("desactiverOwnedFiltre")) {
-            List<Jeu> listeJeuOwn = (List<Jeu>) session.getAttribute("owned");
-            for (Jeu jeuOwn :
-                    listeJeuOwn) {
-                catalog.add(jeuOwn);
-                session.setAttribute("catalog", catalog);
-                request.setAttribute("AfficherToutJeu",true);
 
-            }
 
-            filterChain.doFilter(request, response);
-            return;
-        }
 
 
         if (compte != null) {
@@ -74,7 +61,7 @@ public class OwnedFiltre implements Filter {
                 if (!commande.isPanier()) {  // exclu le panier
                     for (Jeu jeu : commande.getJeux()) {
                         if (catalog.contains(jeu)) {
-                            catalog.remove(jeu);
+
                             owned.add(jeu);
                         }
                     }

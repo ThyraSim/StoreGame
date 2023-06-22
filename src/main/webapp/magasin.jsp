@@ -80,12 +80,10 @@
 
     <%--FILTRE POUR AFFICHER TOUS LES JEUX--%>
     <div>
-    <form id="FormAfficherToutJeu" action="MagasinServlet" method="GET">
-        <input type="hidden" id="actionInput" name="action" value="">
+
+
         <label ><fmt:message key="FilerAllGame"/></label>
-        <input  type="checkbox" id="chkAfficherToutJeu"
-               <c:if test="${AfficherToutJeu == 'true'}">checked</c:if>
-        >
+        <input  type="checkbox" id="chkAfficherToutJeu" >
 
 
     </form>
@@ -96,8 +94,22 @@
         <h1 class="text-center my-3"><fmt:message key="listeJeuTitle"/></h1>
 
         <div class="row">
+
+
+
             <c:forEach var="jeu" items="${catalog}">
-                <div name="Card-Game" genre="${jeu.genre}" gameName="${jeu.nomJeu}" gamePrice="${jeu.prix}"
+                <c:set var="flagOwned" value="false"/>
+
+
+<%--            Parcour la liste des jeux posséder pour set un flag deja posséer--%>
+                <c:forEach var="ownedGame" items="${owned}">
+                    <c:if test="${ownedGame.idJeu eq jeu.idJeu}">
+                        <c:set var="flagOwned" value="true"/>
+
+                    </c:if>
+                </c:forEach>
+
+                <div name="Card-Game" genre="${jeu.genre}" gameName="${jeu.nomJeu}" gamePrice="${jeu.prix}" gameOwned="${flagOwned}"
                      class="col-md-12 mb-4">
                     <div class="card text-center">
                         <div class="card-header">
@@ -112,11 +124,11 @@
                                 <input type="hidden" name="action" value="ACHETE">
                                 <div class="card-footer text-muted">
                             <%-- Lorsque la checkbox Afficher tous les jeux, le catalog inclus maintenant les jeux deja posseder--%>
-                                    <c:forEach var="ownedGame" items="${owned}">
-                                        <c:if test="${ownedGame.idJeu eq jeu.idJeu}">
+
+                                        <c:if test="${flagOwned eq true}">
                                             <p><fmt:message key="AlreadyPossessed"/></p>
                                         </c:if>
-                                    </c:forEach>
+
 
                                     <button type="submit" class="btn btn-primary"><fmt:message
                                             key='buyCommand'/></button>
