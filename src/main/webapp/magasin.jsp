@@ -46,7 +46,7 @@
         <div class="row">
             <h1><fmt:message key="FilterHeader"/></h1>
 
-            <select id="genre" class="form-control form-control-lg">
+            <select id="cbGenre" class="form-control form-control-lg">
                 <option value=""><fmt:message key="FilterAllGenre"/></option>
                 <c:forEach var="genre" items="${genreList}" varStatus="loop">
                     <option>${genre.name}</option>
@@ -65,6 +65,7 @@
         <%--FILTRE DU PRIX--%>
         <div class="row">
             <select id="priceFilter">
+                <option minPriceRange="0" maxPriceRange="${maxPrice}"><fmt:message key="AllPrice"/></option>
                 <c:forEach begin="0" end="${maxPrice/10}" var="i">
                     <c:set var="minPriceRange" value="${i*10+1}" />
                     <c:set var="maxPriceRange" value="${(i+1)*10}" />
@@ -110,7 +111,7 @@
                                 <input type="hidden" name="index" value="${jeu.idJeu}">
                                 <input type="hidden" name="action" value="ACHETE">
                                 <div class="card-footer text-muted">
-                            <%-- Lorsque le filtre Afficher tous les jeux, le catalog inclus maintenant les jeux deja posseder--%>
+                            <%-- Lorsque la checkbox Afficher tous les jeux, le catalog inclus maintenant les jeux deja posseder--%>
                                     <c:forEach var="ownedGame" items="${owned}">
                                         <c:if test="${ownedGame.idJeu eq jeu.idJeu}">
                                             <p><fmt:message key="AlreadyPossessed"/></p>

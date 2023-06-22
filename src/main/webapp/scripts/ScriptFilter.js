@@ -1,64 +1,58 @@
-
-console.log("initjs")
-$(document).ready(function() {
-    $('#btnSearchByName').click(function() {
-
-        var gameNameInput = $('#gameNameInput').val().toLowerCase(); // Récupération de la valeur du champ de recherche par nom
-        $('div[name="Card-Game"]').each(function() { // Parcours de chaque élément de div avec l'attribut name="Card-Game"
-            var gameName = $(this).attr('gameName').toLowerCase(); // Récupération du nom du jeu en cours de vérification
-            if (gameName.includes(gameNameInput)) { // Vérification si le nom du jeu correspond à la recherche
-                $(this).show(); // Afficher le jeu correspondant
-            } else {
-                $(this).hide(); // Masquer le jeu s'il ne correspond pas à la recherche
-            }
-        });
-    });
-
-    $('#genre').change(function() {
-
-        var selectedGenre = $(this).val(); // Récupération de la valeur sélectionnée dans la liste déroulante de genre
-        $('div[name="Card-Game"]').hide(); // Masquer tous les jeux
-        if (selectedGenre === '') {
-            $('div[name="Card-Game"]').show(); // Afficher tous les jeux si aucun genre n'est sélectionné
-        } else {
-            $('div[name="Card-Game"][genre="' + selectedGenre + '"]').show(); // Afficher les jeux correspondant au genre sélectionné
-        }
-    });
-
-
-
-    $('#priceFilter').change(function() {
-        // Récupérer la plage de prix sélectionnée
+$(document).ready(function () {
+    // Fonction pour appliquer tous les filtres
+    function appliquerFiltres() {
+        var gameNameInput = $('#gameNameInput').val().toLowerCase();
+        var selectedGenre = $('#cbGenre').val().toLowerCase();
         var selectedRange = $('#priceFilter option:selected');
         var minPriceRange = selectedRange.attr('minPriceRange');
         var maxPriceRange = selectedRange.attr('maxPriceRange');
 
-
-
-        // Effectuer la recherche en fonction de la plage de prix sélectionnée
-        $('div[name="Card-Game"]').each(function() {
+        $('div[name="Card-Game"]').each(function () {
+            var gameName = $(this).attr('gameName').toLowerCase();
+            var genre = $(this).attr('genre').toLowerCase();
             var gamePrice = parseFloat($(this).attr('gamePrice'));
-            if (gamePrice >= minPriceRange && gamePrice <= maxPriceRange) {
-                $(this).show(); // Afficher l'élément s'il correspond à la plage de prix
+
+            // Appliquer le filtre par nom
+            var filtreNom = gameName.includes(gameNameInput);
+
+            // Appliquer le filtre par genre
+            var filtreGenre = selectedGenre === '' || selectedGenre === genre;
+
+            // Appliquer le filtre par prix
+            var filtrePrix = gamePrice >= minPriceRange && gamePrice <= maxPriceRange;
+
+            // Afficher ou masquer en fonction des conditions combinées des filtres
+            if (filtreNom && filtreGenre && filtrePrix) {
+                $(this).show();
             } else {
-                $(this).hide(); // Masquer l'élément s'il ne correspond pas à la plage de prix
+                $(this).hide();
             }
         });
+    }
+
+    // Gestionnaire d'événement pour le filtre par nom
+    $('#btnSearchByName').click(function () {
+        appliquerFiltres();
     });
 
-    $('#chkAfficherToutJeu').change(function() {
+    // Gestionnaire d'événement pour le filtre par genre
+    $('#cbGenre').change(function () {
+        appliquerFiltres();
+    });
 
-        console.log("checkChangeEventWork");
+    // Gestionnaire d'événement pour le filtre par prix
+    $('#priceFilter').change(function () {
+        appliquerFiltres();
+    });
+
+    // Gestionnaire d'événement pour la case à cocher "Afficher Tout Jeu"
+    $('#chkAfficherToutJeu').change(function () {
         if (this.checked) {
             $('#actionInput').val('desactiverOwnedFiltre');
         } else {
             $('#actionInput').val('');
         }
-
-        // Submit the form
+        // Soumettre le formulaire
         $('#FormAfficherToutJeu').submit();
     });
-
-
 });
-
