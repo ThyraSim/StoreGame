@@ -33,6 +33,12 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         List<Compte> compteList = MagasinService.getListCompte(session);
+        Compte compteLogged = MagasinService.getCompte(session);
+        if(compteLogged != null){
+            response.sendRedirect("ProfileServlet?idCompte="+compteLogged.getIdCompte());
+            return;
+        }
+
         Integer index = null;
 
         for (Compte compte : compteList) {
