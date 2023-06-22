@@ -1,12 +1,20 @@
+
+
 $(document).ready(function () {
+
+    // on applique le filtre dès le départ pour retirer les jeux posséder
+    appliquerFiltres();
+
+
     // Fonction pour appliquer tous les filtres
     function appliquerFiltres() {
+
         var gameNameInput = $('#gameNameInput').val().toLowerCase();
         var selectedGenre = $('#cbGenre').val().toLowerCase();
         var selectedRange = $('#priceFilter option:selected');
         var minPriceRange = selectedRange.attr('minPriceRange');
         var maxPriceRange = selectedRange.attr('maxPriceRange');
-        var chkAfficherToutJeu = $('#chkAfficherToutJeu').prop('checked');
+        var chkShowOwnedGame = $('#chkShowOwnedGame').prop('checked');
 
         $('div[name="Card-Game"]').each(function () {
             var gameName = $(this).attr('gameName').toLowerCase();
@@ -24,7 +32,7 @@ $(document).ready(function () {
             var filtrePrix = gamePrice >= minPriceRange && gamePrice <= maxPriceRange;
 
             // Appliquer le filtre p
-            var filtreOwned = gameOwned == 'false' && chkAfficherToutJeu==false || chkAfficherToutJeu==true;
+            var filtreOwned = (gameOwned == 'false' && chkShowOwnedGame==false )|| chkShowOwnedGame==true;
 
             // Afficher ou masquer en fonction des conditions combinées des filtres
             if (filtreNom && filtreGenre && filtrePrix && filtreOwned) {
@@ -51,7 +59,7 @@ $(document).ready(function () {
     });
 
     // Gestionnaire d'événement pour la case à cocher "Afficher Tout Jeu"
-    $('#chkAfficherToutJeu').change(function () {
+    $('#chkShowOwnedGame').change(function () {
             appliquerFiltres();
     });
 });

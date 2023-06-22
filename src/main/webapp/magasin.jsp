@@ -75,19 +75,20 @@
                 </c:forEach>
             </select>
         </div>
+
+                <%--FILTRE POUR AFFICHER LES JEUX POSSEDÉS--%>
+        <div class="row">
+            <div>
+                <label ><fmt:message key="FilerAllGame"/></label>
+                <input  type="checkbox" id="chkShowOwnedGame" >
+                </form>
+            </div>
+        </div>
     </div>
 
 
     <%--FILTRE POUR AFFICHER TOUS LES JEUX--%>
-    <div>
 
-
-        <label ><fmt:message key="FilerAllGame"/></label>
-        <input  type="checkbox" id="chkAfficherToutJeu" >
-
-
-    </form>
-    </div>
 
 <%--    AFFICHER LE CATALOG DE JEU ( par défaut catalog exclu les jeux du panier et ceux du déjà posséder--%>
     <div class="container">
