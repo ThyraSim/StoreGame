@@ -7,9 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
+<fmt:bundle basename="MessagesBundle">
 <head>
     <link
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -63,17 +65,17 @@
         </div>
     </div>
 </nav>
-<h1 id="loginTitle">Connexion</h1>
+<h1 id="loginTitle"><fmt:message key="login"/></h1>
 <form id="loginForm" action="/LoginServlet" method="post">
-    <label for="username">Nom d'utilisateur:</label>
+    <label for="username"><fmt:message key="userTableHeader"/>:</label>
     <input type="text" id="username" name="username" required><br><br>
 
-    <label for="password">Mot de passe:</label>
+    <label for="password"><fmt:message key="passwordTableHeader"/>:</label>
     <input type="password" id="password" name="password" required><br><br>
 
-    <input type="submit" value="Se connecter">
+    <input type="submit" value="<fmt:message key="login"/>">
     <br><br>
-    <button type="button" onclick="showRegistrationForm()">S'inscrire</button>
+    <button type="button" onclick="showRegistrationForm()"><fmt:message key="register"/></button>
     <c:choose>
         <c:when test="${not empty param.index}">
             <input type="hidden" name="index" value="${param.index}">
@@ -83,7 +85,7 @@
 
 <h1 id="registrationTitle" style="display: none;">Création de compte</h1>
 <form id="registrationForm" action="/CreationCompteServlet" method="post" style="display: none;">
-    <label for="username">Nom d'utilisateur:</label>
+    <label for="username"><fmt:message key="userTableHeader"/>:</label>
     <input type="text" id="username" name="username" required><br><br>
 
     <label for="profileName">Nom de Profile:</label>
@@ -104,4 +106,5 @@
 <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
 <script src="scripts/ScriptFilter.js"></script>
 </body>
+</fmt:bundle>
 </html>
