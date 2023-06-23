@@ -46,15 +46,22 @@ public class OwnedFiltre implements Filter {
 
         //Parcourt L'historique des commandes du compte, en excluant le panier, va retirer les jeux du catalog
         // et ajouter à la listedes jeu Owned
+        String action = request.getParameter("action");
 
-        if(compte != null){
+
+
+
+
+
+
+        if (compte != null) {
             List<Jeu> owned = new ArrayList<>();
             List<Commande> commandes = compte.getCommandes();
-            for(Commande commande : commandes){
-                if(!commande.isPanier()){  // exclu le panier
+            for (Commande commande : commandes) {
+                if (!commande.isPanier()) {  // exclu le panier
                     for (Jeu jeu : commande.getJeux()) {
                         if (catalog.contains(jeu)) {
-                            catalog.remove(jeu);
+
                             owned.add(jeu);
                         }
                     }
@@ -73,4 +80,7 @@ public class OwnedFiltre implements Filter {
     public void destroy() {
         Filter.super.destroy();
     }
+
+
+
 }
