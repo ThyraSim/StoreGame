@@ -1,6 +1,7 @@
 package entities;
 
 import jakarta.persistence.*;
+import org.hibernate.engine.internal.Cascade;
 
 import java.util.List;
 
@@ -8,31 +9,24 @@ import java.util.List;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idClient;
     private String nom;
     private String prenom;
     private String adressePhysique;
     private String adresseCourriel;
 
-    @OneToOne(mappedBy = "client")
+    @OneToOne
+    @MapsId
     private Compte compte;
 
     public Client() {
     }
 
-    public Client(String nom, String prenom, String adressePhysique, String adresseCourriel) {
+    public Client(String nom, String prenom, String adressePhysique, String adresseCourriel, Compte compte) {
         this.nom = nom;
         this.prenom = prenom;
         this.adressePhysique = adressePhysique;
         this.adresseCourriel = adresseCourriel;
-    }
-
-    public Compte getCompte() {
-        return compte;
-    }
-
-    public void setCompte(Compte compte) {
         this.compte = compte;
     }
 
@@ -74,6 +68,14 @@ public class Client {
 
     public void setIdClient(int id) {
         this.idClient = id;
+    }
+
+    public Compte getCompte() {
+        return compte;
+    }
+
+    public void setCompte(Compte compte) {
+        this.compte = compte;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package dao;
 
+import entities.Client;
 import entities.Compte;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -28,6 +29,7 @@ public class CompteDao {
     }
 
     public static boolean delete(Integer id) {
+        ClientDao.delete(id);
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 

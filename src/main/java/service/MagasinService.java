@@ -1,12 +1,10 @@
 package service;
 
+import dao.ClientDao;
 import dao.CompteDao;
 import dao.GenreDao;
 import dao.JeuDao;
-import entities.Commande;
-import entities.Compte;
-import entities.Genre;
-import entities.Jeu;
+import entities.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -135,5 +133,9 @@ public class MagasinService {
      */
     public static Commande getPanier(HttpSession session){
         return (Commande) session.getAttribute("panier");
+    }
+
+    public static Client getClient(Compte compte){
+        return ClientDao.findClientById(compte.getIdCompte());
     }
 }

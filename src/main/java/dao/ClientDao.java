@@ -17,7 +17,12 @@ public class ClientDao {
 
         try {
             entityManager.getTransaction().begin();
+
+            Compte managedCompte = entityManager.merge(client.getCompte());
+            client.setCompte(managedCompte);
+
             entityManager.persist(client);
+
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
@@ -27,6 +32,7 @@ public class ClientDao {
             entityManagerFactory.close();
         }
     }
+
 
     public static boolean delete(Integer id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");

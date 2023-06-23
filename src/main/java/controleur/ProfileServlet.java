@@ -1,6 +1,7 @@
 package controleur;
 
 import dao.CompteDao;
+import entities.Client;
 import entities.Commande;
 import entities.Compte;
 import entities.Jeu;
@@ -35,8 +36,11 @@ public class ProfileServlet extends HttpServlet {
             }
         }
 
+        Client client = MagasinService.getClient(compte);
+
         commandes.removeAll(commandesToRemove);
         request.setAttribute("commandes", commandes);
+        request.setAttribute("client", client);
 
 
         request.setAttribute("compte", compte);

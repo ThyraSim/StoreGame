@@ -15,31 +15,25 @@ public class ConfigStartServlet extends HttpServlet {
     public void init() throws ServletException {
 
         if (JeuDao.findAll().isEmpty() && CommandeDao.findAll().isEmpty() && ClientDao.findAll().isEmpty() && CompteDao.findAll().isEmpty()) {
-
-            Client client1 = new Client("admin", "admin", null, null);
-            Client client2 = new Client("Beaudry", "Simon", "5150 rues des ormes", "Tyzral@gmail.com");
-            Client client3 = new Client("Mercier", "Francis", "221B Baker Street", "Grimworld@gmail.com");
-            Client client4 = new Client("Ami", "Ami", "50 rue l'Amitié", "ami@gmail.com");
-
-            ClientDao.insert(client1);
-            ClientDao.insert(client2);
-            ClientDao.insert(client3);
-            ClientDao.insert(client4);
-
             Compte compte1 = new Compte("admin", "123", "Orignal");
             Compte compte2 = new Compte("Tyzral", "123", "Tyzral");
             Compte compte3 = new Compte("Grimworld", "123", "Grimworld");
             Compte compte4 = new Compte("THEFRIEND", "123", "ami");
 
-            compte1.setClient(client1);
-            compte2.setClient(client2);
-            compte3.setClient(client3);
-            compte4.setClient(client4);
-
             CompteDao.insert(compte1);
             CompteDao.insert(compte2);
             CompteDao.insert(compte3);
             CompteDao.insert(compte4);
+
+            Client client1 = new Client("admin", "admin", null, null, compte1);
+            Client client2 = new Client("Beaudry", "Simon", "5150 rues des ormes", "Tyzral@gmail.com", compte2);
+            Client client3 = new Client("Mercier", "Francis", "221B Baker Street", "Grimworld@gmail.com", compte3);
+            Client client4 = new Client("Ami", "Ami", "50 rue l'Amitié", "ami@gmail.com", compte4);
+
+            ClientDao.insert(client1);
+            ClientDao.insert(client2);
+            ClientDao.insert(client3);
+            ClientDao.insert(client4);
 
             GenreDao.insert(new Genre("Action-aventure"));
             GenreDao.insert(new Genre("Plateforme"));
