@@ -11,6 +11,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @WebServlet(name = "ProfileServlet", value = "/ProfileServlet")
@@ -26,10 +27,19 @@ public class ProfileServlet extends HttpServlet {
         }
 
         // Charger les commandes du compte
-        List<Commande> commandes = compte.getCommandes();
-        request.setAttribute("compte", compte);
+        List<Commande> commandes = new ArrayList<>(compte.getCommandes());
+        List<Commande> commandesToRemove = new ArrayList<>();
+        for (Commande commande : commandes) {
+            if (commande.isPanier()) {
+                commandesToRemove.add(commande);
+            }
+        }
 
+        commandes.removeAll(commandesToRemove);
         request.setAttribute("commandes", commandes);
+
+
+        request.setAttribute("compte", compte);
         RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
         dispatcher.forward(request, response);
     }

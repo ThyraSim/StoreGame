@@ -13,30 +13,6 @@
             rel="stylesheet"
             crossorigin="anonymous"/>
 </head>
-<%--<body>--%>
-<%--<fmt:bundle basename="MessagesBundle">--%>
-<%--    <div class="container">--%>
-<%--        <h1 class="text-center my-3"><fmt:message key="listeJeuTitle" /></h1>--%>
-
-<%--        <div class="row">--%>
-<%--            <c:forEach var="jeu" items="${catalog}">--%>
-<%--                <div class="col-md-4 mb-4">--%>
-<%--                    <div class="card">--%>
-<%--                        <div class="card-body">--%>
-<%--                            <h5 class="card-title">${jeu.nomJeu}</h5>--%>
-<%--                            <p class="card-text">${jeu.description}</p>--%>
-<%--                            <p><strong>Genre:</strong> ${jeu.genre}</p>--%>
-<%--                            <p><strong>Price:</strong> ${jeu.prix}</p>--%>
-<%--                            <form action="MagasinServlet" method="POST">--%>
-<%--                                <input type="hidden" name="index" value="${jeu.idJeu}">--%>
-<%--                                <input type="hidden" name="action" value="ACHETE">--%>
-<%--                                <button type="submit" class="btn btn-primary"><fmt:message key='buyCommand' /></button>--%>
-<%--                            </form>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </c:forEach>--%>
-<%--        </div>--%>
 <body>
 <fmt:bundle basename="MessagesBundle">
     <jsp:include page="navbar.jsp"/>
@@ -49,7 +25,7 @@
             <select id="cbGenre" class="form-control form-control-lg">
                 <option value=""><fmt:message key="FilterAllGenre"/></option>
                 <c:forEach var="genre" items="${genreList}" varStatus="loop">
-                    <option><fmt:message key="${genre.name}"/></option>
+                    <option value="${genre.name}"><fmt:message key="${genre.name}"/></option>
                 </c:forEach>
             </select>
         </div>
