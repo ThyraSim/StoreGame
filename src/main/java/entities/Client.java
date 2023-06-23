@@ -15,6 +15,9 @@ public class Client {
     private String adressePhysique;
     private String adresseCourriel;
 
+    @OneToOne(mappedBy = "client")
+    private Compte compte;
+
     public Client() {
     }
 
@@ -23,6 +26,14 @@ public class Client {
         this.prenom = prenom;
         this.adressePhysique = adressePhysique;
         this.adresseCourriel = adresseCourriel;
+    }
+
+    public Compte getCompte() {
+        return compte;
+    }
+
+    public void setCompte(Compte compte) {
+        this.compte = compte;
     }
 
     public String getNom() {

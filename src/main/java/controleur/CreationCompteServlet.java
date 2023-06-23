@@ -1,6 +1,7 @@
 package controleur;
 
 import dao.CompteDao;
+import entities.Client;
 import entities.Commande;
 import entities.Compte;
 

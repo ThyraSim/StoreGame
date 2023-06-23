@@ -21,21 +21,25 @@ public class ConfigStartServlet extends HttpServlet {
             Client client3 = new Client("Mercier", "Francis", "221B Baker Street", "Grimworld@gmail.com");
             Client client4 = new Client("Ami", "Ami", "50 rue l'Amitié", "ami@gmail.com");
 
-            CompteDao.insert(new Compte("admin", "123", "Orignal"));
-            CompteDao.insert(new Compte("Tyzral", "123", "Tyzral"));
-            CompteDao.insert(new Compte("Grimworld", "123", "Grimworld"));
-            CompteDao.insert(new Compte("THEFRIEND", "123", "ami"));
-
-
-//            client1.setCompte(CompteDao.findCompteById(1));
-//            client2.setCompte(CompteDao.findCompteById(2));
-//            client3.setCompte(CompteDao.findCompteById(3));
-//            client4.setCompte(CompteDao.findCompteById(4));
-
             ClientDao.insert(client1);
             ClientDao.insert(client2);
             ClientDao.insert(client3);
             ClientDao.insert(client4);
+
+            Compte compte1 = new Compte("admin", "123", "Orignal");
+            Compte compte2 = new Compte("Tyzral", "123", "Tyzral");
+            Compte compte3 = new Compte("Grimworld", "123", "Grimworld");
+            Compte compte4 = new Compte("THEFRIEND", "123", "ami");
+
+            compte1.setClient(client1);
+            compte2.setClient(client2);
+            compte3.setClient(client3);
+            compte4.setClient(client4);
+
+            CompteDao.insert(compte1);
+            CompteDao.insert(compte2);
+            CompteDao.insert(compte3);
+            CompteDao.insert(compte4);
 
             GenreDao.insert(new Genre("Action-aventure"));
             GenreDao.insert(new Genre("Plateforme"));
