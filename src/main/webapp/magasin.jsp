@@ -29,13 +29,12 @@
                 </c:forEach>
             </select>
         </div>
+
         <%--FILTRE DU NOM--%>
         <div class="row">
             <label> <fmt:message key="FilterByName"/></label>
             <input type="text" id="gameNameInput">
             <button id="btnSearchByName"><fmt:message key="FilterSearch"/></button>
-
-
         </div>
 
         <%--FILTRE DU PRIX--%>

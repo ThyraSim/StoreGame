@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("ProfileServlet?idCompte="+compteLogged.getIdCompte());
             return;
         }
-
+        String indexPourjsp = request.getParameter("index");
         Integer index = null;
 
         for (Compte compte : compteList) {
@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         // Si les informations d'identification sont incorrectes, affichez un message d'erreur ou redirigez vers une page d'erreur
-        response.sendRedirect("login.jsp?index="+index);
+        response.sendRedirect("login.jsp?index="+indexPourjsp);
     }
 
     public void destroy() {
