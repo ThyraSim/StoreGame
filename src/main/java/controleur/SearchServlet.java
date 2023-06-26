@@ -21,6 +21,7 @@ import util.Utilitaire;
 public class SearchServlet extends HttpServlet {
         protected void processRequest(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
+            response.setContentType("text/html;charset=UTF-8");
             String searchTerm = request.getParameter("searchInput");
             HttpSession session = request.getSession();
             List<Compte> comptes = MagasinService.getListCompte(session);

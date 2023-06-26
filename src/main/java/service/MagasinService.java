@@ -6,6 +6,7 @@ import dao.GenreDao;
 import dao.JeuDao;
 import entities.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;

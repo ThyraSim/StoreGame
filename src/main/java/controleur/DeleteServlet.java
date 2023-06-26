@@ -18,11 +18,13 @@ import java.net.http.HttpRequest;
 
 @WebServlet(name = "DeleteServlet", value = "/DeleteServlet")
 public class DeleteServlet extends HttpServlet {
+    private static String url = "panier.jsp";
 
     public void init() {
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         if (session == null) {
             response.sendRedirect("http://localhost:82/error.html");
@@ -30,8 +32,6 @@ public class DeleteServlet extends HttpServlet {
 
         //Retire le jeu du panier
         retirerJeu(session, request);
-
-        String url = "MagasinServlet";
         RequestDispatcher rd = request.getRequestDispatcher(url);
         try {
             rd.forward(request, response);
@@ -70,5 +70,8 @@ public class DeleteServlet extends HttpServlet {
         compte.updateCommande(panier);
 
         session.setAttribute("panier", panier);
+        if(panier.getJeux().isEmpty() || request.getParameter("source").equals("nav")){
+            url = "MagasinServlet";
+        }
     }
 }

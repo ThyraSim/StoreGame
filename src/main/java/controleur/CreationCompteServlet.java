@@ -1,9 +1,11 @@
 package controleur;
 
+import dao.ClientDao;
 import dao.CompteDao;
 import entities.Client;
 import entities.Commande;
 import entities.Compte;
+import service.MagasinService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -18,14 +21,34 @@ import java.util.List;
 public class CreationCompteServlet extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession();
+        if (session == null) {
+            response.sendRedirect("http://localhost:82/error.html");
+        }
+
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String profileName = request.getParameter("profileName");
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
+        String physique = request.getParameter("physique");
+        String email = request.getParameter("email");
 
         // Valider les entrées (à implémenter)
 
         Compte compte = new Compte(username, password, profileName);
         CompteDao.insert(compte);
+
+        Client client = new Client(nom, prenom, physique, email, compte);
+        ClientDao.insert(client);
+
+        List<Compte> comptes = MagasinService.getListCompte(session);
+        comptes.add(compte);
+
+        session.setAttribute("ListeComptes", comptes);
 
         if(compte != null) {
             // Si la création a réussi, vous pouvez rediriger l'utilisateur vers la page de connexion ou vers une autre page.

@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebFilter(value = "/MagasinServlet", filterName = "OwnedFiltre", dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD})
+@WebFilter(value = { "/MagasinServlet", "/ProfileServlet" }, filterName = "OwnedFiltre", dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD})
 public class OwnedFiltre implements Filter {
 
     @Override
@@ -61,7 +61,6 @@ public class OwnedFiltre implements Filter {
                 if (!commande.isPanier()) {  // exclu le panier
                     for (Jeu jeu : commande.getJeux()) {
                         if (catalog.contains(jeu)) {
-
                             owned.add(jeu);
                         }
                     }

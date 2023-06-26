@@ -17,6 +17,7 @@ public class MagasinServlet extends HttpServlet {
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         if (session == null) {
             response.sendRedirect("http://localhost:82/error.html");
@@ -34,7 +35,7 @@ public class MagasinServlet extends HttpServlet {
         //Détermine si un produit du panier est possédé par l'utilisateur
         boolean noOwned = getNoOwned(session);
 
-        request.setAttribute("noOwned", noOwned);
+        session.setAttribute("noOwned", noOwned);
         request.setAttribute("maxPrice", maxPrice);
         String url = "magasin.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(url);

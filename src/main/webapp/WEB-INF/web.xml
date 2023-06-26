@@ -40,6 +40,14 @@
         <filter-name>PanierFiltre</filter-name>
         <url-pattern>/MagasinServlet</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>OwnedFiltre</filter-name>
+        <url-pattern>/ProfileServlet</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>PanierFiltre</filter-name>
+        <url-pattern>/ProfileServlet</url-pattern>
+    </filter-mapping>
 
     <welcome-file-list>
         <welcome-file>MagasinServlet</welcome-file>

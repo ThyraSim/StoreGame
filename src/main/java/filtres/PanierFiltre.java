@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(value = "/MagasinServlet", filterName = "PanierFiltre", dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD})
+@WebFilter(value = { "/MagasinServlet", "/ProfileServlet" }, filterName = "PanierFiltre", dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD})
 public class PanierFiltre implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -49,7 +49,7 @@ public class PanierFiltre implements Filter {
 
            //Si le panier n'est pas vide, on récupère la liste des jeux du panier et on retire du catalog "dynamique" des jeux.
             if(!panier.getJeux().isEmpty()){
-                request.setAttribute("listePanier",panier.getJeux());
+                session.setAttribute("listePanier",panier.getJeux());
                 for (Jeu jeu : panier.getJeux()) {
                     if (catalog.contains(jeu)) {
                         catalog.remove(jeu);

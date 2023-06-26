@@ -45,7 +45,7 @@
 
     <input type="submit" value="<fmt:message key="login"/>">
     <br><br>
-    <button type="button" onclick="showRegistrationForm()"><fmt:message key="register"/></button>
+    <a type="button" href="creationCompte.jsp"><fmt:message key="register"/></a>
     <c:choose>
         <c:when test="${not empty param.index}">
             <input type="hidden" name="index" value="${param.index}">
@@ -53,19 +53,7 @@
     </c:choose>
 </form>
 
-<h1 id="registrationTitle" style="display: none;">Création de compte</h1>
-<form id="registrationForm" action="/CreationCompteServlet" method="post" style="display: none;">
-    <label for="username"><fmt:message key="userTableHeader"/>:</label>
-    <input type="text" id="username" name="username" required><br><br>
 
-    <label for="profileName">Nom de Profile:</label>
-    <input type="text" id="profileName" name="profileName" required><br><br>
-
-    <label for="password">Mot de passe:</label>
-    <input type="password" id="password" name="password" required><br><br>
-
-    <input type="submit" value="S'inscrire">
-</form>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -20,6 +20,7 @@ public class ProfileServlet extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Compte compte = MagasinService.getCompte(session);
         if(compte == null){
@@ -27,19 +28,7 @@ public class ProfileServlet extends HttpServlet {
             return;
         }
 
-        // Charger les commandes du compte
-        List<Commande> commandes = new ArrayList<>(compte.getCommandes());
-        List<Commande> commandesToRemove = new ArrayList<>();
-        for (Commande commande : commandes) {
-            if (commande.isPanier()) {
-                commandesToRemove.add(commande);
-            }
-        }
-
         Client client = MagasinService.getClient(compte);
-
-        commandes.removeAll(commandesToRemove);
-        request.setAttribute("commandes", commandes);
         request.setAttribute("client", client);
 
 
