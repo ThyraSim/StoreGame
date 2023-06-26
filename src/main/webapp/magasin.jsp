@@ -53,19 +53,21 @@
         </div>
 
             <%--FILTRE POUR AFFICHER LES JEUX POSSEDÉS--%>
-        <div class="row">
-            <c:if test="${not empty sessionScope.loggedInAccount}">
-            <div>
-                <label><fmt:message key="FilerAllGame"/></label>
-                <input type="checkbox" id="chkShowOwnedGame">
-                </form>
-            </div>
+                <c:choose>
+                    <c:when test="${empty sessionScope.loggedInAccount}">
+                        <input name="loggedInAccountFlag" type="hidden" value="false">
+                    </c:when>
+                    <c:otherwise>
+                        <input name="loggedInAccountFlag" type="hidden" value="true">
+                    </c:otherwise>
+                </c:choose>
+
+        <div class="row" id="ownedGameRow" style="display: none;">
+                     <label><fmt:message key="FilerAllGame"/></label>
+            <input type="checkbox" id="chkShowOwnedGame">
         </div>
-        </c:if>
+
     </div>
-
-
-    <%--FILTRE POUR AFFICHER TOUS LES JEUX--%>
 
 
     <%--    AFFICHER LE CATALOG DE JEU ( par défaut catalog exclu les jeux du panier et ceux du déjà posséder--%>
@@ -99,6 +101,15 @@
                             <form action="AcheteServlet" method="POST">
                                 <input type="hidden" name="index" value="${jeu.idJeu}">
                                 <input type="hidden" name="action" value="ACHETE">
+
+
+                                    <%--                                Valeur de filtre enregistrer--%>
+                                <input type="hidden" name="genreFilter" value="${genreFilterValue}">
+                                <input type="hidden" name="gameNameFilter" value="${gameNameFilterValue}">
+                                <input type="hidden" name="priceFilter" value="${priceFilterValue}">
+                                <input type="hidden" name="showOwnedGamesFilter" value="${showOwnedGamesFilterValue}">
+
+
                                 <div class="card-footer text-muted">
                                         <%-- Lorsque la checkbox Afficher tous les jeux, le catalog inclus maintenant les jeux deja posseder--%>
 

@@ -6,6 +6,17 @@ $(document).ready(function () {
     appliquerFiltres();
 
 
+    var loggedInAccountFlag = $('input[name="loggedInAccountFlag"]').val();
+
+
+    if (loggedInAccountFlag === "true") {
+        $('#ownedGameRow').show();
+    } else {
+        $('#ownedGameRow').hide();
+    }
+
+
+
     // Fonction pour appliquer tous les filtres
     function appliquerFiltres() {
 
@@ -31,7 +42,8 @@ $(document).ready(function () {
             // Appliquer le filtre par prix
             var filtrePrix = gamePrice >= minPriceRange && gamePrice <= maxPriceRange;
 
-            // Appliquer le filtre p
+            // Appliquer le filtre pour jeu
+
             var filtreOwned = (gameOwned == 'false' && chkShowOwnedGame==false )|| chkShowOwnedGame==true;
 
             // Afficher ou masquer en fonction des conditions combinées des filtres
@@ -41,6 +53,8 @@ $(document).ready(function () {
                 $(this).hide();
             }
         });
+
+
     }
 
     // Gestionnaire d'événement pour le filtre par nom
