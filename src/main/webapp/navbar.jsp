@@ -28,19 +28,39 @@
         display: flex;
         align-items: center;
       }
+
+      .navbar-brand {
+        transform: translateX(-50%);
+        left: 50%;
+        position: absolute;
+      }
+
+      .navbar-bottom-line {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: black;
+      }
+
+      .navbar{
+        min-height: 90px;
+      }
     </style>
 
   </head>
   <body>
     <fmt:bundle basename="MessagesBundle">
 
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <nav class="navbar navbar-expand-lg" style="background-color: #192D68;">
+        <div class="navbar-bottom-line"></div>
         <div class="container-fluid">
-          <a class="navbar-brand" href="/MagasinServlet"><fmt:message key="magasin"/></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-          </button>
-            <ul class="navbar-nav ml-auto">
+          <h5><a href="/MagasinServlet"><fmt:message key="magasin"/></a></h5>
+          <div class="navbar-brand">
+            <img src="image/Logo.png" alt="logo" width="200px" height="auto">
+          </div>
+          <ul class="navbar-nav ml-auto">
               <c:if test="${not empty panier.jeux}">
                 <li class="nav-item dropdown">
                   <a class="nav-link" href="#" id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,9 +69,11 @@
                   <div class="dropdown-menu dropdown-menu-right wider-dropdown-menu" aria-labelledby="cartDropdown">
                     <div class="dropdown-header"><fmt:message key="inCart"/></div>
                     <div id="cartItemsContainer">
+                      <c:set var="totalPrice" value="0" />
                       <c:forEach var="jeu" items="${panier.jeux}">
-                        <div class="dropdown-item d-flex align-items-center">
-                          <span>${jeu.nomJeu}</span>
+                        <c:set var="totalPrice" value="${totalPrice + jeu.prix}" />
+                        <div class="d-flex align-items-center">
+                          <span class="mx-3">${jeu.nomJeu}</span>
                           <span class="ml-auto">${jeu.prix}</span>
                           <form action="DeleteServlet" method="POST" class="float-right">
                             <input type="hidden" name="idJeu" value="${jeu.idJeu}">
@@ -60,8 +82,9 @@
                           </form>
                         </div>
                       </c:forEach>
+                      <div class="dropdown-divider"></div>
                       <div class="dropdown-item total-price">
-                        <span>Total Price:</span>
+                        <span><fmt:message key="totalPrice"/>:</span>
                         <span class="ml-auto">${totalPrice}</span>
                       </div>
                     </div>
