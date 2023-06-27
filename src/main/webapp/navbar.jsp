@@ -79,6 +79,5 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
-    <script src="scripts/ScriptNavbar.js"></script>
   </body>
 </html>

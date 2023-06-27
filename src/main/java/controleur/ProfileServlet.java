@@ -29,7 +29,7 @@ public class ProfileServlet extends HttpServlet {
         }
 
         Client client = MagasinService.getClient(compte);
-        request.setAttribute("client", client);
+        session.setAttribute("client", client);
 
 
         request.setAttribute("compte", compte);

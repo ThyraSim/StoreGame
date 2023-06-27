@@ -33,6 +33,37 @@ public class ClientDao {
         }
     }
 
+    public static void update(Client updatedClient) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        try {
+            entityManager.getTransaction().begin();
+
+            Client existingClient = entityManager.find(Client.class, updatedClient.getIdClient());
+            if (existingClient != null) {
+                // Update the fields of the existingClient object with the new values
+                existingClient.setNom(updatedClient.getNom());
+                existingClient.setPrenom(updatedClient.getPrenom());
+                existingClient.setAdressePhysique(updatedClient.getAdressePhysique());
+                existingClient.setAdresseCourriel(updatedClient.getAdresseCourriel());
+                // Update other fields as needed
+
+                // Persist the changes to the database
+                entityManager.merge(existingClient);
+                entityManager.getTransaction().commit();
+            } else {
+                // Handle the case where the client with the given ID is not found
+                System.out.println("Client with ID " + updatedClient.getIdClient() + " not found.");
+            }
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
+    }
 
     public static boolean delete(Integer id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");

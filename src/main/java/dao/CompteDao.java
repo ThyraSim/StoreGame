@@ -28,6 +28,35 @@ public class CompteDao {
         }
     }
 
+    public static void update(Compte updatedCompte) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        try {
+            entityManager.getTransaction().begin();
+            Compte existingCompte = entityManager.find(Compte.class, updatedCompte.getIdCompte());
+            if (existingCompte != null) {
+                existingCompte.setUser(updatedCompte.getUser());
+                existingCompte.setProfileName(updatedCompte.getProfileName());
+                existingCompte.setPassword(updatedCompte.getPassword());
+
+                // Persist the changes to the database
+                entityManager.merge(existingCompte);
+                entityManager.getTransaction().commit();
+            } else {
+                // Handle the case where the compte with the given ID is not found
+                System.out.println("Compte with ID " + updatedCompte.getIdCompte() + " not found.");
+            }
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
+    }
+
+
     public static boolean delete(Integer id) {
         ClientDao.delete(id);
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");

@@ -33,6 +33,7 @@
             <h2>${compte.profileName}</h2>
             <h5>${client.adresseCourriel}</h5>
         </div>
+        <a href="/modifierCompte.jsp"><fmt:message key="modify"/></a>
         <div>
             <h4><fmt:message key="hi"/> ${client.prenom} ${client.nom}</h4>
         </div>
