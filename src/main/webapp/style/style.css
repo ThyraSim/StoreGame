@@ -1,0 +1,21 @@
+h1 {
+    color: #ffd700; /* Change to your desired color */
+}
+
+.section-color{
+    color: #ffd700; /* Change to your desired color */
+}
+
+.navbar a{
+    color: #ffd700; /* Change to your desired color */
+}
+
+#loginContainer {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+}
+
+#loginTitle {
+    margin-top: 50px;
+}

@@ -11,7 +11,7 @@
 <head>
   <style>
     body {
-      background-color: #1d3169; /* Replace with your desired background color */
+      background-color: #182556; /* Replace with your desired background color */
     }
   </style>
 </head>

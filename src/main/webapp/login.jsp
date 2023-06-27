@@ -32,6 +32,7 @@
             registrationTitle.style.display = "block";
         }
     </script>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body>
 <jsp:include page="navbar.jsp"/>
