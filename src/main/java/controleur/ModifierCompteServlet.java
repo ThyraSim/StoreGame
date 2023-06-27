@@ -41,6 +41,7 @@ public class ModifierCompteServlet extends HttpServlet {
         Compte newCompte = new Compte(username, password, profileName);
         Compte oldCompte = MagasinService.getCompte(session);
         newCompte.setIdCompte(oldCompte.getIdCompte());
+        newCompte.setCommande(oldCompte.getCommandes());
         CompteDao.update(newCompte);
 
         Client newClient = new Client(nom, prenom, physique, email, newCompte);
