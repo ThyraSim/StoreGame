@@ -19,6 +19,7 @@
 <body>
 <fmt:bundle basename="MessagesBundle">
     <jsp:include page="navbar.jsp"/>
+    <jsp:include page="background.jsp"/>
 <%--    SECTION DES FILTRES --%>
     <div class="container">
         <%--FILTRE DU GENRE--%>

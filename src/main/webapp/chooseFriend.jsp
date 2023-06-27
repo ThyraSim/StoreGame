@@ -27,6 +27,7 @@
     </head>
     <body>
     <jsp:include page="navbar.jsp"/>
+    <jsp:include page="background.jsp"/>
         <form action="SearchServlet" method="POST">
             <input type="text" id="searchInput" name="searchInput" placeholder="<fmt:message key="search"/>">
             <input type="submit" value="<fmt:message key='btnRecherche' />">

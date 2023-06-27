@@ -33,6 +33,7 @@ To change this template use File | Settings | File Templates.
   </head>
   <body>
   <jsp:include page="navbar.jsp"/>
+  <jsp:include page="background.jsp"/>
     <h1 id="registrationTitle"><fmt:message key="modify" /></h1>
     <form id="registrationForm" action="/ModifierCompteServlet" method="post">
       <label for="username"><fmt:message key="userTableHeader"/>:</label>

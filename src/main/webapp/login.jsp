@@ -35,6 +35,7 @@
 </head>
 <body>
 <jsp:include page="navbar.jsp"/>
+<jsp:include page="background.jsp"/>
 <h1 id="loginTitle"><fmt:message key="login"/></h1>
 <form id="loginForm" action="/LoginServlet" method="post">
     <label for="username"><fmt:message key="userTableHeader"/>:</label>

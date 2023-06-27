@@ -10,6 +10,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <fmt:bundle basename="MessagesBundle">
+
     <head>
         <title>Title</title>
         <link
@@ -19,6 +20,8 @@
         <meta charset="UTF-8">
     </head>
     <body>
+    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="background.jsp"/>
         <h1 id="registrationTitle"><fmt:message key="creation" /></h1>
         <form id="registrationForm" action="/CreationCompteServlet" method="post">
             <label for="username"><fmt:message key="userTableHeader"/>:</label>
