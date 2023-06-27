@@ -15,8 +15,10 @@
 <body>
 <fmt:bundle basename="MessagesBundle">
     <jsp:include page="navbar.jsp"/>
-    <%--    SECTION DES FILTRES --%>
+
+                                    <%--    SECTION DES FILTRES --%>
     <div class="container">
+
             <%--FILTRE DU GENRE--%>
         <div class="row">
             <h1><fmt:message key="FilterHeader"/></h1>
@@ -53,6 +55,8 @@
         </div>
 
             <%--FILTRE POUR AFFICHER LES JEUX POSSEDÉS--%>
+
+            <%--on va déterminer un boolean qui sera utile pour afficher ou cacher le filtre selon si nous sommes connecté à un compte--%>
                 <c:choose>
                     <c:when test="${empty sessionScope.loggedInAccount}">
                         <input name="loggedInAccountFlag" type="hidden" value="false">
@@ -62,15 +66,24 @@
                     </c:otherwise>
                 </c:choose>
 
-        <div class="row" id="ownedGameRow" style="display: none;">
+<%--                Par défaut les jeu posséder ne sont pas afficher, selon la boolean loggedInAccountFlag on va afficher ou non.--%>
+        <div class="row" id="filterAllGameRow" style="display: none;">
                      <label><fmt:message key="FilerAllGame"/></label>
             <input type="checkbox" id="chkShowOwnedGame">
         </div>
 
+                    <%--    Bouton pour remettre les filtres de base--%>
+        <div>
+            <button id="btnResetFilter" ><fmt:message key="ResetFilter"/></button>
+        </div>
+
+
     </div>
 
 
-    <%--    AFFICHER LE CATALOG DE JEU ( par défaut catalog exclu les jeux du panier et ceux du déjà posséder--%>
+
+
+    <%--    AFFICHER LE CATALOG DE JEU ( par défaut catalog exclu les jeux du panier et ceux  déjà posséder--%>
     <div class="container">
         <h1 class="text-center my-3"><fmt:message key="listeJeuTitle"/></h1>
 
@@ -111,12 +124,10 @@
 
 
                                 <div class="card-footer text-muted">
-                                        <%-- Lorsque la checkbox Afficher tous les jeux, le catalog inclus maintenant les jeux deja posseder--%>
-
+                       <%-- Lorsque la checkbox "chkShowOwnedGame" est a true, le catalog inclus maintenant les jeux deja posseder--%>
                                     <c:if test="${flagOwned eq true}">
                                         <p><fmt:message key="AlreadyPossessed"/></p>
                                     </c:if>
-
 
                                     <button type="submit" class="btn btn-primary"><fmt:message
                                             key='buyCommand'/></button>
