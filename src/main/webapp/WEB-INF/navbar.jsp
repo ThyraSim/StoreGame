@@ -15,7 +15,7 @@
             rel="stylesheet"
             crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-3.7.0.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
@@ -92,6 +92,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-    <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-3.7.0.js" type="text/javascript"></script>
   </body>
 </html>

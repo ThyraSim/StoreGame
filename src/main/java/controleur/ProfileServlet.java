@@ -33,7 +33,7 @@ public class ProfileServlet extends HttpServlet {
 
 
         request.setAttribute("compte", compte);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
         dispatcher.forward(request, response);
     }
 

@@ -17,7 +17,7 @@
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             rel="stylesheet"
             crossorigin="anonymous"/>
-    <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-3.7.0.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -33,7 +33,7 @@
             <h2>${compte.profileName}</h2>
             <h5>${client.adresseCourriel}</h5>
         </div>
-        <a href="/modifierCompte.jsp"><fmt:message key="modify"/></a>
+        <a href="modifierCompte.jsp"><fmt:message key="modify"/></a>
         <div>
             <h4><fmt:message key="hi"/> ${client.prenom} ${client.nom}</h4>
         </div>
@@ -54,7 +54,7 @@
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+<script src="../scripts/jquery-3.7.0.js" type="text/javascript"></script>
 </body>
 </fmt:bundle>
 </html>

@@ -34,7 +34,7 @@
     </script>
 </head>
 <body>
-<jsp:include page="navbar.jsp"/>
+<jsp:include page="WEB-INF/navbar.jsp"/>
 <h1 id="loginTitle"><fmt:message key="login"/></h1>
 <form id="loginForm" action="/LoginServlet" method="post">
     <label for="username"><fmt:message key="userTableHeader"/>:</label>
@@ -45,7 +45,7 @@
 
     <input type="submit" value="<fmt:message key="login"/>">
     <br><br>
-    <a type="button" href="creationCompte.jsp"><fmt:message key="register"/></a>
+    <a type="button" href="/creationCompte.jsp"><fmt:message key="register"/></a>
     <c:choose>
         <c:when test="${not empty param.index}">
             <input type="hidden" name="index" value="${param.index}">

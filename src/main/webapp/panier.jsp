@@ -23,7 +23,7 @@
 </head>
 <body>
 <fmt:bundle basename="MessagesBundle">
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="WEB-INF/navbar.jsp"/>
     <div class="mt-5">
         <c:if test="${not empty panier.jeux}">
             <h2><fmt:message key="panierTitle"/></h2>

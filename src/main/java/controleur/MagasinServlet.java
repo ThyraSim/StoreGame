@@ -37,7 +37,7 @@ public class MagasinServlet extends HttpServlet {
 
         session.setAttribute("noOwned", noOwned);
         request.setAttribute("maxPrice", maxPrice);
-        String url = "magasin.jsp";
+        String url = "WEB-INF/magasin.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(url);
         try {
             rd.forward(request, response);

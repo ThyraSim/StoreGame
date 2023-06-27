@@ -32,7 +32,7 @@ To change this template use File | Settings | File Templates.
     <meta charset="UTF-8">
   </head>
   <body>
-  <jsp:include page="navbar.jsp"/>
+  <jsp:include page="WEB-INF/navbar.jsp"/>
     <h1 id="registrationTitle"><fmt:message key="modify" /></h1>
     <form id="registrationForm" action="/ModifierCompteServlet" method="post">
       <label for="username"><fmt:message key="userTableHeader"/>:</label>
