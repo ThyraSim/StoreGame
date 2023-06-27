@@ -1,4 +1,3 @@
-
 <%--
   Created by IntelliJ IDEA.
   User: simbe
@@ -20,28 +19,40 @@
     <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body>
 <fmt:bundle basename="MessagesBundle">
     <jsp:include page="navbar.jsp"/>
-    <div class="mt-5">
-        <c:if test="${not empty panier.jeux}">
-            <h2><fmt:message key="panierTitle"/></h2>
-            <ul class="list-group">
+    <jsp:include page="background.jsp"/>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col">
+                <c:if test="${not empty panier.jeux}">
+                <h2><fmt:message key="panierTitle"/></h2>
+            </div>
+        </div>
+        <div class="row">
+
+            <ul class="list-group ">
                 <c:forEach var="jeu" items="${listePanier}">
-                    <li class="list-group-item">${jeu.nomJeu} | ${jeu.prix}$     | <fmt:message key="${jeu.genre}"/>
+                    <li class="list-group-item bg-danger">${jeu.nomJeu} | ${jeu.prix}$ | <fmt:message
+                            key="${jeu.genre}"/> <br><br>
                         | ${jeu.description}
                         <form action="DeleteServlet" method="POST" class="float-right">
                             <input type="hidden" name="idJeu" value="${jeu.idJeu}">
                             <input type="hidden" name="source" value="panier">
-                            <button type="submit" class="btn btn-danger"><fmt:message key='removeCommand'/></button>
+                            <button type="submit" class="btn bg-primary"><fmt:message key='removeCommand'/></button>
                         </form>
                     </li>
                 </c:forEach>
             </ul>
-
-            <%--Dans la servlet on associe une valeur bolean "noOwned" qui est a false  si un produit du panier est possédé par l'utilisateur--%>
-            <%--Ainsi le bouton pour acheter à soi-même est désactiver car seulement 1 copie de jeu par compte--%>
+        </div>
+        <div class="row">
+                <%--Dans la servlet on associe une valeur bolean "noOwned" qui est a false  si un produit du panier est possédé par l'utilisateur--%>
+                <%--Ainsi le bouton pour acheter à soi-même est désactiver car seulement 1 copie de jeu par compte--%>
             <c:if test="${noOwned}">
                 <form action="CheckOutServlet" method="POST" class="mt-4">
                     <input type="hidden" name="liste" value="${compteId}">
@@ -49,14 +60,17 @@
                     <button type="submit" class="btn btn-success"><fmt:message key='selfCommand'/></button>
                 </form>
             </c:if>
-            <%--Le bouton acheté pour un cadeau, c'est-à-dire donnée à un autre compte --%>
+                <%--Le bouton acheté pour un cadeau, c'est-à-dire donnée à un autre compte --%>
             <form action="CheckOutServlet" method="POST" class="mt-4">
                 <input type="hidden" name="liste" value="${compteId}">
                 <input type="hidden" name="action" value="GIFT">
                 <button type="submit" class="btn btn-warning"><fmt:message key='giftCommand'/></button>
             </form>
-        </c:if>
+            </c:if>
+        </div>
+
     </div>
+
 </fmt:bundle>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"

@@ -87,6 +87,7 @@ $(document).ready(function () {
         $('#chkShowOwnedGame').prop('checked', true);
 
     }
+    appliquerFiltres();
 
     // Gestionnaire d'événement pour le filtre par nom
     $('#btnSearchByName').click(function () {
