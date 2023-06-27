@@ -43,9 +43,11 @@
         <div class="row">
             <select id="priceFilter">
                 <option minPriceRange="0" maxPriceRange="${maxPrice}"><fmt:message key="AllPrice"/></option>
-                <c:forEach begin="0" end="${maxPrice/10}" var="i">
-                    <c:set var="minPriceRange" value="${i*10+1}"/>
-                    <c:set var="maxPriceRange" value="${(i+1)*10}"/>
+<%--                determine la plage de prix désiré--%>
+                <c:set var="DesiredRange" value="25" />
+                <c:forEach begin="0" end="${maxPrice/DesiredRange}" var="i">
+                    <c:set var="minPriceRange" value="${i*DesiredRange+1}"/>
+                    <c:set var="maxPriceRange" value="${(i+1)*DesiredRange}"/>
                     <option value="${minPriceRange}-${maxPriceRange}" minPriceRange="${minPriceRange}"
                             maxPriceRange="${maxPriceRange}">
                             ${minPriceRange}-${maxPriceRange} $
