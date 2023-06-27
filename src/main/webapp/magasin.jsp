@@ -145,7 +145,7 @@
                 </div>
             </c:forEach>
         </div>
-    <a href="panier.jsp">Panier</a>
+
 </fmt:bundle>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
