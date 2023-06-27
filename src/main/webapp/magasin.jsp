@@ -44,23 +44,40 @@
         <div class="row">
             <select id="priceFilter">
                 <option minPriceRange="0" maxPriceRange="${maxPrice}"><fmt:message key="AllPrice"/></option>
-                <c:forEach begin="0" end="${maxPrice/10}" var="i">
-                    <c:set var="minPriceRange" value="${i*10+1}" />
-                    <c:set var="maxPriceRange" value="${(i+1)*10}" />
-                    <option value="${minPriceRange}-${maxPriceRange}" minPriceRange="${minPriceRange}" maxPriceRange="${maxPriceRange}">
+<%--                determine la plage de prix désiré--%>
+                <c:set var="DesiredRange" value="25" />
+                <c:forEach begin="0" end="${maxPrice/DesiredRange}" var="i">
+                    <c:set var="minPriceRange" value="${i*DesiredRange+1}"/>
+                    <c:set var="maxPriceRange" value="${(i+1)*DesiredRange}"/>
+                    <option value="${minPriceRange}-${maxPriceRange}" minPriceRange="${minPriceRange}"
+                            maxPriceRange="${maxPriceRange}">
                             ${minPriceRange}-${maxPriceRange} $
                     </option>
                 </c:forEach>
             </select>
         </div>
 
-                <%--FILTRE POUR AFFICHER LES JEUX POSSEDÉS--%>
-        <div class="row">
-            <div>
-                <label ><fmt:message key="FilerAllGame"/></label>
-                <input  type="checkbox" id="chkShowOwnedGame" >
-                </form>
-            </div>
+            <%--FILTRE POUR AFFICHER LES JEUX POSSEDÉS--%>
+
+            <%--on va déterminer un boolean qui sera utile pour afficher ou cacher le filtre selon si nous sommes connecté à un compte--%>
+                <c:choose>
+                    <c:when test="${empty sessionScope.loggedInAccount}">
+                        <input name="loggedInAccountFlag" type="hidden" value="false">
+                    </c:when>
+                    <c:otherwise>
+                        <input name="loggedInAccountFlag" type="hidden" value="true">
+                    </c:otherwise>
+                </c:choose>
+
+<%--                Par défaut les jeu posséder ne sont pas afficher, selon la boolean loggedInAccountFlag on va afficher ou non.--%>
+        <div class="row" id="filterAllGameRow" style="display: none;">
+                     <label><fmt:message key="FilerAllGame"/></label>
+            <input type="checkbox" id="chkShowOwnedGame">
+        </div>
+
+                    <%--    Bouton pour remettre les filtres de base--%>
+        <div>
+            <button id="btnResetFilter" ><fmt:message key="ResetFilter"/></button>
         </div>
     </div>
 
@@ -68,7 +85,7 @@
     <%--FILTRE POUR AFFICHER TOUS LES JEUX--%>
 
 
-<%--    AFFICHER LE CATALOG DE JEU ( par défaut catalog exclu les jeux du panier et ceux du déjà posséder--%>
+    <%--    AFFICHER LE CATALOG DE JEU ( par défaut catalog exclu les jeux du panier et ceux  déjà posséder--%>
     <div class="container">
         <h1 class="text-center my-3"><fmt:message key="listeJeuTitle"/></h1>
 
@@ -77,7 +94,7 @@
                 <c:set var="flagOwned" value="false"/>
 
 
-<%--            Parcour la liste des jeux posséder pour set un flag deja posséer--%>
+                <%--            Parcour la liste des jeux posséder pour set un flag si deja posséer--%>
                 <c:forEach var="ownedGame" items="${owned}">
                     <c:if test="${ownedGame.idJeu eq jeu.idJeu}">
                         <c:set var="flagOwned" value="true"/>
@@ -85,7 +102,8 @@
                     </c:if>
                 </c:forEach>
 
-                <div name="Card-Game" genre="${jeu.genre}" gameName="${jeu.nomJeu}" gamePrice="${jeu.prix}" gameOwned="${flagOwned}"
+                <div name="Card-Game" genre="${jeu.genre}" gameName="${jeu.nomJeu}" gamePrice="${jeu.prix}"
+                     gameOwned="${flagOwned}"
                      class="col-md-12 mb-4">
                     <div class="card text-center">
                         <div class="card-header">
@@ -98,12 +116,20 @@
                             <form action="AcheteServlet" method="POST">
                                 <input type="hidden" name="index" value="${jeu.idJeu}">
                                 <input type="hidden" name="action" value="ACHETE">
-                                <div class="card-footer text-muted">
-                            <%-- Lorsque la checkbox Afficher tous les jeux, le catalog inclus maintenant les jeux deja posseder--%>
 
-                                        <c:if test="${flagOwned eq true}">
-                                            <p><fmt:message key="AlreadyPossessed"/></p>
-                                        </c:if>
+
+                                    <%--                                Valeur de filtre enregistrer--%>
+                                <input type="hidden" name="genreFilter" value="${genreFilterValue}">
+                                <input type="hidden" name="gameNameFilter" value="${gameNameFilterValue}">
+                                <input type="hidden" name="priceFilter" value="${priceFilterValue}">
+                                <input type="hidden" name="showOwnedGamesFilter" value="${showOwnedGamesFilterValue}">
+
+
+                                <div class="card-footer text-muted">
+                       <%-- Lorsque la checkbox "chkShowOwnedGame" est a true, le catalog inclus maintenant les jeux deja posseder--%>
+                                    <c:if test="${flagOwned eq true}">
+                                        <p><fmt:message key="AlreadyPossessed"/></p>
+                                    </c:if>
 
 
                                     <button type="submit" class="btn btn-primary"><fmt:message
@@ -122,6 +148,7 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <script src="scripts/ScriptFilter.js"></script>
+
 
 </body>
 </html>
