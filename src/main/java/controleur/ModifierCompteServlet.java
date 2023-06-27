@@ -29,28 +29,42 @@ public class ModifierCompteServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
+
+       //récupère les paramètre du formulaire
+        //Compte
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String profileName = request.getParameter("profileName");
+
+        //Client
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
         String physique = request.getParameter("physique");
         String email = request.getParameter("email");
 
-        // Valider les entrées (à implémenter)
+
         Compte newCompte = new Compte(username, password, profileName);
         Compte oldCompte = MagasinService.getCompte(session);
+
+        //On récupère l'ancien id pour le mettre au nouveau compte
         newCompte.setIdCompte(oldCompte.getIdCompte());
+        //on va transféfer l'historique de commande au nouveau compte
         newCompte.setCommande(oldCompte.getCommandes());
+
+        //on fais la mise-à-jour de la base de données
         CompteDao.update(newCompte);
 
+        // On créer un nouveau client et on récupère le id de l'ancien
         Client newClient = new Client(nom, prenom, physique, email, newCompte);
         Client oldClient = MagasinService.getClient(newCompte);
         newClient.setIdClient(oldClient.getIdClient());
+        //on fais la mise-à-jour de la base de données
         ClientDao.update(newClient);
 
+        // on récupère la liste de comptes ( utiliser dans loginServlet  pour validation)
         List<Compte> comptes = MagasinService.getListCompte(session);
 
+        // on retire l'ancien compte de la liste
         for(Compte compte : comptes){
             if(compte.getIdCompte() == oldCompte.getIdCompte()){
                 comptes.remove(compte);
@@ -58,8 +72,10 @@ public class ModifierCompteServlet extends HttpServlet {
             }
         }
 
+        //on ajoute le nouveau compte à la liste
         comptes.add(newCompte);
 
+        //on met à jour les attribut de session
         session.setAttribute("ListeComptes", comptes);
         session.setAttribute("client", newClient);
         session.setAttribute("loggedInAccount", newCompte);
