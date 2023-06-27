@@ -18,8 +18,7 @@ import java.net.http.HttpRequest;
 
 @WebServlet(name = "DeleteServlet", value = "/DeleteServlet")
 public class DeleteServlet extends HttpServlet {
-    private static String url = "panier.jsp";
-
+    private static String url;
     public void init() {
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -29,6 +28,7 @@ public class DeleteServlet extends HttpServlet {
         if (session == null) {
             response.sendRedirect("http://localhost:82/error.html");
         }
+        url = "panier.jsp";
 
         //Retire le jeu du panier
         retirerJeu(session, request);

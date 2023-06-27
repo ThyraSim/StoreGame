@@ -24,9 +24,20 @@
         white-space: nowrap;
       }
 
+      .dropdown-menu{
+        background-color: #192D68;
+        color: #ffd700;
+      }
+
       .dropdown-item {
         display: flex;
         align-items: center;
+      }
+
+      .total{
+        display: flex;
+        align-items: center;
+        color: #ffd700;
       }
 
       .navbar-brand {
@@ -47,6 +58,12 @@
       .navbar{
         min-height: 90px;
       }
+
+      .scrollable-container {
+        max-height: 200px; /* Set the desired max height for the container */
+        overflow-y: auto; /* Enable vertical scrolling */
+        overflow-x: hidden; /* Hide the horizontal scrollbar */
+      }
     </style>
 
   </head>
@@ -64,35 +81,37 @@
               <c:if test="${not empty panier.jeux}">
                 <li class="nav-item dropdown">
                   <a class="nav-link" href="#" id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-cart"></i>
+                    <h5><i class="bi bi-cart"></i></h5>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right wider-dropdown-menu" aria-labelledby="cartDropdown">
-                    <div class="dropdown-header"><fmt:message key="inCart"/></div>
                     <div id="cartItemsContainer">
+                      <div class="scrollable-container">
                       <c:set var="totalPrice" value="0" />
                       <c:forEach var="jeu" items="${panier.jeux}">
                         <c:set var="totalPrice" value="${totalPrice + jeu.prix}" />
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center my-1">
                           <span class="mx-3">${jeu.nomJeu}</span>
                           <span class="ml-auto">${jeu.prix}</span>
                           <form action="DeleteServlet" method="POST" class="float-right">
                             <input type="hidden" name="idJeu" value="${jeu.idJeu}">
                             <input type="hidden" name="source" value="nav">
-                            <button type="submit" class="btn btn-danger ml-2"><i class="bi bi-trash"></i></button>
+                            <button type="submit" class="btn btn-danger ml-2" style="padding: 0.25rem 0.5rem; font-size: 0.875rem; margin-right: 10px"><i class="bi bi-trash"></i></button>
                           </form>
                         </div>
                       </c:forEach>
-                      <div class="dropdown-divider"></div>
-                      <div class="dropdown-item total-price">
-                        <span><fmt:message key="totalPrice"/>:</span>
-                        <span class="ml-auto">${totalPrice}</span>
+                      </div>
+                      <div class="dropdown-divider" style="border-color:black;"></div>
+                      <div class="total">
+                        <span style="margin-left: 20px;"><fmt:message key="totalPrice"/>:</span>
+                        <span class="ml-auto" style="margin-right: 10px;"><fmt:formatNumber value="${totalPrice}" minFractionDigits="2" maxFractionDigits="2"/></span>
                       </div>
                     </div>
-                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider" style="border-color:black;"></div>
                     <a class="dropdown-item" href="panier.jsp"><fmt:message key="seeCart"/></a>
                   </div>
                 </li>
               </c:if>
+            <h5>
               <c:choose>
                 <c:when test="${not empty loggedInAccount}">
                   <li class="nav-item">
@@ -109,6 +128,7 @@
                   </li>
                 </c:otherwise>
               </c:choose>
+            </h5>
             </ul>
         </div>
       </nav>
