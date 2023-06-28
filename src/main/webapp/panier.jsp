@@ -12,14 +12,13 @@
 <html>
 <head>
     <title>Title</title>
-    <link
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            rel="stylesheet"
-            crossorigin="anonymous"/>
-    <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
     <link rel="stylesheet" type="text/css" href="style/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-...your-integrity-hash...==" crossorigin="anonymous" />
 </head>
 <body>
 <fmt:bundle basename="MessagesBundle">
@@ -34,48 +33,85 @@
                 <h2><fmt:message key="panierTitle"/></h2>
             </div>
         </div>
-        <div class="row">
 
-            <ul class="list-group ">
-                <c:forEach var="jeu" items="${listePanier}">
-                    <li class="list-group-item bg-danger">${jeu.nomJeu} | ${jeu.prix}$ | <fmt:message
-                            key="${jeu.genre}"/> <br><br>
-                        | ${jeu.description}
-                        <form action="DeleteServlet" method="POST" class="float-right">
-                            <input type="hidden" name="idJeu" value="${jeu.idJeu}">
-                            <input type="hidden" name="source" value="panier">
-                            <button type="submit" class="btn bg-primary"><fmt:message key='removeCommand'/></button>
-                        </form>
-                    </li>
-                </c:forEach>
-            </ul>
+        <c:set var="totalPrice" value="0"/>
+        <c:forEach var="jeu" items="${listePanier}" varStatus="loop">
+            <c:set var="totalPrice" value="${totalPrice + jeu.prix}"/>
+            <div class="PanierGameRow row  mb-1">
+                <div>
+                    ${jeu.nomJeu}  <span class="badge badge-pill badge-info"><fmt:message key="${jeu.genre}"/></span>
+                        <button
+                                class="btn btn-outline-light btn-sm"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#description${loop.index}"
+                                aria-expanded="false"
+                                aria-controls="description${loop.index}"
+                        >
+                            <i class="fas fa-search"></i>
+                        </button>
+
+
+
+                    <form action="DeleteServlet" method="POST" class="float-right">
+                        <input type="hidden" name="idJeu" value="${jeu.idJeu}"/>
+                        <input type="hidden" name="source" value="panier"/>
+                        <button type="submit" class="btn btn-danger ml-2" style="padding: 0.25rem 0.5rem; font-size: 0.875rem; margin-right: 10px"><i class="bi bi-trash"></i></button>
+
+                    </form>
+
+                        <span style="float: right; margin-right: 10px;">${jeu.prix}$</span>
+
+                </div>
+
+
+                <div class="collapse" id="description${loop.index}">
+                    <div class="card card-body PanierCollapseCardDescription">
+                            ${jeu.description}
+                    </div>
+                </div>
+
+
+            </div>
+        </c:forEach>
+
+        <div class="total row float-right">
+            <h1><fmt:message key="totalPrice"/>:
+            <fmt:formatNumber value="${totalPrice}"
+                                                               minFractionDigits="2"
+                                                               maxFractionDigits="2"/>$</h1>
         </div>
-        <div class="row">
+
+
                 <%--Dans la servlet on associe une valeur bolean "noOwned" qui est a false  si un produit du panier est possédé par l'utilisateur--%>
                 <%--Ainsi le bouton pour acheter à soi-même est désactiver car seulement 1 copie de jeu par compte--%>
             <c:if test="${noOwned}">
-                <form action="CheckOutServlet" method="POST" class="mt-4">
+                <form action="CheckOutServlet" method="POST" class="mt-3">
                     <input type="hidden" name="liste" value="${compteId}">
                     <input type="hidden" name="action" value="SELF">
                     <button type="submit" class="btn btn-success"><fmt:message key='selfCommand'/></button>
                 </form>
             </c:if>
+
                 <%--Le bouton acheté pour un cadeau, c'est-à-dire donnée à un autre compte --%>
-            <form action="CheckOutServlet" method="POST" class="mt-4">
+            <form action="CheckOutServlet" method="POST" class="mt-2">
                 <input type="hidden" name="liste" value="${compteId}">
                 <input type="hidden" name="action" value="GIFT">
-                <button type="submit" class="btn btn-warning"><fmt:message key='giftCommand'/></button>
+                <button type="submit" class="btn btn-warning text-white"><fmt:message key='giftCommand'/></button>
             </form>
+
+
+
             </c:if>
-        </div>
 
     </div>
 
+
 </fmt:bundle>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+<script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
-<script src="scripts/ScriptFilter.js"></script>
 </body>
 </html>
