@@ -2,10 +2,6 @@ h1 {
     color: #ffd700; /* Change to your desired color */
 }
 
-.section-color{
-    color: #ffd700; /* Change to your desired color */
-}
-
 .navbar a{
     color: #ffd700; /* Change to your desired color */
 }
@@ -23,3 +19,76 @@ body{
 #loginTitle {
     margin-top: 50px;
 }
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#registrationContainer {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+}
+
+#registrationTitle {
+    margin-top: 50px;
+}
+
+#registrationForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    align-items: start;
+    margin-bottom: 3px;
+}
+
+.form-group label {
+    width: 100px;
+    text-align: left;
+    margin-right: 3px;
+}
+
+.form-group input {
+    flex: 1;
+}
+
+.card-body {
+    background-size: cover;
+    background-position: center;
+}
+.card-title{
+
+    font-size: 2em;  /* increase the size */
+    font-weight: bold;  /* make it bold */
+
+}
+.card-text {
+    font-size: 1.2em;  /* increase the size */
+
+}
+.card-body p {
+    /* Add a semi-transparent background behind the text */
+    background: rgba(44, 63, 145, 0.7);  /* white background with 70% opacity */
+
+    /* Add some padding to create a space around the text */
+    padding: 5px;
+
+    /* Make the edges of the background slightly rounded */
+    border-radius: 5px;
+
+    /* Add a blur effect behind the text */
+    backdrop-filter: blur(5px);
+}
+
+.image-placeholder {
+    text-align: center;
+    padding: 15px;
+    background-color: #f5f5f5;
+}
+
+

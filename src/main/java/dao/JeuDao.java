@@ -64,6 +64,18 @@ public class JeuDao {
         }
     }
 
+    public static void insertWithImage(Jeu jeu, String imagePath) {
+        // Insérer le jeu dans la base de données
+        insert(jeu);
+
+        // Récupérer l'ID du jeu nouvellement inséré
+        int jeuId = jeu.getIdJeu();
+
+        // Effectuer les opérations nécessaires pour associer l'image au jeu (par exemple, enregistrer le chemin d'image dans la base de données ou copier l'image vers un répertoire spécifique)
+
+        // Ici, vous pouvez ajouter votre logique pour associer le chemin d'image au jeu
+    }
+
     public static Jeu findJeuById(int id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = entityManagerFactory.createEntityManager();

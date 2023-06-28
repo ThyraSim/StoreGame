@@ -34,26 +34,33 @@
     </script>
     <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
-<body>
-<jsp:include page="navbar.jsp"/>
-<jsp:include page="background.jsp"/>
-<h1 id="loginTitle"><fmt:message key="login"/></h1>
-<form id="loginForm" action="/LoginServlet" method="post">
-    <label for="username"><fmt:message key="userTableHeader"/>:</label>
-    <input type="text" id="username" name="username" required><br><br>
+    <body>
+    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="background.jsp"/>
+    <div id="loginContainer">
+        <h1 id="loginTitle"><fmt:message key="login"/></h1>
+        <form id="loginForm" action="/LoginServlet" method="post">
+            <div class="form-group">
+                <label for="username"><fmt:message key="userTableHeader"/>:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
 
-    <label for="password"><fmt:message key="passwordTableHeader"/>:</label>
-    <input type="password" id="password" name="password" required><br><br>
+            <div class="form-group">
+                <label for="password"><fmt:message key="passwordTableHeader"/>:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
 
-    <input type="submit" value="<fmt:message key="login"/>">
-    <br><br>
-    <a type="button" href="creationCompte.jsp"><fmt:message key="register"/></a>
-    <c:choose>
-        <c:when test="${not empty param.index}">
-            <input type="hidden" name="index" value="${param.index}">
-        </c:when>
-    </c:choose>
-</form>
+            <input type="submit" value="<fmt:message key="login"/>">
+            <br>
+            <a type="button" href="creationCompte.jsp"><fmt:message key="register"/></a>
+            <c:choose>
+                <c:when test="${not empty param.index}">
+                    <input type="hidden" name="index" value="${param.index}">
+                </c:when>
+            </c:choose>
+        </form>
+    </div>
+    </body>
 
 
 

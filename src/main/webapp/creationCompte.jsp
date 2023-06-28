@@ -18,42 +18,59 @@
                 rel="stylesheet"
                 crossorigin="anonymous"/>
         <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="style/style.css">
     </head>
     <body>
     <jsp:include page="navbar.jsp"/>
     <jsp:include page="background.jsp"/>
+    <div id="registrationContainer">
         <h1 id="registrationTitle"><fmt:message key="creation" /></h1>
         <form id="registrationForm" action="/CreationCompteServlet" method="post">
-            <label for="username"><fmt:message key="userTableHeader"/>:</label>
-            <input type="text" id="username" name="username" required><br><br>
+            <div class="form-group">
+                <label for="username"><fmt:message key="userTableHeader"/>:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
 
-            <label for="profileName"><fmt:message key="profileNameTableHeader" />:</label>
-            <input type="text" id="profileName" name="profileName" required><br><br>
+            <div class="form-group">
+                <label for="profileName"><fmt:message key="profileNameTableHeader" />:</label>
+                <input type="text" id="profileName" name="profileName" required>
+            </div>
 
-            <label for="password"><fmt:message key="passwordTableHeader" />:</label>
-            <input type="password" id="password" name="password" required><br><br>
+            <div class="form-group">
+                <label for="password"><fmt:message key="passwordTableHeader" />:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
 
-            <label for="nom"><fmt:message key="nomClientTableHeader" />:</label>
-            <input type="text" id="nom" name="nom" required><br><br>
+            <div class="form-group">
+                <label for="nom"><fmt:message key="nomClientTableHeader" />:</label>
+                <input type="text" id="nom" name="nom" required>
+            </div>
 
-            <label for="prenom"><fmt:message key="prenomClientTableHeader" />:</label>
-            <input type="text" id="prenom" name="prenom" required><br><br>
+            <div class="form-group">
+                <label for="prenom"><fmt:message key="prenomClientTableHeader" />:</label>
+                <input type="text" id="prenom" name="prenom" required>
+            </div>
 
-            <label for="physique"><fmt:message key="adressPhyTableHeader" />:</label>
-            <input type="text" id="physique" name="physique" required><br><br>
+            <div class="form-group">
+                <label for="physique"><fmt:message key="adressPhyTableHeader" />:</label>
+                <input type="text" id="physique" name="physique" required>
+            </div>
 
-            <label for="email"><fmt:message key="adressEmTableHeader" />:</label>
-            <input type="text" id="email" name="email" required><br><br>
+            <div class="form-group">
+                <label for="email"><fmt:message key="adressEmTableHeader" />:</label>
+                <input type="text" id="email" name="email" required>
+            </div>
 
             <input type="submit" value="<fmt:message key='register'/>">
         </form>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-                crossorigin="anonymous"></script>
-        <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
     </body>
 </fmt:bundle>
 </html>

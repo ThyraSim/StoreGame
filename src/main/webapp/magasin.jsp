@@ -35,33 +35,37 @@
             </select>
         </div>
 
-        <%--FILTRE DU NOM--%>
-            <section class="section-color">
-        <div class="row">
-            <label> <fmt:message key="FilterByName"/></label>
-            <input type="text" id="gameNameInput">
-            <button id="btnSearchByName"><fmt:message key="FilterSearch"/></button>
-        </div>
-            </section>
 
-        <%--FILTRE DU PRIX--%>
-        <div class="row">
-            <select id="priceFilter">
-                <option minPriceRange="0" maxPriceRange="${maxPrice}"><fmt:message key="AllPrice"/></option>
-<%--                determine la plage de prix désiré--%>
-                <c:set var="DesiredRange" value="25" />
-                <c:forEach begin="0" end="${maxPrice/DesiredRange}" var="i">
-                    <c:set var="minPriceRange" value="${i*DesiredRange+1}"/>
-                    <c:set var="maxPriceRange" value="${(i+1)*DesiredRange}"/>
-                    <option value="${minPriceRange}-${maxPriceRange}" minPriceRange="${minPriceRange}"
-                            maxPriceRange="${maxPriceRange}">
-                            ${minPriceRange}-${maxPriceRange} $
-                    </option>
-                </c:forEach>
-            </select>
-        </div>
+            <br>
+            <div class="row justify-content-between align-items-center">
+                <div class="col-auto">
+                        <%-- FILTRE DU PRIX --%>
+                    <select id="priceFilter">
+                        <option minPriceRange="0" maxPriceRange="${maxPrice}"><fmt:message key="AllPrice"/></option>
+                            <%-- determine la plage de prix désiré --%>
+                        <c:set var="DesiredRange" value="25" />
+                        <c:forEach begin="0" end="${maxPrice/DesiredRange}" var="i">
+                            <c:set var="minPriceRange" value="${i*DesiredRange+1}"/>
+                            <c:set var="maxPriceRange" value="${(i+1)*DesiredRange}"/>
+                            <option value="${minPriceRange}-${maxPriceRange}" minPriceRange="${minPriceRange}"
+                                    maxPriceRange="${maxPriceRange}">
+                                    ${minPriceRange}-${maxPriceRange} $
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-auto">
+                        <%-- FILTRE DU NOM --%>
+                    <section class="section-color">
+                        <label><fmt:message key="FilterByName"/></label>
+                        <input type="text" id="gameNameInput">
+                        <button id="btnSearchByName"><fmt:message key="FilterSearch"/></button>
+                    </section>
+                </div>
+            </div>
 
-            <%--FILTRE POUR AFFICHER LES JEUX POSSEDÉS--%>
+
+        <%--FILTRE POUR AFFICHER LES JEUX POSSEDÉS--%>
 
             <%--on va déterminer un boolean qui sera utile pour afficher ou cacher le filtre selon si nous sommes connecté à un compte--%>
                 <c:choose>
@@ -74,10 +78,12 @@
                 </c:choose>
 
 <%--                Par défaut les jeu posséder ne sont pas afficher, selon la boolean loggedInAccountFlag on va afficher ou non.--%>
-        <div class="row" id="filterAllGameRow" style="display: none;">
+
+                <div class="row" id="filterAllGameRow" style="display: none;">
                      <label><fmt:message key="FilerAllGame"/></label>
-            <input type="checkbox" id="chkShowOwnedGame">
-        </div>
+                    <input type="checkbox" id="chkShowOwnedGame">
+                 </div>
+
 
                     <%--    Bouton pour remettre les filtres de base--%>
         <div>
@@ -90,6 +96,7 @@
 
 
     <%--    AFFICHER LE CATALOG DE JEU ( par défaut catalog exclu les jeux du panier et ceux  déjà posséder--%>
+    <%-- AFFICHER LE CATALOG DE JEU (par défaut le catalogue exclut les jeux du panier et ceux déjà possédés) --%>
     <div class="container">
         <h1 class="text-center my-3"><fmt:message key="listeJeuTitle"/></h1>
 
@@ -97,12 +104,10 @@
             <c:forEach var="jeu" items="${catalog}">
                 <c:set var="flagOwned" value="false"/>
 
-
-                <%--            Parcour la liste des jeux posséder pour set un flag si deja posséer--%>
+                <%-- Parcourir la liste des jeux possédés pour définir un drapeau si déjà possédé --%>
                 <c:forEach var="ownedGame" items="${owned}">
                     <c:if test="${ownedGame.idJeu eq jeu.idJeu}">
                         <c:set var="flagOwned" value="true"/>
-
                     </c:if>
                 </c:forEach>
 
@@ -113,7 +118,7 @@
                         <div class="card-header">
                             <h5 class="card-title">${jeu.nomJeu}</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="background-image: url('${jeu.imagePath}');">
                             <p class="card-text">${jeu.description}</p>
                             <p><strong>Genre:</strong><fmt:message key="${jeu.genre}"/></p>
                             <p><strong><fmt:message key="Price"/></strong> ${jeu.prix}$</p>
@@ -121,30 +126,32 @@
                                 <input type="hidden" name="index" value="${jeu.idJeu}">
                                 <input type="hidden" name="action" value="ACHETE">
 
-
-                                    <%--                                Valeur de filtre enregistrer--%>
+                                    <%-- Valeurs de filtre enregistrées --%>
                                 <input type="hidden" name="genreFilter" value="${genreFilterValue}">
                                 <input type="hidden" name="gameNameFilter" value="${gameNameFilterValue}">
                                 <input type="hidden" name="priceFilter" value="${priceFilterValue}">
                                 <input type="hidden" name="showOwnedGamesFilter" value="${showOwnedGamesFilterValue}">
 
-
                                 <div class="card-footer text-muted">
-                       <%-- Lorsque la checkbox "chkShowOwnedGame" est a true, le catalog inclus maintenant les jeux deja posseder--%>
+                                        <%-- Lorsque la checkbox "chkShowOwnedGame" est à true, le catalogue inclut maintenant les jeux déjà possédés --%>
                                     <c:if test="${flagOwned eq true}">
                                         <p><fmt:message key="AlreadyPossessed"/></p>
                                     </c:if>
 
-
-                                    <button type="submit" class="btn btn-primary"><fmt:message
-                                            key='buyCommand'/></button>
+                                    <button type="submit" class="btn btn-primary"><fmt:message key='buyCommand'/></button>
                                 </div>
                             </form>
                         </div>
                     </div>
+                    <c:if test="${empty jeu.imagePath}">
+                        <div class="image-placeholder">
+                            <p>Image non disponible</p>
+                        </div>
+                    </c:if>
                 </div>
             </c:forEach>
         </div>
+    </div>
 
 </fmt:bundle>
 
