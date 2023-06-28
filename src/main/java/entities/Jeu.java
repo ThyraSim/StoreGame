@@ -3,6 +3,7 @@ package entities;
 import dao.JeuDao;
 import jakarta.persistence.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +26,8 @@ public class Jeu {
     private Genre genre;
 
     private String description;
+    private String imagePath;
+
 
     @ManyToMany
     @JoinTable(
@@ -42,6 +45,14 @@ public class Jeu {
         this.prix = prix;
         this.genre = genre;
         this.description = description;
+    }
+
+    public Jeu(String nomJeu, double prix, Genre genre, String description, String imagePath) {
+        this.nomJeu = nomJeu;
+        this.prix = prix;
+        this.genre = genre;
+        this.description = description;
+        this.imagePath = imagePath;
     }
 
     public int getIdJeu() {
@@ -90,6 +101,13 @@ public class Jeu {
 
     public void setCommandes(List<Commande> commandes) {
         this.commandes = commandes;
+    }
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Override
