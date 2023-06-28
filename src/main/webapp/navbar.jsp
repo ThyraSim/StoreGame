@@ -27,6 +27,7 @@
       .dropdown-menu{
         background-color: #192D68;
         color: #ffd700;
+        border: 1px solid black;
       }
 
       .dropdown-item {
@@ -64,6 +65,24 @@
         overflow-y: auto; /* Enable vertical scrolling */
         overflow-x: hidden; /* Hide the horizontal scrollbar */
       }
+
+      ::-webkit-scrollbar {
+        width: 12px; /* Set the width of the scrollbar */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #ffd700; /* Set the color of the scrollbar thumb */
+      }
+
+      ::-webkit-scrollbar-track {
+        background-color: #192D68; /* Set the color of the scrollbar track */
+      }
+
+      .dropdown-item:hover {
+        color: #192D68; /* Change the text color to blue */
+        background-color: #ffd700; /* Change the background color to yellow */
+      }
+
     </style>
 
   </head>
@@ -73,7 +92,7 @@
       <nav class="navbar navbar-expand-lg" style="background-color: #192D68;">
         <div class="navbar-bottom-line"></div>
         <div class="container-fluid">
-          <h5><a href="/MagasinServlet"><fmt:message key="magasin"/></a></h5>
+          <h5><a class="nav-link" href="/MagasinServlet"><fmt:message key="magasin"/></a></h5>
           <div class="navbar-brand">
             <img src="image/Logo.png" alt="logo" width="200px" height="auto">
           </div>
@@ -107,7 +126,7 @@
                       </div>
                     </div>
                     <div class="dropdown-divider" style="border-color:black;"></div>
-                    <a class="dropdown-item" href="panier.jsp"><fmt:message key="seeCart"/></a>
+                    <h5><a class="dropdown-item" href="panier.jsp"><fmt:message key="seeCart"/></a></h5>
                   </div>
                 </li>
               </c:if>
