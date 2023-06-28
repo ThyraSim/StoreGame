@@ -25,21 +25,21 @@
     <jsp:include page="navbar.jsp"/>
     <jsp:include page="background.jsp"/>
 
-    <div class="container">
+    <div class="container h3">
         <div class="row">
 
             <div class="col">
                 <c:if test="${not empty panier.jeux}">
-                <h2><fmt:message key="panierTitle"/></h2>
+                <h1><fmt:message key="panierTitle"/></h1>
             </div>
         </div>
 
         <c:set var="totalPrice" value="0"/>
         <c:forEach var="jeu" items="${listePanier}" varStatus="loop">
             <c:set var="totalPrice" value="${totalPrice + jeu.prix}"/>
-            <div class="PanierGameRow row  mb-1">
+            <div class="PanierGameRow row  mb-1 ">
                 <div>
-                    ${jeu.nomJeu}  <span class="badge badge-pill badge-info"><fmt:message key="${jeu.genre}"/></span>
+                    ${jeu.nomJeu}  <span class="badge badge-pill badge-info" style="font-size: 0.9rem"><fmt:message key="${jeu.genre}"/></span>
                         <button
                                 class="btn btn-outline-light btn-sm"
                                 type="button"
@@ -66,8 +66,8 @@
 
 
                 <div class="collapse" id="description${loop.index}">
-                    <div class="card card-body PanierCollapseCardDescription">
-                            ${jeu.description}
+                    <div class="card card-body PanierCollapseCardDescription ">
+                            <span style="font-size: 0.9rem">${jeu.description} </span>
                     </div>
                 </div>
 
@@ -89,7 +89,7 @@
                 <form action="CheckOutServlet" method="POST" class="mt-3">
                     <input type="hidden" name="liste" value="${compteId}">
                     <input type="hidden" name="action" value="SELF">
-                    <button type="submit" class="btn btn-success"><fmt:message key='selfCommand'/></button>
+                    <button type="submit" class="btn-lg btn-success "><fmt:message key='selfCommand'/></button>
                 </form>
             </c:if>
 
@@ -97,7 +97,7 @@
             <form action="CheckOutServlet" method="POST" class="mt-2">
                 <input type="hidden" name="liste" value="${compteId}">
                 <input type="hidden" name="action" value="GIFT">
-                <button type="submit" class="btn btn-warning text-white"><fmt:message key='giftCommand'/></button>
+                <button type="submit" class="btn-lg btn-warning text-white"><fmt:message key='giftCommand'/></button>
             </form>
 
 
