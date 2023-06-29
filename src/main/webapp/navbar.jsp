@@ -60,6 +60,8 @@
         min-height: 90px;
       }
 
+
+
       .scrollable-container {
         max-height: 200px; /* Set the desired max height for the container */
         overflow-y: auto; /* Enable vertical scrolling */
@@ -81,6 +83,10 @@
       .dropdown-item:hover {
         color: #192D68; /* Change the text color to blue */
         background-color: #ffd700; /* Change the background color to yellow */
+      }
+
+      #NavProfileLink  {
+        color: #ffd700;
       }
 
     </style>
@@ -126,7 +132,7 @@
                       </div>
                     </div>
                     <div class="dropdown-divider" style="border-color:black;"></div>
-                    <h5><a class="dropdown-item" href="panier.jsp"><fmt:message key="seeCart"/></a></h5>
+                    <h5><a  class="dropdown-item" href="panier.jsp"><fmt:message key="seeCart"/></a></h5>
                   </div>
                 </li>
               </c:if>
@@ -134,14 +140,14 @@
               <c:choose>
                 <c:when test="${not empty loggedInAccount}">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/ProfileServlet">
-                      ${loggedInAccount.profileName}
+                    <a  id="NavProfileLink" class="nav-link active" aria-current="page" href="/ProfileServlet">
+                     ${loggedInAccount.profileName}
                     </a>
                   </li>
                 </c:when>
                 <c:otherwise>
                   <li class="nav-item">
-                    <a class="nav-link" href="/LoginServlet">
+                    <a  class="nav-link" href="/LoginServlet">
                       <fmt:message key="login"/>
                     </a>
                   </li>

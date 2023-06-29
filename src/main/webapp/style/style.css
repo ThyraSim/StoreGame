@@ -10,6 +10,10 @@ body{
     color: #ffd700;
 }
 
+nav .nav-link.active {
+    color: #ffd700;
+}
+
 #loginContainer {
     text-align: center;
     margin: auto;
