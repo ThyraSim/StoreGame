@@ -24,6 +24,7 @@
                 crossorigin="anonymous"
         ></script>
         <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="style/style.css">
     </head>
     <body>
     <jsp:include page="navbar.jsp"/>
@@ -32,8 +33,8 @@
             <input type="text" id="searchInput" name="searchInput" placeholder="<fmt:message key="search"/>">
             <input type="submit" value="<fmt:message key='btnRecherche' />">
         </form>
-        <table class="table table-bordered">
-            <thead>
+        <table id="chooseFriendTable" class="table table-bordered">
+            <thead class="text-center">
                 <tr>
                     <th>
                         <fmt:message key="idcompteTableHeader" />

@@ -6,13 +6,11 @@ h1 {
     color: #ffd700; /* Change to your desired color */
 }
 
-body{
+body, #chooseFriendTable{
     color: #ffd700;
 }
 
-nav .nav-link.active {
-    color: #ffd700;
-}
+
 
 #loginContainer {
     text-align: center;
