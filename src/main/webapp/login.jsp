@@ -50,9 +50,9 @@
                 <input type="password" id="password" name="password" required>
             </div>
 
-            <input type="submit" value="<fmt:message key="login"/>">
+            <input class="btn btn-outline-warning mt-3" type="submit" value="<fmt:message key="login"/>">
             <br>
-            <a type="button" href="creationCompte.jsp"><fmt:message key="register"/></a>
+            <a class="btn btn-success" type="button"  href="creationCompte.jsp"><fmt:message key="register"/></a>
             <c:choose>
                 <c:when test="${not empty param.index}">
                     <input type="hidden" name="index" value="${param.index}">

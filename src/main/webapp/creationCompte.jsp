@@ -61,7 +61,7 @@
                 <input type="text" id="email" name="email" required>
             </div>
 
-            <input type="submit" value="<fmt:message key='register'/>">
+            <input class="btn btn-success" type="submit" value="<fmt:message key='register'/>">
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

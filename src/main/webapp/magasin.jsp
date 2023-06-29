@@ -21,9 +21,11 @@
 <fmt:bundle basename="MessagesBundle">
     <jsp:include page="navbar.jsp"/>
     <jsp:include page="background.jsp"/>
-<%--    SECTION DES FILTRES --%>
+                                    <%--    SECTION DES FILTRES --%>
     <div class="container">
+
         <%--FILTRE DU GENRE--%>
+
         <div class="row">
             <h1><fmt:message key="FilterHeader"/></h1>
 
@@ -39,7 +41,9 @@
             <br>
             <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
-                        <%-- FILTRE DU PRIX --%>
+
+           <%-- FILTRE DU PRIX --%>
+
                     <select id="priceFilter">
                         <option minPriceRange="0" maxPriceRange="${maxPrice}"><fmt:message key="AllPrice"/></option>
                             <%-- determine la plage de prix désiré --%>
@@ -55,11 +59,13 @@
                     </select>
                 </div>
                 <div class="col-auto">
-                        <%-- FILTRE DU NOM --%>
+
+            <%-- FILTRE DU NOM --%>
+
                     <section class="section-color">
                         <label><fmt:message key="FilterByName"/></label>
                         <input type="text" id="gameNameInput">
-                        <button id="btnSearchByName"><fmt:message key="FilterSearch"/></button>
+                        <button class="btn btn-outline-warning" id="btnSearchByName"><fmt:message key="FilterSearch"/></button>
                     </section>
                 </div>
             </div>
@@ -87,7 +93,7 @@
 
                     <%--    Bouton pour remettre les filtres de base--%>
         <div>
-            <button id="btnResetFilter" ><fmt:message key="ResetFilter"/></button>
+            <button  class="btn btn-outline-warning" id="btnResetFilter" ><fmt:message key="ResetFilter"/></button>
         </div>
     </div>
 
