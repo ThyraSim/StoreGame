@@ -25,12 +25,12 @@
     <div class="container">
 
         <%--FILTRE DU GENRE--%>
-
-        <div class="row">
             <h1><fmt:message key="FilterHeader"/></h1>
+        <div class="row">
 
-            <select id="cbGenre" class="form-control form-control-lg">
-                <option value=""><fmt:message key="FilterAllGenre"/></option>
+
+            <select id="cbGenre" class="form-control form-control-lg w-25 text-center p-1 mb-1">
+                <option  value=""><fmt:message key="FilterAllGenre"/></option>
                 <c:forEach var="genre" items="${genreList}" varStatus="loop">
                     <option value="${genre.name}"><fmt:message key="${genre.name}"/></option>
                 </c:forEach>
@@ -38,13 +38,13 @@
         </div>
 
 
-            <br>
+
             <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
 
            <%-- FILTRE DU PRIX --%>
 
-                    <select id="priceFilter">
+                    <select  class="text-center" id="priceFilter">
                         <option minPriceRange="0" maxPriceRange="${maxPrice}"><fmt:message key="AllPrice"/></option>
                             <%-- determine la plage de prix désiré --%>
                         <c:set var="DesiredRange" value="25" />

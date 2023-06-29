@@ -73,7 +73,7 @@ body, #chooseFriendTable{
     font-size: 1.2em;  /* increase the size */
 
 }
-.card-body p, .PanierGameRow   {
+.card-body p, .PanierGameRow, .ProfileGameRow   {
     /* Add a semi-transparent background behind the text */
     background: rgba(44, 63, 145, 0.7);  /* white background with 70% opacity */
 
@@ -91,9 +91,10 @@ body, #chooseFriendTable{
 
 }
 
-.PanierCollapseCardDescription {
+.PanierCollapseCardDescription, #cbGenre,#priceFilter {
 
     background: #0e2b58;
+    color: #ffd700;
 
 
     padding: 10px;
