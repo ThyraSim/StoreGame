@@ -30,8 +30,8 @@
     <jsp:include page="navbar.jsp"/>
     <jsp:include page="background.jsp"/>
         <form action="SearchServlet" method="POST">
-            <input type="text" id="searchInput" name="searchInput" placeholder="<fmt:message key="search"/>">
-            <input type="submit" value="<fmt:message key='btnRecherche' />">
+            <input class="w-25" type="text" id="searchInput" name="searchInput" placeholder="<fmt:message key="search"/>">
+            <input  class="btn btn-outline-warning" type="submit" value="<fmt:message key='btnRecherche' />">
         </form>
         <table id="chooseFriendTable" class="table table-bordered">
             <thead class="text-center">
@@ -58,7 +58,7 @@
                                 <form action="CheckOutServlet" method="POST">
                                     <input type="hidden" name="giftId" value="${compte.idCompte}">
                                     <input type="hidden" name="action" value="GIFT">
-                                    <input type="submit" value="<fmt:message key="choose"/>">
+                                    <input  class="btn btn-outline-warning" type="submit" value="<fmt:message key="choose"/>">
                                 </form>
                             </td>
                         </tr>

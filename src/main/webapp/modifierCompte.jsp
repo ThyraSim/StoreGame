@@ -57,7 +57,7 @@ To change this template use File | Settings | File Templates.
       <label for="email"><fmt:message key="adressEmTableHeader" />:</label>
       <input type="text" id="email" name="email" value="${client.adresseCourriel}" required><br><br>
 
-      <input type="submit" value="<fmt:message key='save'/>">
+      <input class="btn btn-success" type="submit" value="<fmt:message key='save'/>">
       <a href="ProfileServlet"><fmt:message key="cancel"/></a>
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
