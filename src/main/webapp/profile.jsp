@@ -45,7 +45,7 @@
 
 
     <h1><fmt:message key="listeJeuTitle"/></h1>
-    <c:forEach var="jeu" items="${listePanier}" varStatus="loop">
+    <c:forEach var="jeu" items="${owned}" varStatus="loop">
         <c:set var="totalPrice" value="${totalPrice + jeu.prix}"/>
         <div class="ProfileGameRow row  mb-1 h2 ">
             <div>
