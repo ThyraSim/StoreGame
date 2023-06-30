@@ -44,7 +44,7 @@
 
            <%-- FILTRE DU PRIX --%>
 
-                    <select  class="text-center" id="priceFilter">
+                    <select  id="priceFilter">
                         <option minPriceRange="0" maxPriceRange="${maxPrice}"><fmt:message key="AllPrice"/></option>
                             <%-- determine la plage de prix désiré --%>
                         <c:set var="DesiredRange" value="25" />
