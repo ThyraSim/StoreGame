@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+  <title>Title</title>
 </head>
 <body>
 <%--
@@ -25,48 +25,104 @@ To change this template use File | Settings | File Templates.
 <fmt:bundle basename="MessagesBundle">
   <head>
     <title>Title</title>
-    <link
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            rel="stylesheet"
-            crossorigin="anonymous"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/modifierCompte.css">
     <meta charset="UTF-8">
   </head>
   <body>
   <jsp:include page="navbar.jsp"/>
   <jsp:include page="background.jsp"/>
-    <h1 id="registrationTitle"><fmt:message key="modify" /></h1>
-    <form id="registrationForm" action="/ModifierCompteServlet" method="post">
-      <label for="username"><fmt:message key="userTableHeader"/>:</label>
-      <input type="text" id="username" name="username" value="${loggedInAccount.user}" required><br><br>
+  <h3 id="registrationTitle"><fmt:message key="modify" /></h3>
 
-      <label for="profileName"><fmt:message key="profileNameTableHeader" />:</label>
-      <input type="text" id="profileName" name="profileName" value="${loggedInAccount.profileName}" required><br><br>
+  <form id="registrationForm" action="/ModifierCompteServlet" method="post">
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <div class="form-label">
+          <label for="username"><fmt:message key="userTableHeader"/></label>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <input type="text" id="username" name="username" value="${loggedInAccount.user}" class="form-control" required>
+      </div>
+    </div>
 
-      <label for="password"><fmt:message key="passwordTableHeader" />:</label>
-      <input type="password" id="password" name="password" value="${loggedInAccount.password}" required><br><br>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <div class="form-label">
+          <label for="profileName"><fmt:message key="profileNameTableHeader" /></label>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <input type="text" id="profileName" name="profileName" value="${loggedInAccount.profileName}" class="form-control" required>
+      </div>
+    </div>
 
-      <label for="nom"><fmt:message key="nomClientTableHeader" />:</label>
-      <input type="text" id="nom" name="nom" value="${client.nom}" required><br><br>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <div class="form-label">
+          <label for="password"><fmt:message key="passwordTableHeader" /></label>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <input type="password" id="password" name="password" value="${loggedInAccount.password}" class="form-control" required>
+      </div>
+    </div>
 
-      <label for="prenom"><fmt:message key="prenomClientTableHeader" />:</label>
-      <input type="text" id="prenom" name="prenom" value="${client.prenom}" required><br><br>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <div class="form-label">
+          <label for="nom"><fmt:message key="nomClientTableHeader" /></label>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <input type="text" id="nom" name="nom" value="${client.nom}" class="form-control" required>
+      </div>
+    </div>
 
-      <label for="physique"><fmt:message key="adressPhyTableHeader" />:</label>
-      <input type="text" id="physique" name="physique" value="${client.adressePhysique}" required><br><br>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <div class="form-label">
+          <label for="prenom"><fmt:message key="prenomClientTableHeader" /></label>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <input type="text" id="prenom" name="prenom" value="${client.prenom}" class="form-control" required>
+      </div>
+    </div>
 
-      <label for="email"><fmt:message key="adressEmTableHeader" />:</label>
-      <input type="text" id="email" name="email" value="${client.adresseCourriel}" required><br><br>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <div class="form-label">
+          <label for="physique"><fmt:message key="adressPhyTableHeader" /></label>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <input type="text" id="physique" name="physique" value="${client.adressePhysique}" class="form-control" required>
+      </div>
+    </div>
 
-      <input class="btn btn-success" type="submit" value="<fmt:message key='save'/>">
-      <a href="ProfileServlet"><fmt:message key="cancel"/></a>
-    </form>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <div class="form-label">
+          <label for="email"><fmt:message key="adressEmTableHeader" /></label>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <input type="text" id="email" name="email" value="${client.adresseCourriel}" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-lg-offset-4 col-lg-8">
+        <input class="btn btn-success" type="submit" value="<fmt:message key='save'/>">
+        <a href="ProfileServlet" class="link-info"><fmt:message key="cancel"/></a>
+      </div>
+    </div>
+  </form>
+
+  <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </fmt:bundle>
 </html>
+
