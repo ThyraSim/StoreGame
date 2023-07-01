@@ -102,11 +102,17 @@ body, #chooseFriendTable{
     border-radius: 10px;
 
 }
+.less-intense-background {
+    background-image: url('${jeu.imagePath}');
+    filter: brightness(85%); /* Réduire la luminosité à 70% */
+    /* Autres propriétés CSS pour ajuster l'intensité de l'image */
+}
 
 .image-placeholder {
     text-align: center;
     padding: 15px;
     background-color: #f5f5f5;
 }
+
 
 

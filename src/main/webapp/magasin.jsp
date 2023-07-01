@@ -124,7 +124,7 @@
                         <div class="card-header">
                             <h5 class="card-title">${jeu.nomJeu}</h5>
                         </div>
-                        <div class="card-body" style="background-image: url('${jeu.imagePath}');">
+                        <div class="card-body less-intense-background" style="background-image: url('${jeu.imagePath}');">
                             <p class="card-text">${jeu.description}</p>
                             <p><strong>Genre:</strong><fmt:message key="${jeu.genre}"/></p>
                             <p><strong><fmt:message key="Price"/></strong> ${jeu.prix}$</p>

@@ -1,11 +1,7 @@
 package controleur;
 
-import dao.CompteDao;
+
 import entities.Compte;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.Query;
 import service.MagasinService;
 
 import javax.servlet.ServletException;
@@ -15,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet(name = "LoginServlet", value = "/LoginServlet")
@@ -33,6 +28,13 @@ public class LoginServlet extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String logout = request.getParameter("logout");
+
+        if (logout != null && logout.equals("true")) {
+            session.invalidate();
+            response.sendRedirect("login.jsp");
+            return;
+        }
 
         List<Compte> compteList = MagasinService.getListCompte(session);
         Compte compteLogged = MagasinService.getCompte(session);
@@ -40,6 +42,8 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("ProfileServlet?idCompte="+compteLogged.getIdCompte());
             return;
         }
+
+
         String indexPourjsp = request.getParameter("index");
         Integer index = null;
 

@@ -23,11 +23,15 @@ public class MagasinServlet extends HttpServlet {
             response.sendRedirect("http://localhost:82/error.html");
         }
 
+
         //On récupère la liste des genre
         List<Genre> genreList = MagasinService.getGenres(session);
 
         //Récupération du catalog (Les jeux à afficher)
         List<Jeu> catalog = MagasinService.getCatalog(session);
+
+        String selectedCurrency = (String) session.getAttribute("selectedCurrency");
+        catalog = convertPrices(catalog, selectedCurrency);
 
         //On détermine le prix maximun pour les fournchettes de prix pour le filtre
         Double maxPrice = getMaxPrix(catalog);
@@ -48,6 +52,25 @@ public class MagasinServlet extends HttpServlet {
     }
 
     public void destroy() {
+    }
+    private List<Jeu> convertPrices(List<Jeu> catalog, String selectedCurrency) {
+        // This is where you would convert the prices of each game in the catalog based on the selected currency.
+        // For the sake of this example, we'll assume that the conversion rate from USD to EUR is 0.85.
+        if (selectedCurrency == null) {
+            selectedCurrency = "USD";
+        }
+        double conversionRate = selectedCurrency.equals("EUR") ? 0.85 : 1.0;
+
+        for (Jeu jeu : catalog) {
+            double originalPrice = jeu.getPrix();
+            double convertedPrice = originalPrice * conversionRate;
+            jeu.setPrix(convertedPrice);
+
+            // Print original and converted prices
+            System.out.println("Original price: " + originalPrice + ", Converted price: " + convertedPrice);
+        }
+
+        return catalog;
     }
 
     @Override
