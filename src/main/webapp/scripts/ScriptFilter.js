@@ -77,9 +77,9 @@ $(document).ready(function () {
         $('#cbGenre').prop('selectedIndex', storedGenreFilter);
     }
 
-    var storedPriceFilter = localStorage.getItem('priceFilter');
+    var storedPriceFilter = localStorage.getItem('priceFilterIndex'); // Change the key name
     if (storedPriceFilter != null) {
-        $('#priceFilter').val(storedPriceFilter);
+        $('#priceFilter').prop('selectedIndex', storedPriceFilter); // Set the selected index
     }
 
     var storedShowOwnedGameFilter = localStorage.getItem('showOwnedGameFilter');
@@ -102,6 +102,8 @@ $(document).ready(function () {
 
     // Gestionnaire d'événement pour le filtre par prix
     $('#priceFilter').change(function () {
+        var selectedPriceIndex = $(this).prop('selectedIndex');
+        localStorage.setItem('priceFilterIndex', selectedPriceIndex); // Store the selected index
         appliquerFiltres();
     });
 
