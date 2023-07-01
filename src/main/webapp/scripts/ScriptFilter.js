@@ -22,8 +22,8 @@ $(document).ready(function () {
 
         // on recupere les differentes valeur de la section des filtres
 
-        var gameNameInput = $('#gameNameInput').val().toLowerCase();  //filtre du nom
-        var selectedGenre = $('#cbGenre').val().toLowerCase();         //filtre du genre
+        var gameNameInput = ($('#gameNameInput').val() || "").toLowerCase();  //filtre du nom
+        var selectedGenre = ($('#cbGenre').val() || "").toLowerCase();         //filtre du genre
         var selectedRange = $('#priceFilter option:selected');          //filtre du prix
         var minPriceRange = selectedRange.attr('minPriceRange');
         var maxPriceRange = selectedRange.attr('maxPriceRange');

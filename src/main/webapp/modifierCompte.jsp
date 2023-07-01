@@ -22,6 +22,9 @@ To change this template use File | Settings | File Templates.
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
+<c:set var="loc" value="${not empty param.lang ? param.lang : pageContext.request.locale}" />
+<c:set scope="session" var="lang" value="${loc}"/>
+<fmt:setLocale value="${sessionScope.lang}" />
 <fmt:bundle basename="MessagesBundle">
   <head>
     <title>Title</title>

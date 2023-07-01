@@ -12,6 +12,9 @@
 <html>
 
 <head>
+    <c:set var="loc" value="${not empty param.lang ? param.lang : pageContext.request.locale}" />
+    <c:set scope="session" var="lang" value="${loc}"/>
+    <fmt:setLocale value="${sessionScope.lang}" />
     <fmt:bundle basename="MessagesBundle">
     <title><fmt:message key="userProfileTitle"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"

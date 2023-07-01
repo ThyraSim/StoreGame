@@ -18,6 +18,9 @@
     <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body>
+<c:set var="loc" value="${not empty param.lang ? param.lang : pageContext.request.locale}" />
+<c:set scope="session" var="lang" value="${loc}"/>
+<fmt:setLocale value="${sessionScope.lang}" />
 <fmt:bundle basename="MessagesBundle">
     <jsp:include page="navbar.jsp"/>
     <jsp:include page="background.jsp"/>
