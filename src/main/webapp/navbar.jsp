@@ -118,11 +118,14 @@
                 <div id="cartItemsContainer">
                   <div class="scrollable-container">
                     <c:set var="totalPrice" value="0"/>
+                    <c:set var="convertedTotalPrice" value="0"/>
                     <c:forEach var="jeu" items="${panier.jeux}">
                       <c:set var="totalPrice" value="${totalPrice + jeu.prix}"/>
+                      <c:set var="convertedPrice" value="${jeu.prix * conversionRate}" />
+                      <c:set var="convertedTotalPrice" value="${convertedTotalPrice + convertedPrice}" />
                       <div class="d-flex align-items-center my-1">
                         <span class="mx-3">${jeu.nomJeu}</span>
-                        <span class="ml-auto">${jeu.prix}</span>
+                        <span class="ml-auto"><fmt:formatNumber value="${convertedPrice}" minFractionDigits="2" maxFractionDigits="2" /></span>
                         <form action="DeleteServlet" method="POST" class="float-right">
                           <input type="hidden" name="idJeu" value="${jeu.idJeu}">
                           <input type="hidden" name="source" value="nav">
@@ -136,9 +139,7 @@
                   <div class="dropdown-divider" style="border-color:black;"></div>
                   <div class="total">
                     <span style="margin-left: 20px;"><fmt:message key="totalPrice"/>:</span>
-                    <span class="ml-auto"
-                          style="margin-right: 10px;"><fmt:formatNumber value="${totalPrice}" minFractionDigits="2"
-                                                                        maxFractionDigits="2"/></span>
+                    <span class="ml-auto" style="margin-right: 10px;"><fmt:formatNumber value="${convertedTotalPrice}" minFractionDigits="2" maxFractionDigits="2" /></span>
                   </div>
                 </div>
                 <div class="dropdown-divider" style="border-color:black;"></div>

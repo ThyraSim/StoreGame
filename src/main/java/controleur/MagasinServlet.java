@@ -7,7 +7,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "MagasinServlet", value = "/MagasinServlet")
 public class MagasinServlet extends HttpServlet {
@@ -30,9 +32,10 @@ public class MagasinServlet extends HttpServlet {
         //Récupération du catalog (Les jeux à afficher)
         List<Jeu> catalog = MagasinService.getCatalog(session);
 
-        String selectedCurrency = (String) session.getAttribute("selectedCurrency");
-        catalog = convertPrices(catalog, selectedCurrency);
 
+        String selectedCurrency = (String) session.getAttribute("selectedCurrency");
+        Map<Jeu, String> convertedPrices = convertPrices(catalog, selectedCurrency);
+        request.setAttribute("convertedPrices", convertedPrices);
         //On détermine le prix maximun pour les fournchettes de prix pour le filtre
         Double maxPrice = getMaxPrix(catalog);
 
@@ -53,29 +56,43 @@ public class MagasinServlet extends HttpServlet {
 
     public void destroy() {
     }
-    private List<Jeu> convertPrices(List<Jeu> catalog, String selectedCurrency) {
-        // This is where you would convert the prices of each game in the catalog based on the selected currency.
-        // For the sake of this example, we'll assume that the conversion rate from USD to EUR is 0.85.
-        if (selectedCurrency == null) {
-            selectedCurrency = "USD";
+    private Map<Jeu, String> convertPrices(List<Jeu> catalog, String selectedCurrency) {
+        Map<Jeu, String> convertedPrices = new HashMap<>();
+        // Vérifier si la devise sélectionnée est vide ou nulle
+        if (selectedCurrency == null || selectedCurrency.isEmpty()) {
+            // Utiliser la devise par défaut (USD)
+            selectedCurrency = "CAD";
         }
-        double conversionRate = selectedCurrency.equals("EUR") ? 0.85 : 1.0;
+        // Définir le taux de conversion fixe en fonction de la devise sélectionnée
+        double conversionRate;
+
+        if (selectedCurrency.equals("CAD")) {
+            conversionRate = 1.0; // Aucune conversion nécessaire pour USD
+        } else if (selectedCurrency.equals("USD")) {
+            conversionRate = 0.75; // Conversion de CAD à USD (taux de change fixe)
+        } else if (selectedCurrency.equals("EUR")) {
+            conversionRate = 0.68; // Conversion d'EUR à USD (taux de change fixe)
+        } else {
+            // Devise non prise en charge, lever une exception ou effectuer un traitement approprié
+            throw new IllegalArgumentException("Devise non prise en charge: " + selectedCurrency);
+        }
 
         for (Jeu jeu : catalog) {
-            double originalPrice = jeu.getPrix();
-            double convertedPrice = originalPrice * conversionRate;
-            jeu.setPrix(convertedPrice);
-
-            // Print original and converted prices
-            System.out.println("Original price: " + originalPrice + ", Converted price: " + convertedPrice);
+            double convertedPrice = jeu.getPrix() * conversionRate;
+            String formattedPrice = String.format("%.2f", convertedPrice);
+            convertedPrices.put(jeu, formattedPrice);
         }
 
-        return catalog;
+
+        return convertedPrices;
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String currency = request.getParameter("currency");
+        HttpSession session = request.getSession();
+        session.setAttribute("selectedCurrency", currency);
         processRequest(request, response);
     }
 
