@@ -22,6 +22,7 @@
 
 
     <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" type="text/css" href="style/profile.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
           integrity="sha512-...your-integrity-hash...==" crossorigin="anonymous"/>
@@ -51,12 +52,12 @@
 
     <h1><fmt:message key="listeJeuTitle"/></h1>
     <c:forEach var="jeu" items="${owned}" varStatus="loop">
-        <div class="ProfileGameRow row  mb-1 h2 ">
-            <div>
-                    <span class="">${jeu.nomJeu}</span> <span class="badge badge-pill badge-info mr-1" style="font-size: 0.9rem"><fmt:message
-                    key="${jeu.genre}"/></span>
+        <div class="ProfileGameRow row game-row">
+            <div class="d-flex align-items-center">
+                <span class="game-name">${jeu.nomJeu}</span>
+                <span class="badge badge-pill badge-info">${jeu.genre}</span>
                 <button
-                        class="btn btn-outline-light btn-sm float-right"
+                        class="btn btn-outline-light btn-sm collapse-button"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#description${loop.index}"
@@ -67,12 +68,10 @@
                 </button>
             </div>
             <div class="collapse" id="description${loop.index}">
-                <div class="card card-body PanierCollapseCardDescription ">
-                    <span style="font-size: 0.9rem">${jeu.description} </span>
+                <div class="card card-body PanierCollapseCardDescription collapse-card">
+                    <span>${jeu.description}</span>
                 </div>
             </div>
-
-
         </div>
     </c:forEach>
 

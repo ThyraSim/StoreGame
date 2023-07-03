@@ -1,0 +1,22 @@
+
+.game-row {
+    margin-bottom: 0.3rem;
+    font-size: 2rem;
+}
+
+.game-row .game-name {
+    margin-right: 1.2rem;
+}
+
+.game-row .badge {
+    font-size: 0.9rem;
+    align-self: center;
+}
+
+.game-row .collapse-button {
+    float: right;
+}
+
+.game-row .collapse-card {
+    font-size: 1rem;
+}
