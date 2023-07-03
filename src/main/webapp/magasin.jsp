@@ -131,7 +131,7 @@
                         <div class="card-body less-intense-background" style="background-image: url('${jeu.imagePath}');">
                             <p class="card-text">${jeu.description}</p>
                             <p><strong>Genre:</strong><fmt:message key="${jeu.genre}"/></p>
-                            <p><strong><fmt:message key="Price"/></strong> ${convertedPrices.get(jeu)}$</p>
+                            <p><strong><fmt:message key="Price"/></strong> ${jeu.prix}$</p>
                             <form action="AcheteServlet" method="POST">
                                 <input type="hidden" name="index" value="${jeu.idJeu}">
                                 <input type="hidden" name="action" value="ACHETE">

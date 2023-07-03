@@ -19,7 +19,7 @@ public class LanguageFilter implements Filter {
         if (language != null) {
             language = language.toLowerCase();
             session.setAttribute("lang", language);
-
+            System.out.println("Bruh what");
             // Create and set the language cookie
             Cookie langCookie = new Cookie("lang", language);
             langCookie.setMaxAge(3600); // Cookie expiration time in seconds
@@ -27,6 +27,12 @@ public class LanguageFilter implements Filter {
         } else if (session.getAttribute("lang") == null) {
             // If no language parameter and no language in session, set default language
             session.setAttribute("lang", request.getLocale().getLanguage());
+            System.out.println("Chat");
+            System.out.println(request.getLocale().getLanguage());
+        }
+        else{
+            System.out.println("MAAAAn");
+            System.out.println(session.getAttribute("lang"));
         }
 
         chain.doFilter(req, res);

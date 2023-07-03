@@ -33,17 +33,6 @@ public class MagasinServlet extends HttpServlet {
 
         MagasinService.getGenres(session);
 
-        String selectedCurrency = (String) session.getAttribute("selectedCurrency");
-        Map<Jeu, String> convertedPrices = convertPrices(catalog, selectedCurrency);
-        Commande panier = MagasinService.getPanier(session);
-        double totalPrice = 0.0;
-        if (panier != null) {
-            for (Jeu jeu : panier.getJeux()) {
-                totalPrice += jeu.getPrix();
-            }
-        }
-
-        request.setAttribute("convertedPrices", convertedPrices);
         //On détermine le prix maximun pour les fournchettes de prix pour le filtre
         Double maxPrice = getMaxPrix(catalog);
 

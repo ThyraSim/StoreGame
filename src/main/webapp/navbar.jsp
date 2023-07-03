@@ -160,22 +160,6 @@
             </li>
           </c:if>
 
-
-
-
-
-
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="currencyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <fmt:message key="currency"/>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="currencyDropdown">
-              <a class="dropdown-item" href="?currency=USD">USD</a>
-              <a class="dropdown-item" href="?currency=CAD">CAD</a>
-              <a class="dropdown-item" href="?currency=EUR">EUR</a>
-            </div>
-          </li>
           <li class="nav-item dropdown">
             <c:choose>
             <c:when test="${not empty loggedInAccount}">
