@@ -11,11 +11,11 @@
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             rel="stylesheet"
             crossorigin="anonymous"/>
-    <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-3.7.0.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="scripts/scriptLangue.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <script src="../scripts/scriptLangue.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
     <style>
         .card.text-center {
             background-color: #2C3F91B2; /* Remplacez "yellow" par la couleur de votre choix */
@@ -158,7 +158,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script src="scripts/ScriptFilter.js"></script>
+<script src="../scripts/ScriptFilter.js"></script>
 
 
 </body>

@@ -28,7 +28,7 @@ public class DeleteServlet extends HttpServlet {
         if (session == null) {
             response.sendRedirect("http://localhost:82/error.html");
         }
-        url = "panier.jsp";
+        url = "WEB-INF/panier.jsp";
 
         //Retire le jeu du panier
         retirerJeu(session, request);

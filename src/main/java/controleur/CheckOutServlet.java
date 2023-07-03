@@ -44,7 +44,7 @@ public class CheckOutServlet extends HttpServlet {
         if (action != null && action.equals("GIFT")){
             String giftIdString = request.getParameter("giftId");
             if(giftIdString == null){ //Bouton Acheter pour un ami de la page magasin.jsp
-                String url = "chooseFriend.jsp";
+                String url = "WEB-INF/chooseFriend.jsp";
                 RequestDispatcher rd = request.getRequestDispatcher(url);
                 try {
                     rd.forward(request, response);

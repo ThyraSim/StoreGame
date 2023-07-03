@@ -86,7 +86,7 @@ public class ModifierCompteServlet extends HttpServlet {
         } else {
             // Si la création du compte échoue, vous pouvez renvoyer l'utilisateur vers la page de création du compte et afficher un message d'erreur.
             request.setAttribute("errorMessage", "Erreur lors de la création du compte. Veuillez réessayer.");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
         }
     }
 

@@ -8,8 +8,9 @@
   <head>
     <title>Chaos Games</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style/modifierCompte.css">
-    <script src="scripts/scriptLangue.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../style/modifierCompte.css">
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
+    <script src="../scripts/scriptLangue.js" type="text/javascript"></script>
     <meta charset="UTF-8">
   </head>
   <body>
@@ -96,14 +97,14 @@
     </div>
 
     <div class="form-group row">
-      <div class="col-lg-offset-4 col-lg-8">
+      <div class="col-lg-12">
         <input class="btn btn-success" type="submit" value="<fmt:message key='save'/>">
         <a href="ProfileServlet" class="link-info"><fmt:message key="cancel"/></a>
       </div>
     </div>
   </form>
 
-  <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+  <script src="../scripts/jquery-3.7.0.js" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </fmt:bundle>

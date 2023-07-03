@@ -15,7 +15,7 @@
 
     <head>
         <title>Chaos Games</title>
-        <script src="scripts/scriptLangue.js" type="text/javascript"></script>
+        <script src="../scripts/scriptLangue.js" type="text/javascript"></script>
     </head>
     <body>
     <jsp:include page="navbar.jsp?lang=${lang}" />
@@ -67,7 +67,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-    <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-3.7.0.js" type="text/javascript"></script>
     </body>
 </fmt:bundle>
 </html>
