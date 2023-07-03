@@ -16,11 +16,11 @@
             rel="stylesheet"
             crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-3.7.0.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="scripts/scriptLangue.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <script src="../scripts/scriptLangue.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
     <style>
       .wider-dropdown-menu {
         white-space: nowrap;
@@ -103,7 +103,7 @@
       <div class="container-fluid">
         <h5><a class="nav-link" href="/MagasinServlet"><fmt:message key="magasin"/></a></h5>
         <div class="navbar-brand">
-          <img src="image/Logo.png" alt="logo" width="200px" height="auto">
+          <img src="../image/Logo.png" alt="logo" width="200px" height="auto">
         </div>
         <ul class="navbar-nav ml-auto">
 
@@ -142,7 +142,7 @@
                   </div>
                 </div>
                 <div class="dropdown-divider" style="border-color:black;"></div>
-                <h5><a class="dropdown-item" href="panier.jsp"><fmt:message key="seeCart"/></a></h5>
+                <h5><a class="dropdown-item" href="RedirectServlet?url=panier.jsp"><fmt:message key="seeCart"/></a></h5>
               </div>
             </li>
           </c:if>
@@ -158,14 +158,14 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="loginDropdown">
               <a class="dropdown-item" href="/ProfileServlet"><fmt:message key="profile"/></a>
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/LoginServlet?logout=true">Logout</a>
+              <a class="dropdown-item" href="/LoginServlet?logout=true">Logout</a>
             </div>
           </li>
           </c:when>
           <c:otherwise>
             <!-- Si l'utilisateur n'est pas connecté, affichez simplement un lien -->
             <li class="nav-item">
-              <a class="nav-link" href="${pageContext.request.contextPath}/LoginServlet">
+              <a class="nav-link" href="LoginServlet">
                 <fmt:message key="login"/>
               </a>
             </li>
@@ -194,7 +194,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.min.js"
           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
           crossorigin="anonymous"></script>
-  <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+  <script src="../scripts/jquery-3.7.0.js" type="text/javascript"></script>
   </body>
 </html>
 

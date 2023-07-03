@@ -1,10 +1,12 @@
+.form-group.row {
+    align-items: center;
+}
+
 .form-label {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     margin-bottom: 0.5rem;
     width: 100%;
-    white-space: nowrap;
 }
 
 .form-label > label {
@@ -15,10 +17,14 @@
 
 .form-label > label::after {
     content: ":";
-    margin-left: 0.25rem;
+    margin-left: 3rem;
 }
 
 .form-control {
     width: 60%;
     min-width: 200px;
+}
+
+body{
+    color: black;
 }

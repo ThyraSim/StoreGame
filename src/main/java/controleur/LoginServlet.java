@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 
         if (logout != null && logout.equals("true")) {
             session.invalidate();
-            response.sendRedirect("login.jsp");
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         }
 
@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         // Si les informations d'identification sont incorrectes, affichez un message d'erreur ou redirigez vers une page d'erreur
-        response.sendRedirect("login.jsp?index="+indexPourjsp);
+        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
     public void destroy() {

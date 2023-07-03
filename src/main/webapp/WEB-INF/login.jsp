@@ -30,8 +30,8 @@
                 registrationTitle.style.display = "block";
             }
         </script>
-        <script src="scripts/scriptLangue.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="style/style.css">
+        <script src="../scripts/scriptLangue.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="../style/style.css">
     </head>
     <jsp:include page="navbar.jsp?lang=${lang}" />
     <jsp:include page="background.jsp"/>
@@ -51,7 +51,7 @@
 
             <input class="btn btn-outline-warning mt-3" type="submit" value="<fmt:message key="login"/>">
             <br>
-            <a class="btn btn-success" type="button"  href="creationCompte.jsp"><fmt:message key="register"/></a>
+            <a class="btn btn-success" type="button"  href="RedirectServlet?url=creationCompte.jsp"><fmt:message key="register"/></a>
             <c:choose>
                 <c:when test="${not empty param.index}">
                     <input type="hidden" name="index" value="${param.index}">

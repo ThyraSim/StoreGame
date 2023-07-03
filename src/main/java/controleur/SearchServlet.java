@@ -29,7 +29,7 @@ public class SearchServlet extends HttpServlet {
             Commande panier = MagasinService.getPanier(session);
             List<Compte> compteResult = Utilitaire.findCompteByProfileName(searchTerm, comptes, compte, panier);
             request.setAttribute("compteResult", compteResult);
-            RequestDispatcher rd = request.getRequestDispatcher("chooseFriend.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/chooseFriend.jsp");
             try {
                 rd.forward(request, response);
             } catch (ServletException e) {

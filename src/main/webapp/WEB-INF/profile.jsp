@@ -21,11 +21,11 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 
-    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
           integrity="sha512-...your-integrity-hash...==" crossorigin="anonymous"/>
-    <script src="scripts/scriptLangue.js" type="text/javascript"></script>
+    <script src="../scripts/scriptLangue.js" type="text/javascript"></script>
 
 </head>
 <body>
@@ -42,7 +42,7 @@
             <h2>${compte.profileName}</h2>
             <h5>${client.adresseCourriel}</h5>
         </div>
-        <a class="link-info" href="/modifierCompte.jsp"><fmt:message key="modify"/></a>
+        <a class="link-info" href="RedirectServlet?url=modifierCompte.jsp"><fmt:message key="modify"/></a>
         <div>
             <h4><fmt:message key="hi"/> ${client.prenom} ${client.nom}</h4>
         </div>
@@ -78,7 +78,7 @@
 
 </div>
 
-<script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+<script src="../scripts/jquery-3.7.0.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
