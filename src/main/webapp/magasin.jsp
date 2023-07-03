@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -22,90 +21,77 @@
 <c:set scope="session" var="lang" value="${lang}"/>
 <fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">
-    <jsp:include page="navbar.jsp" />
-    <jsp:include page="background.jsp"/>
-                                    <%--    SECTION DES FILTRES --%>
-    <div class="container">
-
+<jsp:include page="navbar.jsp"/>
+<jsp:include page="background.jsp"/>
+    <%--    SECTION DES FILTRES --%>
+<div class="container">
+    <h1><fmt:message key="FilterHeader"/></h1>
         <%--FILTRE DU GENRE--%>
-            <h1><fmt:message key="FilterHeader"/></h1>
-        <div class="row">
-
-
-            <select id="cbGenre" class="form-control form-control-lg w-25 text-center p-1 mb-1">
-                <option  value=""><fmt:message key="FilterAllGenre"/></option>
+    <div class="row">
+        <div class="col">
+            <label for="cbGenre"><fmt:message key="LabelFilterGenre"/></label>
+            <select id="cbGenre" class="form-control form-control-lg text-center p-1 mb-1">
+                <option value=""><fmt:message key="FilterAllGenre"/></option>
                 <c:forEach var="genre" items="${genreList}" varStatus="loop">
                     <option value="${genre.name}"><fmt:message key="${genre.name}"/></option>
                 </c:forEach>
             </select>
         </div>
-
-
-
-            <div class="row justify-content-between align-items-center">
-                <div class="col-auto">
-
-           <%-- FILTRE DU PRIX --%>
-
-                    <select  class="text-center" id="priceFilter">
-                        <option minPriceRange="0" maxPriceRange="${maxPrice}" name="ElFiltre"><fmt:message key="AllPrice"/></option>
-                            <%-- determine la plage de prix désiré --%>
-                        <c:set var="DesiredRange" value="25" />
-                        <c:forEach begin="0" end="${maxPrice/DesiredRange}" var="i">
-                            <c:set var="minPriceRange" value="${i*DesiredRange+1}"/>
-                            <c:set var="maxPriceRange" value="${(i+1)*DesiredRange}"/>
-                            <option value="${minPriceRange}-${maxPriceRange}" minPriceRange="${minPriceRange}"
-                                    maxPriceRange="${maxPriceRange}">
-                                    ${minPriceRange}-${maxPriceRange} $
-                            </option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <div class="col-auto">
-
-            <%-- FILTRE DU NOM --%>
-
-                    <section class="section-color">
-                        <label><fmt:message key="FilterByName"/></label>
-                        <input type="text" id="gameNameInput">
-                        <button class="btn btn-outline-warning" id="btnSearchByName"><fmt:message key="FilterSearch"/></button>
-                    </section>
-                </div>
+            <%-- FILTRE DU PRIX --%>
+        <div class="col">
+            <label for="priceFilter"><fmt:message key="LabelFilterPrice"/></label>
+            <select id="priceFilter" class="form-control form-control-lg text-center p-1 mb-1">
+                <option minPriceRange="0" maxPriceRange="${maxPrice}" name="ElFiltre"><fmt:message
+                        key="AllPrice"/></option>
+                <c:set var="DesiredRange" value="25"/>
+                <c:forEach begin="0" end="${maxPrice/DesiredRange}" var="i">
+                    <c:set var="minPriceRange" value="${i*DesiredRange+1}"/>
+                    <c:set var="maxPriceRange" value="${(i+1)*DesiredRange}"/>
+                    <option value="${minPriceRange}-${maxPriceRange}" minPriceRange="${minPriceRange}"
+                            maxPriceRange="${maxPriceRange}">
+                            ${minPriceRange}-${maxPriceRange} $
+                    </option>
+                </c:forEach>
+            </select>
+        </div>
+    </div>
+        <%-- FILTRE DU NOM --%>
+    <div class="row">
+        <div class="col">
+            <div class="input-group">
+                <input type="text" class="form-control mb-1" id="gameNameInput">
+                <button class="btn btn-outline-warning ml-1" id="btnSearchByName"><fmt:message key="FilterSearch"/></button>
             </div>
-
-
-        <%--FILTRE POUR AFFICHER LES JEUX POSSEDÉS--%>
-
-            <%--on va déterminer un boolean qui sera utile pour afficher ou cacher le filtre selon si nous sommes connecté à un compte--%>
-                <c:choose>
-                    <c:when test="${empty sessionScope.loggedInAccount}">
-                        <input name="loggedInAccountFlag" type="hidden" value="false">
-                    </c:when>
-                    <c:otherwise>
-                        <input name="loggedInAccountFlag" type="hidden" value="true">
-                    </c:otherwise>
-                </c:choose>
-
-<%--                Par défaut les jeu posséder ne sont pas afficher, selon la boolean loggedInAccountFlag on va afficher ou non.--%>
-
-                <div class="row" id="filterAllGameRow" style="display: none;">
-                     <label><fmt:message key="FilerAllGame"/></label>
-                    <input type="checkbox" id="chkShowOwnedGame">
-                 </div>
-
-
-                    <%--    Bouton pour remettre les filtres de base--%>
-        <div>
-            <button  class="btn btn-outline-warning" id="btnResetFilter" ><fmt:message key="ResetFilter"/></button>
         </div>
     </div>
 
+        <%--FILTRE POUR AFFICHER LES JEUX POSSEDÉS--%>
 
-    <%--FILTRE POUR AFFICHER TOUS LES JEUX--%>
+        <%--on va déterminer un boolean qui sera utile pour afficher ou cacher le filtre selon si nous sommes connecté à un compte--%>
+    <c:choose>
+        <c:when test="${empty sessionScope.loggedInAccount}">
+            <input name="loggedInAccountFlag" type="hidden" value="false">
+        </c:when>
+        <c:otherwise>
+            <input name="loggedInAccountFlag" type="hidden" value="true">
+        </c:otherwise>
+    </c:choose>
+
+    <div class="row">
+        <div class="col" id="filterAllGameCol" style="display: none;">
+            <input type="checkbox" id="chkShowOwnedGame">
+            <label for="chkShowOwnedGame"><fmt:message key="LabelFilterShowOwned"/></label>
+        </div>
+            <%--    Bouton pour remettre les filtres de base--%>
+        <div class="col">
+            <button class="btn btn-outline-warning" id="btnResetFilter"><fmt:message key="ResetFilter"/></button>
+        </div>
+    </div>
+</div>
 
 
-    <%--    AFFICHER LE CATALOG DE JEU ( par défaut catalog exclu les jeux du panier et ceux  déjà posséder--%>
-    <%-- AFFICHER LE CATALOG DE JEU (par défaut le catalogue exclut les jeux du panier et ceux déjà possédés) --%>
+        <%--    AFFICHER LE CATALOG DE JEU ( par défaut catalog exclu les jeux du panier et ceux  déjà posséder--%>
+        <%-- AFFICHER LE CATALOG DE JEU (par défaut le catalogue exclut les jeux du panier et ceux déjà possédés) --%>
     <div class="container">
         <h1 class="text-center my-3"><fmt:message key="listeJeuTitle"/></h1>
 
