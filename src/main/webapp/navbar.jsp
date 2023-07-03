@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
   <head>
     <link
@@ -18,6 +19,7 @@
     <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scripts/scriptLangue.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <style>
       .wider-dropdown-menu {
@@ -90,77 +92,110 @@
       }
 
     </style>
-
   </head>
   <body>
-    <fmt:bundle basename="MessagesBundle">
+  <c:set scope="session" var="lang" value="${lang}"/>
+  <fmt:setLocale value="${lang}" />
+  <fmt:bundle basename="MessagesBundle">
 
-      <nav class="navbar navbar-expand-lg" style="background-color: #192D68;">
-        <div class="navbar-bottom-line"></div>
-        <div class="container-fluid">
-          <h5><a class="nav-link" href="/MagasinServlet"><fmt:message key="magasin"/></a></h5>
-          <div class="navbar-brand">
-            <img src="image/Logo.png" alt="logo" width="200px" height="auto">
-          </div>
-          <ul class="navbar-nav ml-auto">
-              <c:if test="${not empty panier.jeux}">
-                <li class="nav-item dropdown">
-                  <a class="nav-link" href="#" id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <h5><i class="bi bi-cart"></i></h5>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right wider-dropdown-menu" aria-labelledby="cartDropdown">
-                    <div id="cartItemsContainer">
-                      <div class="scrollable-container">
-                      <c:set var="totalPrice" value="0" />
-                      <c:forEach var="jeu" items="${panier.jeux}">
-                        <c:set var="totalPrice" value="${totalPrice + jeu.prix}" />
-                        <div class="d-flex align-items-center my-1">
-                          <span class="mx-3">${jeu.nomJeu}</span>
-                          <span class="ml-auto">${jeu.prix}</span>
-                          <form action="DeleteServlet" method="POST" class="float-right">
-                            <input type="hidden" name="idJeu" value="${jeu.idJeu}">
-                            <input type="hidden" name="source" value="nav">
-                            <button type="submit" class="btn btn-danger ml-2" style="padding: 0.25rem 0.5rem; font-size: 0.875rem; margin-right: 10px"><i class="bi bi-trash"></i></button>
-                          </form>
-                        </div>
-                      </c:forEach>
-                      </div>
-                      <div class="dropdown-divider" style="border-color:black;"></div>
-                      <div class="total">
-                        <span style="margin-left: 20px;"><fmt:message key="totalPrice"/>:</span>
-                        <span class="ml-auto" style="margin-right: 10px;"><fmt:formatNumber value="${totalPrice}" minFractionDigits="2" maxFractionDigits="2"/></span>
-                      </div>
-                    </div>
-                    <div class="dropdown-divider" style="border-color:black;"></div>
-                    <h5><a  class="dropdown-item" href="panier.jsp"><fmt:message key="seeCart"/></a></h5>
-                  </div>
-                </li>
-              </c:if>
-            <h5>
-              <c:choose>
-                <c:when test="${not empty loggedInAccount}">
-                  <li class="nav-item">
-                    <a  id="NavProfileLink" class="nav-link active" aria-current="page" href="/ProfileServlet">
-                     ${loggedInAccount.profileName}
-                    </a>
-                  </li>
-                </c:when>
-                <c:otherwise>
-                  <li class="nav-item">
-                    <a  class="nav-link" href="/LoginServlet">
-                      <fmt:message key="login"/>
-                    </a>
-                  </li>
-                </c:otherwise>
-              </c:choose>
-            </h5>
-            </ul>
+    <nav class="navbar navbar-expand-lg" style="background-color: #192D68;">
+      <div class="navbar-bottom-line"></div>
+      <div class="container-fluid">
+        <h5><a class="nav-link" href="/MagasinServlet"><fmt:message key="magasin"/></a></h5>
+        <div class="navbar-brand">
+          <img src="image/Logo.png" alt="logo" width="200px" height="auto">
         </div>
-      </nav>
-    </fmt:bundle>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
+        <ul class="navbar-nav ml-auto">
+
+
+          <c:if test="${not empty panier.jeux}">
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#" id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                 aria-expanded="false">
+                <h5><i class="bi bi-cart"></i></h5>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right wider-dropdown-menu" aria-labelledby="cartDropdown">
+                <div id="cartItemsContainer">
+                  <div class="scrollable-container">
+                    <c:set var="totalPrice" value="0"/>
+                    <c:forEach var="jeu" items="${panier.jeux}">
+                      <c:set var="totalPrice" value="${totalPrice + jeu.prix}"/>
+                      <div class="d-flex align-items-center my-1">
+                        <span class="mx-3">${jeu.nomJeu}</span>
+                        <span class="ml-auto">${jeu.prix}</span>
+                        <form action="DeleteServlet" method="POST" class="float-right">
+                          <input type="hidden" name="idJeu" value="${jeu.idJeu}">
+                          <input type="hidden" name="source" value="nav">
+                          <button type="submit" class="btn btn-danger ml-2"
+                                  style="padding: 0.25rem 0.5rem; font-size: 0.875rem; margin-right: 10px"><i
+                                  class="bi bi-trash"></i></button>
+                        </form>
+                      </div>
+                    </c:forEach>
+                  </div>
+                  <div class="dropdown-divider" style="border-color:black;"></div>
+                  <div class="total">
+                    <span style="margin-left: 20px;"><fmt:message key="totalPrice"/>:</span>
+                    <span class="ml-auto"
+                          style="margin-right: 10px;"><fmt:formatNumber value="${totalPrice}" minFractionDigits="2"
+                                                                        maxFractionDigits="2"/></span>
+                  </div>
+                </div>
+                <div class="dropdown-divider" style="border-color:black;"></div>
+                <h5><a class="dropdown-item" href="panier.jsp"><fmt:message key="seeCart"/></a></h5>
+              </div>
+            </li>
+          </c:if>
+
+          <li class="nav-item dropdown">
+            <c:choose>
+            <c:when test="${not empty loggedInAccount}">
+            <!-- Si l'utilisateur est connecté, affichez le menu déroulant -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                ${loggedInAccount.profileName}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="loginDropdown">
+              <a class="dropdown-item" href="/ProfileServlet"><fmt:message key="profile"/></a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/LoginServlet?logout=true">Logout</a>
+            </div>
+          </li>
+          </c:when>
+          <c:otherwise>
+            <!-- Si l'utilisateur n'est pas connecté, affichez simplement un lien -->
+            <li class="nav-item">
+              <a class="nav-link" href="${pageContext.request.contextPath}/LoginServlet">
+                <fmt:message key="login"/>
+              </a>
+            </li>
+          </c:otherwise>
+          </c:choose>
+
+          <!-- Language Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+              <fmt:message key="language"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
+              <a class="dropdown-item" href="#" onclick="setLanguage('en')">English</a>
+              <a class="dropdown-item" href="#" onclick="setLanguage('fr')">Français</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+  </fmt:bundle>
+  </body>
+  </html>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.min.js"
+          integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+          crossorigin="anonymous"></script>
+  <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
   </body>
 </html>
+
+

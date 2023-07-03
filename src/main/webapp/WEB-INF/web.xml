@@ -4,6 +4,10 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
 
+    <session-config>
+        <session-timeout>30</session-timeout> <!-- Temps d'expiration de la session en minutes -->
+    </session-config>
+
     <servlet>
         <servlet-name>ConfigStartServlet</servlet-name>
         <servlet-class>config.ConfigStartServlet</servlet-class>
@@ -47,6 +51,14 @@
     <filter-mapping>
         <filter-name>PanierFiltre</filter-name>
         <url-pattern>/ProfileServlet</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>languageFilter</filter-name>
+        <filter-class>filtres.LanguageFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>languageFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
     <welcome-file-list>

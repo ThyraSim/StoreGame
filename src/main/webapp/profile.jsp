@@ -12,6 +12,8 @@
 <html>
 
 <head>
+    <c:set scope="session" var="lang" value="${lang}"/>
+    <fmt:setLocale value="${lang}" />
     <fmt:bundle basename="MessagesBundle">
     <title><fmt:message key="userProfileTitle"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -22,6 +24,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
           integrity="sha512-...your-integrity-hash...==" crossorigin="anonymous"/>
+    <script src="scripts/scriptLangue.js" type="text/javascript"></script>
+
 </head>
 <body>
 
@@ -46,7 +50,6 @@
 
     <h1><fmt:message key="listeJeuTitle"/></h1>
     <c:forEach var="jeu" items="${owned}" varStatus="loop">
-        <c:set var="totalPrice" value="${totalPrice + jeu.prix}"/>
         <div class="ProfileGameRow row  mb-1 h2 ">
             <div>
                     <span class="">${jeu.nomJeu}</span> <span class="badge badge-pill badge-info mr-1" style="font-size: 0.9rem"><fmt:message
@@ -61,11 +64,7 @@
                 >
                     <i class="fas fa-search"></i>
                 </button>
-
-
             </div>
-
-
             <div class="collapse" id="description${loop.index}">
                 <div class="card card-body PanierCollapseCardDescription ">
                     <span style="font-size: 0.9rem">${jeu.description} </span>

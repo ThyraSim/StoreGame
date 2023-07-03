@@ -10,9 +10,9 @@ $(document).ready(function () {
 
 // Si connecter a in compte on va afficher le checkbox pour afficher les jeux posséder.
     if (loggedInAccountFlag === "true") {
-        $('#filterAllGameRow').show();
+        $('#filterAllGameCol').show();
     } else {
-        $('#filterAllGameRow').hide();
+        $('#filterAllGameCol').hide();
     }
 
 
@@ -22,8 +22,8 @@ $(document).ready(function () {
 
         // on recupere les differentes valeur de la section des filtres
 
-        var gameNameInput = $('#gameNameInput').val().toLowerCase();  //filtre du nom
-        var selectedGenre = $('#cbGenre').val().toLowerCase();         //filtre du genre
+        var gameNameInput = ($('#gameNameInput').val() || "").toLowerCase();  //filtre du nom
+        var selectedGenre = ($('#cbGenre').val() || "").toLowerCase();         //filtre du genre
         var selectedRange = $('#priceFilter option:selected');          //filtre du prix
         var minPriceRange = selectedRange.attr('minPriceRange');
         var maxPriceRange = selectedRange.attr('maxPriceRange');
@@ -77,9 +77,9 @@ $(document).ready(function () {
         $('#cbGenre').prop('selectedIndex', storedGenreFilter);
     }
 
-    var storedPriceFilter = localStorage.getItem('priceFilter');
+    var storedPriceFilter = localStorage.getItem('priceFilterIndex'); // Change the key name
     if (storedPriceFilter != null) {
-        $('#priceFilter').val(storedPriceFilter);
+        $('#priceFilter').prop('selectedIndex', storedPriceFilter); // Set the selected index
     }
 
     var storedShowOwnedGameFilter = localStorage.getItem('showOwnedGameFilter');
@@ -102,6 +102,8 @@ $(document).ready(function () {
 
     // Gestionnaire d'événement pour le filtre par prix
     $('#priceFilter').change(function () {
+        var selectedPriceIndex = $(this).prop('selectedIndex');
+        localStorage.setItem('priceFilterIndex', selectedPriceIndex); // Store the selected index
         appliquerFiltres();
     });
 

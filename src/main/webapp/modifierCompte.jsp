@@ -1,32 +1,15 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: simbe
-  Date: 6/27/2023
-  Time: 12:39 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-  <title>Title</title>
-</head>
-<body>
-<%--
-Created by IntelliJ IDEA.
-User: simbe
-Date: 2023-06-05
-Time: 22:34
-To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
+<c:set scope="session" var="lang" value="${lang}"/>
+<fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">
   <head>
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style/modifierCompte.css">
+    <script src="scripts/scriptLangue.js" type="text/javascript"></script>
     <meta charset="UTF-8">
   </head>
   <body>
@@ -125,4 +108,3 @@ To change this template use File | Settings | File Templates.
   </body>
 </fmt:bundle>
 </html>
-

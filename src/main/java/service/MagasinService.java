@@ -33,9 +33,14 @@ public class MagasinService {
      */
     private static List<Jeu> createCatalog(HttpSession session){
         List<Jeu> catalog = new ArrayList<>(getCompleteList(session));
+        for (Jeu jeu : catalog) {
+            System.out.println("Fetched price for " + jeu.getNomJeu() + ": " + jeu.getPrix());
+        }
         session.setAttribute("catalog", catalog);
         return catalog;
     }
+
+
 
     /**
      * Retourne la liste de tous les jeux s'il existe dans la session. Demande la création de la liste sinon
@@ -57,6 +62,9 @@ public class MagasinService {
      */
     private static List<Jeu> createCompleteList(HttpSession session){
         List<Jeu> jeuList = JeuDao.findAll();
+        for (Jeu jeu : jeuList) {
+            System.out.println("Fetched price for " + jeu.getNomJeu() + ": " + jeu.getPrix());
+        }
         session.setAttribute("ListeJeux", jeuList);
         return jeuList;
     }

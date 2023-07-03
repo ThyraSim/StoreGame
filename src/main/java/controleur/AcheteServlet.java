@@ -33,6 +33,11 @@ public class AcheteServlet extends HttpServlet {
         Compte compte = MagasinService.getCompte(session);
 
         String index = request.getParameter("index");
+        if (index == null || index.isEmpty()) {
+            // Gérer le cas où index est nul ou vide
+            // Rediriger vers une page d'erreur ou faire autre chose
+            return;
+        }
         if (compte == null) {
             // L'utilisateur n'est pas connecté, envoie au login
             response.sendRedirect("LoginServlet?index=" + index);

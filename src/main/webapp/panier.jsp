@@ -11,18 +11,20 @@
 
 <html>
 <head>
+    <c:set scope="session" var="lang" value="${lang}"/>
+    <fmt:setLocale value="${lang}" />
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 
     <link rel="stylesheet" type="text/css" href="style/style.css">
-
+    <script src="scripts/scriptLangue.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-...your-integrity-hash...==" crossorigin="anonymous" />
 </head>
 <body>
 <fmt:bundle basename="MessagesBundle">
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="navbar.jsp?lang=${lang}" />
     <jsp:include page="background.jsp"/>
 
     <div class="container h3">
@@ -39,17 +41,17 @@
             <c:set var="totalPrice" value="${totalPrice + jeu.prix}"/>
             <div class="PanierGameRow row  mb-1 ">
                 <div>
-                    ${jeu.nomJeu}  <span class="badge badge-pill badge-info" style="font-size: 0.9rem"><fmt:message key="${jeu.genre}"/></span>
-                        <button
-                                class="btn btn-outline-light btn-sm"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#description${loop.index}"
-                                aria-expanded="false"
-                                aria-controls="description${loop.index}"
-                        >
-                            <i class="fas fa-search"></i>
-                        </button>
+                        ${jeu.nomJeu}  <span class="badge badge-pill badge-info" style="font-size: 0.9rem"><fmt:message key="${jeu.genre}"/></span>
+                    <button
+                            class="btn btn-outline-light btn-sm"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#description${loop.index}"
+                            aria-expanded="false"
+                            aria-controls="description${loop.index}"
+                    >
+                        <i class="fas fa-search"></i>
+                    </button>
 
 
 
@@ -60,14 +62,14 @@
 
                     </form>
 
-                        <span style="float: right; margin-right: 10px;">${jeu.prix}$</span>
+                    <span style="float: right; margin-right: 10px;">${jeu.prix}$</span>
 
                 </div>
 
 
                 <div class="collapse" id="description${loop.index}">
                     <div class="card card-body PanierCollapseCardDescription ">
-                            <span style="font-size: 0.9rem">${jeu.description} </span>
+                        <span style="font-size: 0.9rem">${jeu.description} </span>
                     </div>
                 </div>
 
@@ -77,32 +79,32 @@
 
         <div class="total row float-right">
             <h1><fmt:message key="totalPrice"/>:
-            <fmt:formatNumber value="${totalPrice}"
-                                                               minFractionDigits="2"
-                                                               maxFractionDigits="2"/>$</h1>
+                <fmt:formatNumber value="${totalPrice}"
+                                  minFractionDigits="2"
+                                  maxFractionDigits="2"/>$</h1>
         </div>
 
 
-                <%--Dans la servlet on associe une valeur bolean "noOwned" qui est a false  si un produit du panier est possédé par l'utilisateur--%>
-                <%--Ainsi le bouton pour acheter à soi-même est désactiver car seulement 1 copie de jeu par compte--%>
-            <c:if test="${noOwned}">
-                <form action="CheckOutServlet" method="POST" class="mt-3">
-                    <input type="hidden" name="liste" value="${compteId}">
-                    <input type="hidden" name="action" value="SELF">
-                    <button type="submit" class="btn-lg btn-success "><fmt:message key='selfCommand'/></button>
-                </form>
-            </c:if>
-
-                <%--Le bouton acheté pour un cadeau, c'est-à-dire donnée à un autre compte --%>
-            <form action="CheckOutServlet" method="POST" class="mt-2">
+            <%--Dans la servlet on associe une valeur bolean "noOwned" qui est a false  si un produit du panier est possédé par l'utilisateur--%>
+            <%--Ainsi le bouton pour acheter à soi-même est désactiver car seulement 1 copie de jeu par compte--%>
+        <c:if test="${noOwned}">
+            <form action="CheckOutServlet" method="POST" class="mt-3">
                 <input type="hidden" name="liste" value="${compteId}">
-                <input type="hidden" name="action" value="GIFT">
-                <button type="submit" class="btn-lg btn-warning text-white"><fmt:message key='giftCommand'/></button>
+                <input type="hidden" name="action" value="SELF">
+                <button type="submit" class="btn-lg btn-success "><fmt:message key='selfCommand'/></button>
             </form>
+        </c:if>
+
+            <%--Le bouton acheté pour un cadeau, c'est-à-dire donnée à un autre compte --%>
+        <form action="CheckOutServlet" method="POST" class="mt-2">
+            <input type="hidden" name="liste" value="${compteId}">
+            <input type="hidden" name="action" value="GIFT">
+            <button type="submit" class="btn-lg btn-warning text-white"><fmt:message key='giftCommand'/></button>
+        </form>
 
 
 
-            </c:if>
+        </c:if>
 
     </div>
 

@@ -2,15 +2,13 @@ h1 {
     color: #ffd700; /* Change to your desired color */
 }
 
-.navbar a{
+.navbar a {
     color: #ffd700; /* Change to your desired color */
 }
 
-body, #chooseFriendTable{
+body, #chooseFriendTable {
     color: #ffd700;
 }
-
-
 
 #loginContainer {
     text-align: center;
@@ -27,6 +25,7 @@ body, #chooseFriendTable{
     flex-direction: column;
     align-items: center;
 }
+
 #registrationContainer {
     text-align: center;
     margin: auto;
@@ -63,50 +62,58 @@ body, #chooseFriendTable{
     background-size: cover;
     background-position: center;
 }
-.card-title{
 
-    font-size: 2em;  /* increase the size */
-    font-weight: bold;  /* make it bold */
-
+.card-title {
+    font-size: 2em;
+    font-weight: bold;
 }
+
 .card-text {
-    font-size: 1.2em;  /* increase the size */
-
+    font-size: 1.2em;
 }
-.card-body p, .PanierGameRow, .ProfileGameRow   {
-    /* Add a semi-transparent background behind the text */
-    background: rgba(44, 63, 145, 0.7);  /* white background with 70% opacity */
 
-    /* Add some padding to create a space around the text */
+.card-body p, .PanierGameRow, .ProfileGameRow {
+    background: rgba(44, 63, 145, 0.7);
     padding: 5px;
-
-    /* Make the edges of the background slightly rounded */
     border-radius: 5px;
-
-    /* Add a blur effect behind the text */
     backdrop-filter: blur(5px);
-
-
-
-
 }
 
-.PanierCollapseCardDescription, #cbGenre,#priceFilter {
-
+.PanierCollapseCardDescription, #cbGenre, #priceFilter {
     background: #0e2b58;
     color: #ffd700;
-
-
     padding: 10px;
-
     border-radius: 10px;
+}
 
+.less-intense-background {
+    background-image: url('${jeu.imagePath}');
+    filter: brightness(85%);
 }
 
 .image-placeholder {
     text-align: center;
     padding: 15px;
     background-color: #f5f5f5;
+}
+#registrationTitle {
+    margin-top: 50px;
+    text-align: center;
+}
+
+#registrationForm {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+}
+
+#registrationForm label {
+    text-align: right;
+}
+
+#registrationForm input {
+    width: 70%;
+    margin-left: 10px;
 }
 
 
