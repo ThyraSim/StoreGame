@@ -10,9 +10,9 @@ $(document).ready(function () {
 
 // Si connecter a in compte on va afficher le checkbox pour afficher les jeux posséder.
     if (loggedInAccountFlag === "true") {
-        $('#filterAllGameRow').show();
+        $('#filterAllGameCol').show();
     } else {
-        $('#filterAllGameRow').hide();
+        $('#filterAllGameCol').hide();
     }
 
 
