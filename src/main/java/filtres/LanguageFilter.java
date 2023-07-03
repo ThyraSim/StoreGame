@@ -15,11 +15,21 @@ public class LanguageFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession(true);
         String language = req.getParameter("lang");
+        String langCookieValue = "";
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("lang")) {
+                    langCookieValue = cookie.getValue();
+                    // Do something with the cookie value
+                    break;
+                }
+            }
+        }
 
         if (language != null) {
             language = language.toLowerCase();
             session.setAttribute("lang", language);
-            System.out.println("Bruh what");
             // Create and set the language cookie
             Cookie langCookie = new Cookie("lang", language);
             langCookie.setMaxAge(3600); // Cookie expiration time in seconds
@@ -27,12 +37,10 @@ public class LanguageFilter implements Filter {
         } else if (session.getAttribute("lang") == null) {
             // If no language parameter and no language in session, set default language
             session.setAttribute("lang", request.getLocale().getLanguage());
-            System.out.println("Chat");
-            System.out.println(request.getLocale().getLanguage());
-        }
-        else{
-            System.out.println("MAAAAn");
-            System.out.println(session.getAttribute("lang"));
+        } else {
+            if(langCookieValue != null){
+                session.setAttribute("lang", langCookieValue);
+            }
         }
 
         chain.doFilter(req, res);

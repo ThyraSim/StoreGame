@@ -9,7 +9,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
-<c:set var="lang" value="${not empty param.lang ? param.lang : pageContext.request.locale.language}" />
 <c:set scope="session" var="lang" value="${lang}"/>
 <fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">

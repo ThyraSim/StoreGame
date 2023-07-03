@@ -11,7 +11,6 @@
 
 <!DOCTYPE html>
 <html>
-<c:set var="lang" value="${not empty param.lang ? param.lang : pageContext.request.locale.language}" />
 <c:set scope="session" var="lang" value="${lang}"/>
 <fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">

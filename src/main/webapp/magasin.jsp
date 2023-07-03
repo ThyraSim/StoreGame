@@ -19,11 +19,10 @@
     <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body>
-<c:set var="lang" value="${not empty param.lang ? param.lang : pageContext.request.locale.language}" />
 <c:set scope="session" var="lang" value="${lang}"/>
 <fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">
-    <jsp:include page="navbar.jsp?lang=${lang}" />
+    <jsp:include page="navbar.jsp" />
     <jsp:include page="background.jsp"/>
                                     <%--    SECTION DES FILTRES --%>
     <div class="container">

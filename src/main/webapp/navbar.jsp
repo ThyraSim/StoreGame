@@ -8,16 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="lang" value="" />
-<c:forEach var="cookie" items="${request.cookies}">
-  <c:if test="${cookie.name eq 'lang'}">
-    <c:set var="lang" value="${cookie.value}" />
-  </c:if>
-</c:forEach>
+
 <html>
   <head>
-
-
     <link
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             rel="stylesheet"
@@ -99,17 +92,11 @@
       }
 
     </style>
-
   </head>
   <body>
-
-  <html>
-  <head>
-    <title>Ma page</title>
-    <fmt:setLocale value="${lang}" />
-    <fmt:bundle basename="MessagesBundle">
-  </head>
-  <body>
+  <c:set scope="session" var="lang" value="${lang}"/>
+  <fmt:setLocale value="${lang}" />
+  <fmt:bundle basename="MessagesBundle">
 
     <nav class="navbar navbar-expand-lg" style="background-color: #192D68;">
       <div class="navbar-bottom-line"></div>
@@ -193,7 +180,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
               <a class="dropdown-item" href="#" onclick="setLanguage('en')">English</a>
-              <a class="dropdown-item" href="#" onclick="setLanguage('fr')">French</a>
+              <a class="dropdown-item" href="#" onclick="setLanguage('fr')">Français</a>
             </div>
           </li>
         </ul>
