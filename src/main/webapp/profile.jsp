@@ -52,8 +52,7 @@
 
 
     <h1><fmt:message key="listeJeuTitle"/></h1>
-    <c:forEach var="jeu" items="${listePanier}" varStatus="loop">
-        <c:set var="totalPrice" value="${totalPrice + jeu.prix}"/>
+    <c:forEach var="jeu" items="${owned}" varStatus="loop">
         <div class="ProfileGameRow row  mb-1 h2 ">
             <div>
                     <span class="">${jeu.nomJeu}</span> <span class="badge badge-pill badge-info mr-1" style="font-size: 0.9rem"><fmt:message

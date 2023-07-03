@@ -31,6 +31,7 @@ public class MagasinServlet extends HttpServlet {
         //Récupération du catalog (Les jeux à afficher)
         List<Jeu> catalog = MagasinService.getCatalog(session);
 
+        MagasinService.getGenres(session);
 
         String selectedCurrency = (String) session.getAttribute("selectedCurrency");
         Map<Jeu, String> convertedPrices = convertPrices(catalog, selectedCurrency);
