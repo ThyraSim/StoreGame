@@ -40,7 +40,6 @@ public class CheckOutServlet extends HttpServlet {
         if (action != null && action.equals("SELF")) {
              selfCheckOut(compte);
         }
-
         //Gift
         if (action != null && action.equals("GIFT")){
             String giftIdString = request.getParameter("giftId");
@@ -53,6 +52,7 @@ public class CheckOutServlet extends HttpServlet {
                     e.printStackTrace();
                     throw new RuntimeException(e);
                 }
+                return;
             }
             else{ //Bouton Choisir de la page chooseFriend.jsp
                 giftCheckout(compte, panier, giftIdString);

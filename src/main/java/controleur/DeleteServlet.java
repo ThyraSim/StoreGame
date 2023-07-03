@@ -65,9 +65,11 @@ public class DeleteServlet extends HttpServlet {
         Compte compte = MagasinService.getCompte(session);
         Commande panier = MagasinService.getPanier(session);
 
-        int idJeu = Integer.parseInt(request.getParameter("idJeu"));
-        panier.removeJeu(idJeu);
-        compte.updateCommande(panier);
+        if(request.getParameter("idJeu") != null){
+            int idJeu = Integer.parseInt(request.getParameter("idJeu"));
+            panier.removeJeu(idJeu);
+            compte.updateCommande(panier);
+        }
 
         session.setAttribute("panier", panier);
         if(panier.getJeux().isEmpty() || request.getParameter("source").equals("nav")){
