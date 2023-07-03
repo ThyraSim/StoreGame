@@ -11,9 +11,9 @@
 
 <!DOCTYPE html>
 <html>
-<c:set var="loc" value="${not empty param.lang ? param.lang : pageContext.request.locale}" />
-<c:set scope="session" var="lang" value="${loc}"/>
-<fmt:setLocale value="${sessionScope.lang}" />
+<c:set var="lang" value="${not empty param.lang ? param.lang : pageContext.request.locale.language}" />
+<c:set scope="session" var="lang" value="${lang}"/>
+<fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">
     <head>
         <title>Création de compte</title>
@@ -31,9 +31,10 @@
                 registrationTitle.style.display = "block";
             }
         </script>
+        <script src="scripts/scriptLangue.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="style/style.css">
     </head>
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="navbar.jsp?lang=${lang}" />
     <jsp:include page="background.jsp"/>
     <body>
     <div id="loginContainer">

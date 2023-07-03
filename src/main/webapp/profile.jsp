@@ -12,10 +12,11 @@
 <html>
 
 <head>
-    <c:set var="loc" value="${not empty param.lang ? param.lang : pageContext.request.locale}" />
-    <c:set scope="session" var="lang" value="${loc}"/>
-    <fmt:setLocale value="${sessionScope.lang}" />
-    <fmt:bundle basename="MessagesBundle">
+    <c:set var="lang" value="${not empty param.lang ? param.lang : pageContext.request.locale.language}" />
+    <c:set scope="session" var="lang" value="${lang}"/>
+    <fmt:setLocale value="${lang}" />
+
+<fmt:bundle basename="MessagesBundle">
     <title><fmt:message key="userProfileTitle"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -25,10 +26,12 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
           integrity="sha512-...your-integrity-hash...==" crossorigin="anonymous"/>
+    <script src="scripts/scriptLangue.js" type="text/javascript"></script>
 </head>
 <body>
 
-<jsp:include page="navbar.jsp"/>
+<jsp:include page="navbar.jsp?lang=${lang}" />
+
 <jsp:include page="background.jsp"/>
 <div class="container">
     <div class="row my-4">

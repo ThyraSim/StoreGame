@@ -9,16 +9,17 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
-<c:set var="loc" value="${not empty param.lang ? param.lang : pageContext.request.locale}" />
-<c:set scope="session" var="lang" value="${loc}"/>
-<fmt:setLocale value="${sessionScope.lang}" />
+<c:set var="lang" value="${not empty param.lang ? param.lang : pageContext.request.locale.language}" />
+<c:set scope="session" var="lang" value="${lang}"/>
+<fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">
 
     <head>
         <title>Title</title>
+        <script src="scripts/scriptLangue.js" type="text/javascript"></script>
     </head>
     <body>
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="navbar.jsp?lang=${lang}" />
     <jsp:include page="background.jsp"/>
     <div id="registrationContainer">
         <h1 id="registrationTitle"><fmt:message key="creation" /></h1>

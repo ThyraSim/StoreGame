@@ -9,9 +9,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
-<c:set var="loc" value="${not empty param.lang ? param.lang : pageContext.request.locale}" />
-<c:set scope="session" var="lang" value="${loc}"/>
-<fmt:setLocale value="${sessionScope.lang}" />
+<c:set var="lang" value="${not empty param.lang ? param.lang : pageContext.request.locale.language}" />
+<c:set scope="session" var="lang" value="${lang}"/>
+<fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">
     <head>
         <title><fmt:message key="messageChoisir" /></title>
@@ -26,11 +26,12 @@
                 integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
                 crossorigin="anonymous"
         ></script>
+        <script src="scripts/scriptLangue.js" type="text/javascript"></script>
         <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="style/style.css">
     </head>
     <body>
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="navbar.jsp?lang=${lang}" />
     <jsp:include page="background.jsp"/>
         <form action="SearchServlet" method="POST">
             <input class="w-25" type="text" id="searchInput" name="searchInput" placeholder="<fmt:message key="search"/>">

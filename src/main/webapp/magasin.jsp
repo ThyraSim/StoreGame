@@ -15,14 +15,15 @@
     <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scripts/scriptLangue.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body>
-<c:set var="loc" value="${not empty param.lang ? param.lang : pageContext.request.locale}" />
-<c:set scope="session" var="lang" value="${loc}"/>
-<fmt:setLocale value="${sessionScope.lang}" />
+<c:set var="lang" value="${not empty param.lang ? param.lang : pageContext.request.locale.language}" />
+<c:set scope="session" var="lang" value="${lang}"/>
+<fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="navbar.jsp?lang=${lang}" />
     <jsp:include page="background.jsp"/>
                                     <%--    SECTION DES FILTRES --%>
     <div class="container">

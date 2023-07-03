@@ -8,8 +8,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="lang" value="" />
+<c:forEach var="cookie" items="${request.cookies}">
+  <c:if test="${cookie.name eq 'lang'}">
+    <c:set var="lang" value="${cookie.value}" />
+  </c:if>
+</c:forEach>
 <html>
   <head>
+
+
     <link
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             rel="stylesheet"
@@ -18,6 +26,7 @@
     <script src="scripts/jquery-3.7.0.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scripts/scriptLangue.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <style>
       .wider-dropdown-menu {
@@ -94,11 +103,13 @@
   </head>
   <body>
 
-  <c:set var="loc" value="${not empty param.lang ? param.lang : pageContext.request.locale}" />
-  <c:set scope="session" var="lang" value="${loc}"/>
-  <fmt:setLocale value="${sessionScope.lang}" />
-
-  <fmt:bundle basename="MessagesBundle">
+  <html>
+  <head>
+    <title>Ma page</title>
+    <fmt:setLocale value="${lang}" />
+    <fmt:bundle basename="MessagesBundle">
+  </head>
+  <body>
 
     <nav class="navbar navbar-expand-lg" style="background-color: #192D68;">
       <div class="navbar-bottom-line"></div>
@@ -108,6 +119,8 @@
           <img src="image/Logo.png" alt="logo" width="200px" height="auto">
         </div>
         <ul class="navbar-nav ml-auto">
+
+
           <c:if test="${not empty panier.jeux}">
             <li class="nav-item dropdown">
               <a class="nav-link" href="#" id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -118,14 +131,11 @@
                 <div id="cartItemsContainer">
                   <div class="scrollable-container">
                     <c:set var="totalPrice" value="0"/>
-                    <c:set var="convertedTotalPrice" value="0"/>
                     <c:forEach var="jeu" items="${panier.jeux}">
                       <c:set var="totalPrice" value="${totalPrice + jeu.prix}"/>
-                      <c:set var="convertedPrice" value="${jeu.prix * conversionRate}" />
-                      <c:set var="convertedTotalPrice" value="${convertedTotalPrice + convertedPrice}" />
                       <div class="d-flex align-items-center my-1">
                         <span class="mx-3">${jeu.nomJeu}</span>
-                        <span class="ml-auto"><fmt:formatNumber value="${convertedPrice}" minFractionDigits="2" maxFractionDigits="2" /></span>
+                        <span class="ml-auto">${jeu.prix}</span>
                         <form action="DeleteServlet" method="POST" class="float-right">
                           <input type="hidden" name="idJeu" value="${jeu.idJeu}">
                           <input type="hidden" name="source" value="nav">
@@ -139,7 +149,9 @@
                   <div class="dropdown-divider" style="border-color:black;"></div>
                   <div class="total">
                     <span style="margin-left: 20px;"><fmt:message key="totalPrice"/>:</span>
-                    <span class="ml-auto" style="margin-right: 10px;"><fmt:formatNumber value="${convertedTotalPrice}" minFractionDigits="2" maxFractionDigits="2" /></span>
+                    <span class="ml-auto"
+                          style="margin-right: 10px;"><fmt:formatNumber value="${totalPrice}" minFractionDigits="2"
+                                                                        maxFractionDigits="2"/></span>
                   </div>
                 </div>
                 <div class="dropdown-divider" style="border-color:black;"></div>
@@ -147,6 +159,13 @@
               </div>
             </li>
           </c:if>
+
+
+
+
+
+
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="currencyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <fmt:message key="currency"/>
@@ -189,14 +208,18 @@
               <fmt:message key="language"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
-              <a class="dropdown-item" href="?lang=en">English</a>
-              <a class="dropdown-item" href="?lang=fr">French</a>
+              <a class="dropdown-item" href="#" onclick="setLanguage('en')">English</a>
+              <a class="dropdown-item" href="#" onclick="setLanguage('fr')">French</a>
             </div>
+          </li>
         </ul>
       </div>
     </nav>
 
+
   </fmt:bundle>
+  </body>
+  </html>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.min.js"
           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
           crossorigin="anonymous"></script>

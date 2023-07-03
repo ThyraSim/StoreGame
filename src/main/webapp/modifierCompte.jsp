@@ -22,9 +22,9 @@ To change this template use File | Settings | File Templates.
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
-<c:set var="loc" value="${not empty param.lang ? param.lang : pageContext.request.locale}" />
-<c:set scope="session" var="lang" value="${loc}"/>
-<fmt:setLocale value="${sessionScope.lang}" />
+<c:set var="lang" value="${not empty param.lang ? param.lang : pageContext.request.locale.language}" />
+<c:set scope="session" var="lang" value="${lang}"/>
+<fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">
   <head>
     <title>Title</title>
@@ -32,10 +32,11 @@ To change this template use File | Settings | File Templates.
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             rel="stylesheet"
             crossorigin="anonymous"/>
+    <script src="scripts/scriptLangue.js" type="text/javascript"></script>
     <meta charset="UTF-8">
   </head>
   <body>
-  <jsp:include page="navbar.jsp"/>
+  <jsp:include page="navbar.jsp?lang=${lang}" />
   <jsp:include page="background.jsp"/>
     <h1 id="registrationTitle"><fmt:message key="modify" /></h1>
     <form id="registrationForm" action="/ModifierCompteServlet" method="post">

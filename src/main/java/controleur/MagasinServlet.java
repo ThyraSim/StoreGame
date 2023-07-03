@@ -24,10 +24,9 @@ public class MagasinServlet extends HttpServlet {
         if (session == null) {
             response.sendRedirect("http://localhost:82/error.html");
         }
+        String lang = (String) session.getAttribute("lang");
+        request.setAttribute("lang", lang);
 
-
-        //On récupère la liste des genre
-        List<Genre> genreList = MagasinService.getGenres(session);
 
         //Récupération du catalog (Les jeux à afficher)
         List<Jeu> catalog = MagasinService.getCatalog(session);
@@ -35,6 +34,14 @@ public class MagasinServlet extends HttpServlet {
 
         String selectedCurrency = (String) session.getAttribute("selectedCurrency");
         Map<Jeu, String> convertedPrices = convertPrices(catalog, selectedCurrency);
+        Commande panier = MagasinService.getPanier(session);
+        double totalPrice = 0.0;
+        if (panier != null) {
+            for (Jeu jeu : panier.getJeux()) {
+                totalPrice += jeu.getPrix();
+            }
+        }
+
         request.setAttribute("convertedPrices", convertedPrices);
         //On détermine le prix maximun pour les fournchettes de prix pour le filtre
         Double maxPrice = getMaxPrix(catalog);
@@ -56,6 +63,18 @@ public class MagasinServlet extends HttpServlet {
 
     public void destroy() {
     }
+
+
+    public static Commande getPanier(HttpSession session) {
+        Commande panier = (Commande) session.getAttribute("panier");
+        if (panier == null) {
+            // Si le panier n'existe pas, créez une nouvelle instance
+            panier = new Commande();
+            session.setAttribute("panier", panier);
+        }
+        return panier;
+    }
+
     private Map<Jeu, String> convertPrices(List<Jeu> catalog, String selectedCurrency) {
         Map<Jeu, String> convertedPrices = new HashMap<>();
         // Vérifier si la devise sélectionnée est vide ou nulle
@@ -64,18 +83,7 @@ public class MagasinServlet extends HttpServlet {
             selectedCurrency = "CAD";
         }
         // Définir le taux de conversion fixe en fonction de la devise sélectionnée
-        double conversionRate;
-
-        if (selectedCurrency.equals("CAD")) {
-            conversionRate = 1.0; // Aucune conversion nécessaire pour USD
-        } else if (selectedCurrency.equals("USD")) {
-            conversionRate = 0.75; // Conversion de CAD à USD (taux de change fixe)
-        } else if (selectedCurrency.equals("EUR")) {
-            conversionRate = 0.68; // Conversion d'EUR à USD (taux de change fixe)
-        } else {
-            // Devise non prise en charge, lever une exception ou effectuer un traitement approprié
-            throw new IllegalArgumentException("Devise non prise en charge: " + selectedCurrency);
-        }
+        double conversionRate = getConversionRate(selectedCurrency);
 
         for (Jeu jeu : catalog) {
             double convertedPrice = jeu.getPrix() * conversionRate;
@@ -83,16 +91,35 @@ public class MagasinServlet extends HttpServlet {
             convertedPrices.put(jeu, formattedPrice);
         }
 
-
         return convertedPrices;
     }
 
+    private double getConversionRate(String currency) {
+        double conversionRate;
+        if (currency.equals("CAD")) {
+            conversionRate = 1.0; // Aucune conversion nécessaire pour CAD
+        } else if (currency.equals("USD")) {
+            conversionRate = 0.75; // Conversion de CAD à USD (taux de change fixe)
+        } else if (currency.equals("EUR")) {
+            conversionRate = 0.68; // Conversion de CAD à EUR (taux de change fixe)
+        } else {
+            throw new IllegalArgumentException("Devise non prise en charge: " + currency);
+        }
+        return conversionRate;
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String currency = request.getParameter("currency");
         HttpSession session = request.getSession();
         session.setAttribute("selectedCurrency", currency);
+
+        // Mettre à jour les prix convertis dans le panier
+        Commande panier = MagasinService.getPanier(session);
+        if (panier != null) {
+            Map<Jeu, String> convertedPrices = convertPrices(panier.getJeux(), currency);
+            session.setAttribute("convertedPrices", convertedPrices);
+        }
         processRequest(request, response);
     }
 
@@ -112,7 +139,7 @@ public class MagasinServlet extends HttpServlet {
     private boolean getNoOwned(HttpSession session){
         List<Jeu> owned = MagasinService.getOwned(session);
         Commande panier = MagasinService.getPanier(session);
-        if(owned != null){
+        if(owned != null && panier != null){
             for(Jeu jeu:owned){
                 if(panier.getJeux().contains(jeu)){
                     return false;
@@ -138,4 +165,3 @@ public class MagasinServlet extends HttpServlet {
         return maxPrice;
     }
 }
-
