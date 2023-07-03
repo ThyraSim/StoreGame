@@ -147,4 +147,23 @@ public class MagasinService {
     public static Client getClient(Compte compte){
         return ClientDao.findClientById(compte.getIdCompte());
     }
+
+    /**
+     * Vérifie si un produit du panier est aussi présent dans la liste des jeux possédés de l'utilisateur
+     * Cette donnée servira à désactiver le bouton de self checkout
+     * @param session
+     * @return noOwned
+     */
+    public static boolean getNoOwned(HttpSession session){
+        List<Jeu> owned = getOwned(session);
+        Commande panier = getPanier(session);
+        if(owned != null && panier != null){
+            for(Jeu jeu:owned){
+                if(panier.getJeux().contains(jeu)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

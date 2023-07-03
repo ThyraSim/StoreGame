@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <title>Title</title>
+    <title>Chaos Games</title>
     <link
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             rel="stylesheet"
@@ -16,6 +16,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="scripts/scriptLangue.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="style/style.css">
+    <style>
+        .card.text-center {
+            background-color: #2C3F91B2; /* Remplacez "yellow" par la couleur de votre choix */
+        }
+    </style>
 </head>
 <body>
 <c:set scope="session" var="lang" value="${lang}"/>

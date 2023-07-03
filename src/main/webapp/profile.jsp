@@ -12,6 +12,7 @@
 <html>
 
 <head>
+    <title>Chaos Games</title>
     <c:set scope="session" var="lang" value="${lang}"/>
     <fmt:setLocale value="${lang}" />
     <fmt:bundle basename="MessagesBundle">

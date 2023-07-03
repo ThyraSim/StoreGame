@@ -13,7 +13,7 @@
 <fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">
     <head>
-        <title><fmt:message key="messageChoisir" /></title>
+        <title>Chaos Games</title>
         <link
                 href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
                 rel="stylesheet"

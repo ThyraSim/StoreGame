@@ -61,9 +61,7 @@ public class PanierFiltre implements Filter {
         session.setAttribute("catalog", catalog);
 
         //Détermine si un produit du panier est possédé par l'utilisateur
-        boolean noOwned = getNoOwned(session);
-
-        session.setAttribute("noOwned", noOwned);
+        session.setAttribute("noOwned", MagasinService.getNoOwned(session));
 
         filterChain.doFilter(request, response);
     }
@@ -77,23 +75,6 @@ public class PanierFiltre implements Filter {
         return (Compte) session.getAttribute("loggedInAccount");
     }
 
-    /**
-     * Vérifie si un produit du panier est aussi présent dans la liste des jeux possédés de l'utilisateur
-     * Cette donnée servira à désactiver le bouton de self checkout
-     * @param session
-     * @return noOwned
-     */
-    private boolean getNoOwned(HttpSession session){
-        List<Jeu> owned = MagasinService.getOwned(session);
-        Commande panier = MagasinService.getPanier(session);
-        if(owned != null && panier != null){
-            for(Jeu jeu:owned){
-                if(panier.getJeux().contains(jeu)){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+
 }
 

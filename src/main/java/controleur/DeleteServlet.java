@@ -32,6 +32,10 @@ public class DeleteServlet extends HttpServlet {
 
         //Retire le jeu du panier
         retirerJeu(session, request);
+
+        //Détermine si un produit du panier est possédé par l'utilisateur
+        session.setAttribute("noOwned", MagasinService.getNoOwned(session));
+
         RequestDispatcher rd = request.getRequestDispatcher(url);
         try {
             rd.forward(request, response);

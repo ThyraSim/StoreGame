@@ -15,7 +15,7 @@
 <fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">
     <head>
-        <title>Création de compte</title>
+        <title>Chaos Games</title>
 
         <script>
             function showRegistrationForm() {

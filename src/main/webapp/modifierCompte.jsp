@@ -6,7 +6,7 @@
 <fmt:setLocale value="${lang}" />
 <fmt:bundle basename="MessagesBundle">
   <head>
-    <title>Title</title>
+    <title>Chaos Games</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style/modifierCompte.css">
     <script src="scripts/scriptLangue.js" type="text/javascript"></script>

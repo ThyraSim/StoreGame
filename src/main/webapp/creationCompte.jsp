@@ -14,7 +14,7 @@
 <fmt:bundle basename="MessagesBundle">
 
     <head>
-        <title>Title</title>
+        <title>Chaos Games</title>
         <script src="scripts/scriptLangue.js" type="text/javascript"></script>
     </head>
     <body>
