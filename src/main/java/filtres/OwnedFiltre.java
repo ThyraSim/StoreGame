@@ -50,10 +50,6 @@ public class OwnedFiltre implements Filter {
 
 
 
-
-
-
-
         if (compte != null) {
             List<Jeu> owned = new ArrayList<>();
             List<Commande> commandes = compte.getCommandes();
@@ -70,7 +66,6 @@ public class OwnedFiltre implements Filter {
         }
         session.setAttribute("catalog", catalog);
 
-
         // Call the next filter or the servlet in the chain
         filterChain.doFilter(request, response);
     }
@@ -79,7 +74,5 @@ public class OwnedFiltre implements Filter {
     public void destroy() {
         Filter.super.destroy();
     }
-
-
 
 }

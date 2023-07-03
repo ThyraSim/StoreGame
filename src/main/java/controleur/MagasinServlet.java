@@ -47,10 +47,6 @@ public class MagasinServlet extends HttpServlet {
         //On détermine le prix maximun pour les fournchettes de prix pour le filtre
         Double maxPrice = getMaxPrix(catalog);
 
-        //Détermine si un produit du panier est possédé par l'utilisateur
-        boolean noOwned = getNoOwned(session);
-
-        session.setAttribute("noOwned", noOwned);
         request.setAttribute("maxPrice", maxPrice);
         String url = "magasin.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(url);
@@ -128,26 +124,6 @@ public class MagasinServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-    }
-
-
-    /**
-     * Vérifie si un produit du panier est aussi présent dans la liste des jeux possédés de l'utilisateur
-     * Cette donnée servira à désactiver le bouton de self checkout
-     * @param session
-     * @return noOwned
-     */
-    private boolean getNoOwned(HttpSession session){
-        List<Jeu> owned = MagasinService.getOwned(session);
-        Commande panier = MagasinService.getPanier(session);
-        if(owned != null && panier != null){
-            for(Jeu jeu:owned){
-                if(panier.getJeux().contains(jeu)){
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     /**
