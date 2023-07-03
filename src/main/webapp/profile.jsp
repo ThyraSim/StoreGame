@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
           integrity="sha512-...your-integrity-hash...==" crossorigin="anonymous"/>
     <script src="scripts/scriptLangue.js" type="text/javascript"></script>
+
 </head>
 <body>
 
@@ -67,11 +68,7 @@
                 >
                     <i class="fas fa-search"></i>
                 </button>
-
-
             </div>
-
-
             <div class="collapse" id="description${loop.index}">
                 <div class="card card-body PanierCollapseCardDescription ">
                     <span style="font-size: 0.9rem">${jeu.description} </span>
