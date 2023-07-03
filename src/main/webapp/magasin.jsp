@@ -60,8 +60,8 @@
     <div class="row">
         <div class="col">
             <div class="input-group">
-                <input type="text" class="form-control" id="gameNameInput">
-                <button class="btn btn-outline-warning" id="btnSearchByName"><fmt:message key="FilterSearch"/></button>
+                <input type="text" class="form-control mb-1" id="gameNameInput">
+                <button class="btn btn-outline-warning ml-1" id="btnSearchByName"><fmt:message key="FilterSearch"/></button>
             </div>
         </div>
     </div>
