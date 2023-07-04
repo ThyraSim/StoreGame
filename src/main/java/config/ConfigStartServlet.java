@@ -7,7 +7,7 @@ import entities.*;
 import javax.servlet.ServletException;
 
 import javax.servlet.http.HttpServlet;
-import java.util.List;
+
 
 
 public class ConfigStartServlet extends HttpServlet {

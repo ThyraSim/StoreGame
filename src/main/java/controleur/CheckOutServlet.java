@@ -2,17 +2,14 @@ package controleur;
 
 import dao.CommandeDao;
 import dao.CompteDao;
-import dao.JeuDao;
 import entities.Commande;
 import entities.Compte;
-import entities.Jeu;
 import service.MagasinService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "CheckOutServlet", value = "/CheckOutServlet")

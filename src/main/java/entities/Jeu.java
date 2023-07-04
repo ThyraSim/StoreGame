@@ -1,9 +1,8 @@
 package entities;
 
-import dao.JeuDao;
+
 import jakarta.persistence.*;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -134,16 +133,4 @@ public class Jeu {
         return Objects.hash(idJeu);
     }
 
-    public void removeCommande(Commande commande){
-        for(Commande commande1: commandes){
-            if(commande1.getIdCommande() == commande.getIdCommande()){
-                commandes.remove(commande1);
-            }
-        }
-        //JeuDao.update(this);
-    }
-
-    public void addCommande(Commande commande){
-        commandes.add(commande);
-    }
 }

@@ -1,6 +1,5 @@
 package dao;
 
-import entities.Client;
 import entities.Compte;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

@@ -1,9 +1,7 @@
 package entities;
 
 import jakarta.persistence.*;
-import org.hibernate.engine.internal.Cascade;
 
-import java.util.List;
 
 @Entity
 public class Client {
