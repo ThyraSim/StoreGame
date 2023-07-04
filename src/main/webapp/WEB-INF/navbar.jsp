@@ -122,7 +122,7 @@
                       <c:set var="totalPrice" value="${totalPrice + jeu.prix}"/>
                       <div class="d-flex align-items-center my-1">
                         <span class="mx-3">${jeu.nomJeu}</span>
-                        <span class="ml-auto">${jeu.prix}</span>
+                        <span class="ml-auto">${jeu.prix}$</span>
                         <form action="DeleteServlet" method="POST" class="float-right">
                           <input type="hidden" name="idJeu" value="${jeu.idJeu}">
                           <input type="hidden" name="source" value="nav">
@@ -138,7 +138,7 @@
                     <span style="margin-left: 20px;"><fmt:message key="totalPrice"/>:</span>
                     <span class="ml-auto"
                           style="margin-right: 10px;"><fmt:formatNumber value="${totalPrice}" minFractionDigits="2"
-                                                                        maxFractionDigits="2"/></span>
+                                                                        maxFractionDigits="2"/>$</span>
                   </div>
                 </div>
                 <div class="dropdown-divider" style="border-color:black;"></div>
