@@ -12,10 +12,10 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 
 public class CommandeDao {
-    public static void insert(Commande commande){
+    public static void insert(Commande commande) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
         EntityManager entityManager = null;
-        try{
+        try {
             entityManager = entityManagerFactory.createEntityManager();
 
             entityManager.getTransaction().begin();
@@ -60,7 +60,7 @@ public class CommandeDao {
 
     public static void afficherListeCommandes() {
         List<Commande> CommandeList = findAll();
-        for(Commande commande: CommandeList) {
+        for (Commande commande : CommandeList) {
             System.out.print(commande + " ");
         }
     }
@@ -178,47 +178,10 @@ public class CommandeDao {
             }
         }
     }
-
-
-
-
-
-
-//    public static List<Commande> findCommandeByCompteId(int compteId){
-//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//
-//        String jpql = "SELECT b FROM Commande b " +
-//                "JOIN b.compte c " +
-//                "WHERE c.id = :compteId AND b.panier = false";
-//
-//        TypedQuery<Commande> query = entityManager.createQuery(jpql, Commande.class);
-//        query.setParameter("compteId", compteId);
-//
-//        List<Commande> listeCommande = query.getResultList();
-//
-//        entityManager.close();
-//        entityManagerFactory.close();
-//
-//        return listeCommande;
-//    }
-
-//    public static Commande findPanierByCompteId(int compteId) {
-//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//
-//        String jpql = "SELECT b FROM Commande b " +
-//                "JOIN b.compte c " +
-//                "WHERE c.id = :compteId AND b.panier = true";
-//
-//        TypedQuery<Commande> query = entityManager.createQuery(jpql, Commande.class);
-//        query.setParameter("compteId", compteId);
-//
-//        Commande commande = query.getSingleResult();
-//
-//        entityManager.close();
-//        entityManagerFactory.close();
-//
-//        return commande;
-//    }
 }
+
+
+
+
+
+

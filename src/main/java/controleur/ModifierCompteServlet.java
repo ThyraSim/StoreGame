@@ -3,11 +3,8 @@ package controleur;
 import dao.ClientDao;
 import dao.CompteDao;
 import entities.Client;
-import entities.Commande;
 import entities.Compte;
 import service.MagasinService;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

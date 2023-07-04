@@ -1,7 +1,5 @@
 package util;
 
-import dao.CommandeDao;
-import dao.CompteDao;
 import entities.Commande;
 import entities.Compte;
 import entities.Jeu;

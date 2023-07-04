@@ -1,19 +1,14 @@
 package controleur;
 
-import dao.CompteDao;
 import entities.Client;
-import entities.Commande;
 import entities.Compte;
-import entities.Jeu;
 import service.MagasinService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+
 
 @WebServlet(name = "ProfileServlet", value = "/ProfileServlet")
 public class ProfileServlet extends HttpServlet {

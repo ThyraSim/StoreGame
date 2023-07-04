@@ -1,17 +1,11 @@
 package controleur;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import dao.CompteDao;
 import entities.Commande;
 import entities.Compte;
-import com.fasterxml.jackson.core.type.TypeReference;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import service.MagasinService;

@@ -1,9 +1,7 @@
 package controleur;
 
-import dao.JeuDao;
 import entities.Commande;
 import entities.Compte;
-import entities.Jeu;
 import service.MagasinService;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.net.http.HttpRequest;
+
 
 @WebServlet(name = "DeleteServlet", value = "/DeleteServlet")
 public class DeleteServlet extends HttpServlet {

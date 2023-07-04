@@ -2,7 +2,6 @@ package entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dao.ClientDao;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
