@@ -14,6 +14,9 @@ public class Utilitaire {
     public static List<Compte> findCompteByProfileName(String searchTerm, List<Compte> comptes, Compte compteLog, Commande panier){
         List<Compte> compteResult = new ArrayList<>();
         boolean check = false;
+        if(searchTerm == null){
+            searchTerm = "";
+        }
         for (Compte compte : comptes) {
             if (compte.getProfileName().toLowerCase().contains(searchTerm.toLowerCase()) && !compte.getProfileName().equals(compteLog.getProfileName())) {
                 compteResult.add(compte);
