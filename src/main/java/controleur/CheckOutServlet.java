@@ -55,7 +55,7 @@ public class CheckOutServlet extends HttpServlet {
                 return;
             }
             else{ //Bouton Choisir de la page chooseFriend.jsp
-                giftCheckout(compte, panier, giftIdString);
+                giftCheckout(compte, panier, giftIdString, session);
             }
         }
 
@@ -104,12 +104,22 @@ public class CheckOutServlet extends HttpServlet {
      * @param panier
      * @param giftIdString
      */
-    private void giftCheckout(Compte compte, Commande panier, String giftIdString){
+    private void giftCheckout(Compte compte, Commande panier, String giftIdString, HttpSession session){
         //Set panier dans l'objet (application)
         setPanier(compte);
 
         //Set panier et commande dans la db
         CommandeDao.changePanierGift(compte.getIdCompte(), Integer.parseInt(giftIdString));
+        Compte compteAmi = CompteDao.findCompteById(Integer.parseInt(giftIdString));
+
+        List<Compte> newListCompte = MagasinService.getListCompte(session);
+        for(Compte compteTemp:newListCompte){
+            if(compteTemp.getIdCompte() == compteAmi.getIdCompte()){
+                newListCompte.remove(compteTemp);
+                newListCompte.add(compteAmi);
+                break;
+            }
+        }
         compte.removeCommande(panier);
     }
 
