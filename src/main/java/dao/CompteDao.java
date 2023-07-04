@@ -108,4 +108,24 @@ public class CompteDao {
             entityManagerFactory.close();
         }
     }
+
+    public static Compte findByUsername(String username) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("connection");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        try {
+            Query query = entityManager.createQuery("SELECT c FROM Compte c WHERE c.user = :username");
+            query.setParameter("username", username);
+            List<Compte> resultList = query.getResultList();
+            if (!resultList.isEmpty()) {
+                return resultList.get(0);
+            }
+        } finally {
+            entityManager.close();
+            entityManagerFactory.close();
+        }
+
+        return null;
+    }
+
 }
