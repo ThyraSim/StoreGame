@@ -3,11 +3,8 @@ package controleur;
 import dao.ClientDao;
 import dao.CompteDao;
 import entities.Client;
-import entities.Commande;
 import entities.Compte;
 import service.MagasinService;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +34,14 @@ public class CreationCompteServlet extends HttpServlet {
         String physique = request.getParameter("physique");
         String email = request.getParameter("email");
 
+        // Vérifier si le compte existe déjà
+        if (CompteDao.findByUsername(username) != null) {
+            // Compte déjà existant, renvoyer l'utilisateur vers la page de création du compte avec un message d'erreur
+            request.setAttribute("errorMessage", "Ce nom d'utilisateur est déjà utilisé. Veuillez choisir un autre nom.");
+            request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
+            return; // Arrêter l'exécution du code pour éviter l'insertion du compte en double
+        }
+
         // Valider les entrées (à implémenter)
 
         Compte compte = new Compte(username, password, profileName);
@@ -58,6 +63,7 @@ public class CreationCompteServlet extends HttpServlet {
             request.setAttribute("errorMessage", "Erreur lors de la création du compte. Veuillez réessayer.");
             request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
         }
+
     }
 
     @Override
