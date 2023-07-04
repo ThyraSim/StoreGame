@@ -1,22 +1,25 @@
-
-.game-row {
+.ProfileGameRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 0.3rem;
     font-size: 2rem;
 }
 
-.game-row .game-name {
+.ProfileGameRow .game-name {
     margin-right: 1.2rem;
 }
 
-.game-row .badge {
+.ProfileGameRow .badge {
     font-size: 0.9rem;
     align-self: center;
 }
 
-.game-row .collapse-button {
-    float: right;
+.ProfileGameRow .collapse-button {
+    margin-left: auto;
 }
 
-.game-row .collapse-card {
+.ProfileGameRow .collapse-card {
     font-size: 1rem;
 }
+
