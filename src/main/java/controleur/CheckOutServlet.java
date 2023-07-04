@@ -110,13 +110,13 @@ public class CheckOutServlet extends HttpServlet {
 
         //Set panier et commande dans la db
         CommandeDao.changePanierGift(compte.getIdCompte(), Integer.parseInt(giftIdString));
-        Compte compteAmi = CompteDao.findCompteById(Integer.parseInt(giftIdString));
 
         List<Compte> newListCompte = MagasinService.getListCompte(session);
         for(Compte compteTemp:newListCompte){
-            if(compteTemp.getIdCompte() == compteAmi.getIdCompte()){
+            if(compteTemp.getIdCompte() == Integer.parseInt(giftIdString)){
                 newListCompte.remove(compteTemp);
-                newListCompte.add(compteAmi);
+                newListCompte.add(CompteDao.findCompteById(Integer.parseInt(giftIdString)));
+                session.setAttribute("ListeComptes", newListCompte);
                 break;
             }
         }
